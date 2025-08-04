@@ -12,7 +12,7 @@
     margin: auto;
     font-weight: 500;
     font-size: 40px;
-    font-family: Montserrat 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Noto Sans Georgian', sans-serif;
 }
 
 .fill-current {
@@ -22,8 +22,8 @@
 
 .text {
     font-weight: 600;
-    font-size: 18px;
-    font-family: Montserrat 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 16px;
+    font-family: 'Noto Sans Georgian', sans-serif;
 }
 
 
@@ -65,7 +65,7 @@
 .right-card-title {
     font-weight: 620;
     font-size: 18px;
-    font-family: Montserrat 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Noto Sans Georgian', sans-serif;
 }
 
 .right-card-text {

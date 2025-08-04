@@ -1,7 +1,11 @@
+* {
+    font-family: 'Noto Sans Georgian', sans-serif;
+}
+
 .up-content {
     display: flex;
     justify-content: space-between;
-    max-width: 1380px;
+    max-width: 1360px;
     margin: auto;
     padding: 20px;
     align-items: center;
@@ -9,7 +13,7 @@
 
 .filter,
 .sort {
-    font-family: Monserrat, sans-serif;
+    font-family: 'Noto Sans Georgian', sans-serif;
     font-size: 16px;
     border: solid 1px rgba(128, 128, 128, 0.329);
     padding: 10px 36px;
@@ -18,9 +22,11 @@
 
 
 .catalog-title {
-    font-family: Montserrat, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    font-size: 38px;
+    font-family: 'Noto Sans Georgian', sans-serif;
+    font-size: 34px;
     font-weight: 500;
+    margin-top: -12px;
+
 }
 
 
@@ -88,7 +94,7 @@
     justify-content: center;
     font-size: 32px;
     font-weight: 600;
-    font-family: Montserrat, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: 'Noto Sans Georgian', sans-serif;
 }
 
 .line {
@@ -148,7 +154,7 @@
     cursor: pointer;
 
     transition: 0.3s;
-    font-family: Montserrat;
+   font-family: 'Noto Sans Georgian', sans-serif;
     color: black;
     font-size: 14px;
 
@@ -186,7 +192,7 @@
 }
 
 .content-text {
-    font-family: Montserrat;
+     font-family: 'Noto Sans Georgian', sans-serif;
     font-size: 18px;
 }
 
@@ -195,7 +201,7 @@
     margin: auto;
     display: flex;
     justify-self: center;
-    font-family: Montserrat;
+     font-family: 'Noto Sans Georgian', sans-serif;
     font-size: 80px;
     padding-bottom: 20px;
 }
@@ -269,7 +275,7 @@
     display: flex;
     justify-content: center;
     font-size: 18px;
-    font-family: Montserrat;
+     font-family: 'Noto Sans Georgian', sans-serif;
     max-width: 900px;
     margin: auto;
 }
@@ -285,7 +291,7 @@
     justify-content: center;
     font-size: 32px;
     font-weight: 600;
-    font-family: Montserrat, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: 'Noto Sans Georgian', sans-serif;
 }
 
 
@@ -504,6 +510,7 @@
 
 .up-content-mobile {
     display: none;
+    align-items: center;
 
 }
 
@@ -568,6 +575,7 @@
   width: 100%;
   cursor: pointer;
   overflow: hidden;
+  height: 100%;
   
 }
 
@@ -584,9 +592,9 @@
   left: 0;
   width: 100%;
   height: 100%;
-  padding: 60px;
+  padding: 5px;
   box-sizing: border-box;
-  background-color: rgba(47, 47, 47, 0.18); /* dark overlay */
+  background-color: rgba(47, 47, 47, 0.785); /* dark overlay */
   color: white;
   opacity: 0;
   transition: opacity 0.3s ease;
@@ -596,9 +604,7 @@
   text-align: center;
 }
 
-.product-card:hover img {
-  filter: brightness(60%);
-}
+
 
 .product-card:hover .product-info {
   opacity: 1;
@@ -606,20 +612,20 @@
 
 .product-info p {
   margin: 5px 0;
-  font-family: Montserrat, sans-serif;
+   font-family: 'Noto Sans Georgian', sans-serif;
 }
 
 
 
 .name {
-    font-family: Montserrat;
+     font-family: 'Noto Sans Georgian', sans-serif;
     font-size: 20px;
     font-weight: 600;
 }
 
 .price {
     color: #dfa745;
-
+    font-size: 24px;
 }
 
 
@@ -638,7 +644,7 @@
 }
 
 .last-texts p {
-    font-family: Montserrat, system-ui;
+    font-family: 'Noto Sans Georgian', sans-serif;
     font-weight: 600;
     font-size: 18px;
     
@@ -646,6 +652,13 @@
 
 
 
+.product-info p {
+  white-space: nowrap;       /* Force single line */
+  overflow: hidden;          /* Hide overflow */
+  text-overflow: ellipsis;   /* Add ... when overflow */
+  display: block;
+  max-width: 100%;
+}
 
 
 
@@ -690,7 +703,7 @@
 
 
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 630px) {
 
     .product-section {
         grid-template-columns: 1fr 1fr ;
@@ -741,10 +754,16 @@
 
     }
 
+   
+
+    .product-info {
+        font-size: 12px;
+    }
+
 }
 
 
-@media screen and (max-width: 360px) {
+@media screen and (max-width: 400px) {
    .buttons {
         flex-direction: column;
     }
@@ -760,7 +779,24 @@
 
     }
 
+     .name {
+        font-size: 12px;
+    }
+
+     .product-info {
+        font-size: 10px;
+    }
 }
 
 
 
+@media screen and (max-width: 360px) {
+  
+     .name {
+        font-size: 10px;
+    }
+
+     .product-info {
+        font-size: 8px;
+    }
+}

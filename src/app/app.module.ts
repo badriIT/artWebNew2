@@ -11,6 +11,8 @@ import { ServicesCommunicateComponent } from './services-communicate/services-co
 import { ContactComponent } from './contact/contact.component';
 import { ErrorInWorkComponent } from './error-in-work/error-in-work.component';
 import { FormsModule } from '@angular/forms';
+import { ProductComponent } from './product/product.component';
+import { EachArterComponent } from './each-arter/each-arter.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,9 @@ import { FormsModule } from '@angular/forms';
     ArtersComponent,
     ServicesCommunicateComponent,
     ContactComponent,
-    ErrorInWorkComponent
+    ErrorInWorkComponent,
+    ProductComponent,
+    EachArterComponent
   ],
   imports: [
     BrowserModule,

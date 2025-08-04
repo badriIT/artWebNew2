@@ -1,0 +1,301 @@
+* {
+    font-family: 'Noto Sans Georgian', sans-serif;
+}
+
+.arter-section {
+    max-width: 1320px;
+    padding: 20px;
+    margin: auto;
+}
+
+.left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    width: fit-content;
+
+}
+
+.left p {
+    font-family: 'Noto Sans Georgian', sans-serif;
+    font-size: 16px;
+    margin-top: -8px;
+    color: rgba(128, 128, 128, 0.824);
+
+
+}
+
+.left p:hover {
+    color: black;
+}
+
+.arterContent img {
+    max-width: 370px;
+    width: 100%;
+
+}
+
+.arterContent {
+    margin-top: 24px;
+    display: flex;
+    gap: 20px;
+}
+
+.arterContent div {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+
+.name {
+    font-size: 32px;
+    color: black;
+    font-weight: 600;
+}
+
+.descritpion {
+    font-size: 16px;
+    color: black;
+
+}
+
+.portfolio {
+    font-size: 32px;
+    font-weight: 600;
+    margin-top: 40px;
+}
+
+
+
+
+
+
+.big-image,
+.smallImage1,
+.smallImage2,
+.smallImage3 {
+    position: relative;
+    width: 100%;
+
+    /* Set a fixed height or adjust as needed */
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.big-image img,
+.smallImage1 img,
+.smallImage2 img,
+.smallImage3 img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Make the overlay cover the entire image */
+.product-text {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    /* dark overlay */
+    color: white;
+    padding: 6px;
+    opacity: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+    text-align: center;
+    transition: opacity 0.3s ease;
+    z-index: 1;
+}
+
+/* Show overlay on hover */
+.big-image:hover .product-text,
+.smallImage1:hover .product-text,
+.smallImage2:hover .product-text,
+.smallImage3:hover .product-text {
+    opacity: 1;
+}
+
+.texts {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+
+.small-images {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+
+}
+
+
+.author {
+    font-size: 14px;
+}
+
+.theme {
+    font-size: 14px;
+}
+
+.smallImage1,
+.smallImage2,
+.smallImage3 {
+    height: 360px;
+}
+
+.art-name,
+.size,
+.made-with {
+    font-size: 20px;
+    font-family: 'Noto Sans Georgian', sans-serif;
+    font-weight: 450;
+}
+
+.price {
+    margin-top: 8px;
+    color: orange;
+    font-size: 26px;
+    font-family: 'Noto Sans Georgian', sans-serif;
+    font-weight: 500;
+}
+
+.priceSmall {
+    margin-top: 8px;
+    color: orange;
+    font-size: 24px;
+    font-family: 'Noto Sans Georgian', sans-serif;
+    font-weight: 500;
+}
+
+.arter-name {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 10px;
+    font-family: 'Noto Sans Georgian', sans-serif;
+    font-size: 20px;
+    color: rgba(0, 0, 0, 0.724);
+    text-align: center;
+
+}
+
+
+/* Applies to each text line that may be too long */
+.smallImage1 .art-name,
+.smallImage1 .priceSmall,
+.smallImage2 .art-name,
+.smallImage2 .priceSmall,
+.smallImage3 .art-name,
+.smallImage3 .priceSmall {
+    white-space: nowrap;
+    /* Force single line */
+    overflow: hidden;
+    /* Hide overflow */
+    text-overflow: ellipsis;
+    /* Add ... when overflow */
+    display: block;
+    max-width: 100%;
+}
+
+.product-text {
+    max-width: 100%;
+    width: 100%;
+}
+
+
+.product-text p {
+    max-width: 200px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+@media screen and (max-width: 800px) {
+
+    .arter {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+
+
+    .product-information {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+
+
+    }
+
+    .small-images {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .small-images img {
+        max-width: 400px;
+        width: 100%;
+        justify-content: center;
+        margin: auto;
+    }
+
+    .name {
+        font-size: 30px;
+    }
+
+}
+
+
+@media screen and (max-width: 750px) {
+    .arterContent {
+        flex-direction: column;
+
+    }
+
+    .arterContent img {
+        max-width: 100%;
+        height: 400px;
+        object-fit: cover;
+    }
+}
+
+
+@media screen and (max-width: 440px) {
+
+    .name {
+        font-size: 26px;
+    }
+
+    .title {
+        text-align: center;
+    }
+
+    .arter {
+        flex-direction: column;
+    }
+}
+
+@media screen and (max-width: 360px) {
+    .arterContent {
+        text-align: center;
+    }
+}

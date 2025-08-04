@@ -13,7 +13,7 @@ nav {
 
 .phone-number {
     color: #6C6C6C;
-    font-family: Montserrat;
+    font-family: 'Noto Sans Georgian', sans-serif;
     font-size: 22px;
     font-style: normal;
     font-weight: 500;
@@ -52,10 +52,11 @@ nav {
     font-weight: 500;
     font-family: poppins;
     font-size: 40px;
-    border-bottom: 5px solid #f39c4f;
+    border-bottom: 5px solid rgb(64, 50, 164);
     width: fit-content;
     margin-left: -120px;
-  
+
+
 }
 
 .vetical-line {
@@ -70,7 +71,7 @@ nav {
 
     color: #888888;
 
-    font-family: Montserrat;
+    font-family: 'Noto Sans Georgian', sans-serif;
     cursor: pointer;
 }
 
@@ -84,7 +85,7 @@ nav {
 
 .catalog {
     position: relative;
-    font-family: Montserrat;
+    font-family: 'Noto Sans Georgian', sans-serif;
     font-size: 18px;
     font-weight: 700;
     cursor: pointer;
@@ -136,7 +137,7 @@ nav {
 }
 
 .search-text {
-    font-family: Montserrat;
+    font-family: 'Noto Sans Georgian', sans-serif;
     color: #6C6C6C;
     font-weight: 700;
 
@@ -242,65 +243,67 @@ nav {
 /* ...existing code... */
 
 .burger-menu {
-  display: none;
-  position: fixed;
-  top: 16%;
-  left: -100vw;
-  width: 100vw;
-  height: 100vh;
-  background: #fff;
-  box-shadow: 2px 0 8px rgba(0,0,0,0.1);
-  transition: left 0.3s ease;
-  z-index: 1000;
- 
-  flex-direction: column;
-  padding-top: 60px;
+    display: none;
+    position: fixed;
+    top: 16%;
+    left: -100vw;
+    width: 100vw;
+    height: 100vh;
+    background: #fff;
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+    transition: left 0.3s ease;
+    z-index: 1000;
+
+    flex-direction: column;
+    padding-top: 60px;
 }
 
 .burger-menu.open {
-  left: 0;
+    left: 0;
 }
 
 .burger-menu-content {
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
-  padding: 32px;
-  
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    padding: 32px;
+    padding-bottom: 60px;
+    
+    overflow-y: auto; /* Enable vertical scroll */
 }
 
 .menu-item {
-  font-family: Montserrat, sans-serif;
-  font-size: 22px;
-  color: #333;
-  cursor: pointer;
-  border-bottom: 1px solid #eee;
-  padding-bottom: 12px;
+    font-family: 'Noto Sans Georgian', sans-serif;
+    font-size: 22px;
+    color: #333;
+    cursor: pointer;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 12px;
 }
 
 /* Burger icon styling */
 
 
 .burgerBtn span {
-  display: block;
-  height: 4px;
-  width: 100%;
-  background: #333;
-  margin: 4px 0;
-  border-radius: 2px;
+    display: block;
+    height: 4px;
+    width: 100%;
+    background: #333;
+    margin: 4px 0;
+    border-radius: 2px;
 }
 
 .catalog-burger {
-     
-    font-family: Montserrat;
+
+    font-family: 'Noto Sans Georgian', sans-serif;
     font-size: 18px;
     font-weight: 500;
     cursor: pointer;
     padding-bottom: 10px;
     display: flex;
     justify-content: space-between;
-  
-    
+
+
 }
 
 
@@ -313,9 +316,9 @@ nav {
 
 
 .arrow {
- max-width: 20px;
- rotate: 270deg;
-    
+    max-width: 20px;
+    rotate: 270deg;
+
 }
 
 
@@ -325,21 +328,21 @@ nav {
 
 .phone-number-mobile {
     color: #6C6C6C;
-    font-family: Montserrat;
+    font-family: 'Noto Sans Georgian', sans-serif;
     font-size: 22px;
     font-style: normal;
     font-weight: 500;
     line-height: normal;
     letter-spacing: 0.44px;
     text-transform: uppercase;
-    
+
 }
 
 
 .language-mobile {
-      color: #888888;
+    color: #888888;
 
-    font-family: Montserrat;
+    font-family: 'Noto Sans Georgian', sans-serif;
     cursor: pointer;
 }
 
@@ -354,14 +357,14 @@ nav {
 .line-horizontal-mobile2 {
     border-bottom: 1px solid #888888bf;
     height: 2px;
-   
+
     display: flex;
     justify-content: center;
-  
 
-  
-    
-    
+
+
+
+
 }
 
 
@@ -388,43 +391,45 @@ nav {
 
 
 .search-bar-wrapper {
-  width: 100%;
+    width: 100%;
 }
 
 .search-input-container {
-  position: relative;
-  width: 100%;
+    position: relative;
+    width: 100%;
 }
 
 .search-bar {
-  width: 100%;
-  padding: 12px 40px; /* space for icons */
-  font-size: 18px;
-  border: 1px solid #888;
-  border-radius: 4px;
-  box-sizing: border-box;
- background: #F6F6F6;;
+    width: 100%;
+    padding: 12px 40px;
+    /* space for icons */
+    font-size: 18px;
+    border: 1px solid #888;
+    border-radius: 4px;
+    box-sizing: border-box;
+    background: #F6F6F6;
+    ;
 }
 
 .find-in-input {
-  position: absolute;
-  top: 50%;
-  left: 12px;
-  transform: translateY(-50%);
-  pointer-events: none;
+    position: absolute;
+    top: 50%;
+    left: 12px;
+    transform: translateY(-50%);
+    pointer-events: none;
 }
 
 .close-search {
-  position: absolute;
-  top: 50%;
-  right: 10px;
-  transform: translateY(-50%);
-  background: transparent;
-  border: none;
-  font-size: 20px;
-  cursor: pointer;
-  padding: 0;
-  color: #333;
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 0;
+    color: #333;
 }
 
 
@@ -462,7 +467,7 @@ nav {
 @media screen and (max-width: 1360px) {
 
     .logo-text {
-         margin-left: 0px;
+        margin-left: 0px;
     }
 
     .search-bar-wrapper2 {
@@ -470,7 +475,7 @@ nav {
     }
 
     .search-bar-wrapper2 {
-        display: flex;  
+        display: flex;
         width: 100%;
     }
 
@@ -491,7 +496,7 @@ nav {
         gap: 40px;
     }
 
-      .burgerBtn {
+    .burgerBtn {
         display: block;
         margin-left: auto;
         margin-right: 0;
@@ -500,20 +505,20 @@ nav {
     }
 
     .burger-menu {
-  display: flex;
-  position: fixed;
-  top: 16%;
-  left: -300vw;
-  width: 100vw;
-  height: 100vh;
-  background: #fff;
-  box-shadow: 2px 0 8px rgba(0,0,0,0.1);
-  transition: left 0.3s ease;
-  z-index: 1000;
- 
-  flex-direction: column;
-  padding-top: 60px;
-}
+        display: flex;
+        position: fixed;
+        top: 16%;
+        left: -300vw;
+        width: 100vw;
+        height: 100vh;
+        background: #fff;
+        box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+        transition: left 0.3s ease;
+        z-index: 1000;
+
+        flex-direction: column;
+        padding-top: 60px;
+    }
 
 
 
@@ -522,26 +527,43 @@ nav {
 
 @media screen and (max-width: 770px) {
 
- .search-bar-wrapper3 {
-    display: block;
- }
+    .search-bar-wrapper3 {
+        display: block;
+    }
 
-  
-  .mobile-view { display: block; }
-  .up-content, .down-content { display: none;}
 
-   
+    .mobile-view {
+        display: block;
+    }
+
+    .up-content,
+    .down-content {
+        display: none;
+    }
+
+
 
 
 
 }
 
 
-@media  screen and (max-width: 500px) {
+@media screen and (max-width: 500px) {
 
     .up-content-mobile {
         flex-direction: column-reverse;
-        gap: 20px   ;
+        gap: 20px;
     }
-    
+
+    .burger-menu-content, .socMedias {
+        margin-top: -50px;
+    }
+
+    .socMedias-Mobile svg {
+         margin-top: -40px;
+    } 
+
+    .line-horizontal-mobile2 {
+             margin-top: -20px;
+    }
 }

@@ -89,15 +89,16 @@
 
         <div class="down-content">
             <ng-container *ngIf="!searchActive">
-                <p routerLink="catalog" routerLinkActive="activeRout" class="catalog">კატალოგი</p>
+                <p routerLink="" routerLinkActive="activeRout" [routerLinkActiveOptions]="{ exact: true }"
+                    class="catalog">კატალოგი</p>
                 <p routerLink="/arters" class="catalog" routerLinkActive="activeRout">მხატვრები</p>
-                <p routerLink="about-gallery" routerLinkActive="activeRout" class="catalog">გალერიის შესახებ</p>
-                <p routerLink="/service-communicate" routerLinkActive="activeRout" class="catalog">მომსახურეობა -
+
+                <p routerLink="/service-communicate" routerLinkActive="activeRout" class="catalog">მომსახურეობა და
                     თანამშრომლობა</p>
 
-                <p routerLink="/news" routerLinkActive="activeRout" class="catalog">სიახლეები</p>
+
                 <p routerLink="/contact" routerLinkActive="activeRout" class="catalog">კონტაქტი</p>
-                <p routerLink="/ASKERI" routerLinkActive="activeRout" class="catalog">ASKERI გელერეა</p>
+
                 <p class="search" (click)="toogleSearch()">
                     <span class="search-text">ძიება</span>
                     <svg class="find1" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18"

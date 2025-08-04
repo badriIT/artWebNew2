@@ -1,0 +1,447 @@
+* {
+    font-family: 'Noto Sans Georgian', sans-serif;
+}
+
+
+.product-section {
+    max-width: 1320px;
+    padding: 20px;
+    margin: auto;
+}
+
+.left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+
+}
+
+.left p {
+    font-family: 'Noto Sans Georgian', sans-serif;
+    font-size: 16px;
+    margin-top: -8px;
+    color: rgba(128, 128, 128, 0.824);
+
+}
+
+.left p:hover {
+    color: black;
+}
+
+.navigation {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px;
+}
+
+.product-information img {
+    max-width: 500px;
+    width: 100%;
+
+
+}
+
+.product-information {
+    display: flex;
+    max-width: 1200px;
+    margin: auto;
+    gap: 50px;
+
+
+}
+
+.right-part {
+    padding: 0px 50px;
+    width: 100%;
+}
+
+
+.name {
+    font-size: 40px;
+}
+
+.information {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-top: 30px;
+}
+
+
+.arter {
+    display: flex;
+    align-items: center;
+}
+
+
+.information p {
+    font-size: 18px;
+}
+
+.arter-names {
+    color: #f39c4f;
+    border-bottom: 2px solid #f39c4f;
+    cursor: pointer;
+    width: fit-content;
+    margin-left: 4px;
+
+
+}
+
+.price {
+    margin-top: 50px;
+    font-size: 40px;
+}
+
+.buy {
+    max-width: 600px;
+    width: 100%;
+    border: 1px solid rgba(128, 128, 128, 0.701);
+    text-align: center;
+    background-color: none;
+    background: none;
+    padding: 15px;
+    font-size: 16px;
+
+
+}
+
+.toCart {
+    max-width: 600px;
+    width: 100%;
+    border: 1px solid rgba(128, 128, 128, 0.701);
+    text-align: center;
+
+    background: none;
+    padding: 15px;
+    font-size: 16px;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.742);
+    margin-top: 18px;
+
+}
+
+.buttons {
+    margin-top: 12px;
+}
+
+
+
+
+
+
+
+.zoom-container {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+.zoom-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.2s ease;
+    pointer-events: none;
+}
+
+
+.horizontal-line {
+    height: 1px;
+    background-color: rgba(0, 0, 0, 0.121);
+    width: 100%;
+    margin-top: 100px;
+}
+
+.title {
+    margin: auto;
+    justify-content: center;
+    display: flex;
+    font-size: 28px;
+    margin-top: 60px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.big-image,
+.smallImage1,
+.smallImage2,
+.smallImage3 {
+    position: relative;
+    width: 100%;
+
+    /* Set a fixed height or adjust as needed */
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.big-image img,
+.smallImage1 img,
+.smallImage2 img,
+.smallImage3 img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Make the overlay cover the entire image */
+.product-text {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    /* dark overlay */
+    color: white;
+    padding: 6px;
+    opacity: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+    text-align: center;
+    transition: opacity 0.3s ease;
+    z-index: 1;
+}
+
+/* Show overlay on hover */
+.big-image:hover .product-text,
+.smallImage1:hover .product-text,
+.smallImage2:hover .product-text,
+.smallImage3:hover .product-text {
+    opacity: 1;
+}
+
+.texts {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+
+.small-images {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+
+}
+
+
+.author {
+    font-size: 14px;
+}
+
+.theme {
+    font-size: 14px;
+}
+
+.smallImage1,
+.smallImage2,
+.smallImage3 {
+    height: 360px;
+}
+
+.art-name,
+.size,
+.made-with {
+    font-size: 20px;
+    font-family: 'Noto Sans Georgian', sans-serif;
+    font-weight: 450;
+}
+
+.price {
+    margin-top: 8px;
+    color: black;
+    font-size: 32px;
+    font-family: 'Noto Sans Georgian', sans-serif;
+    font-weight: 500;
+    margin-top: 50px;
+}
+
+.priceSmall {
+    margin-top: 8px;
+    color: orange;
+    font-size: 24px;
+    font-family: 'Noto Sans Georgian', sans-serif;
+    font-weight: 500;
+}
+
+.arter-name {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 10px;
+    font-family: 'Noto Sans Georgian', sans-serif;
+    font-size: 20px;
+    color: rgba(0, 0, 0, 0.724);
+    text-align: center;
+
+}
+
+
+/* Applies to each text line that may be too long */
+.smallImage1 .art-name,
+.smallImage1 .priceSmall,
+.smallImage2 .art-name,
+.smallImage2 .priceSmall,
+.smallImage3 .art-name,
+.smallImage3 .priceSmall {
+    white-space: nowrap;
+    /* Force single line */
+    overflow: hidden;
+    /* Hide overflow */
+    text-overflow: ellipsis;
+    /* Add ... when overflow */
+    display: block;
+    max-width: 100%;
+}
+
+.product-text {
+    max-width: 100%;
+    width: 100%;
+}
+
+
+.product-text p {
+    max-width: 200px;
+}
+
+
+
+.up-content {
+    display: flex;
+    justify-content:center;
+    margin: auto;
+}
+
+.phone-number {
+    color: #6C6C6C;
+    font-family: 'Noto Sans Georgian', sans-serif;
+    font-size: 26px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: 0.44px;
+    text-transform: uppercase;
+    color: black;
+    text-align: center;
+    
+}
+
+.telegram {
+    color: rgba(20, 139, 250, 0.651);
+    max-width: 28px;
+    margin-top: 5px;
+    cursor: pointer;
+}
+
+.right-content {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    justify-content: center;
+    margin-top: 60px;
+}
+
+.socMedias {
+    display: flex;
+    gap: 20px;
+}
+
+
+.whatsapp {
+    color: rgba(8, 182, 40, 0.651);
+    max-width: 28px;
+    margin-top: 5px;
+    cursor: pointer;
+}
+
+
+
+
+
+
+
+
+
+@media screen and (max-width: 800px) {
+
+    .right-content  {
+       flex-direction: column;
+    }
+
+    .arter {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+
+
+    .product-information {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+
+
+    }
+
+    .small-images {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+     .small-images img {
+       max-width: 400px;
+       width: 100%;
+       justify-content: center;
+       margin: auto;
+    }
+
+    .name {
+        font-size: 30px;
+    }
+   
+}
+
+
+@media screen and (max-width: 440px) {
+
+    .phone-number  {
+       font-size: 20px;
+    }
+
+     .name {
+        font-size: 16px;
+    }
+
+    .title {
+        text-align: center;
+    }
+
+    .arter {
+       flex-direction: column;
+    }
+}
