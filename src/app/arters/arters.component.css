@@ -1,0 +1,207 @@
+.arters {
+    max-width: 1320px;
+    padding: 20px;
+    margin: auto;
+}
+
+.title {
+    display: flex;
+    margin: auto;
+    justify-content: center;
+    font-size: 38px;
+    font-family: Montserrat, system-ui;
+
+}
+
+.digits {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+    justify-content: center;
+}
+
+.digit {
+    font-size: 24px;
+    color: rgb(145, 2, 2);
+
+    margin: auto;
+    cursor: pointer;
+}
+
+
+
+.artists {
+    max-width: 1360px;
+    margin: auto;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    gap: 32px;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+.big-image,
+.smallImage1,
+.smallImage2,
+.smallImage3 {
+    position: relative;
+    width: 100%;
+    height: 250px;
+    /* Set a fixed height or adjust as needed */
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.big-image img,
+.smallImage1 img,
+.smallImage2 img,
+.smallImage3 img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Make the overlay cover the entire image */
+.product-text {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    /* dark overlay */
+    color: white;
+    padding: 6px;
+    opacity: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+    text-align: center;
+    transition: opacity 0.3s ease;
+    z-index: 1;
+}
+
+/* Show overlay on hover */
+.big-image:hover .product-text,
+.smallImage1:hover .product-text,
+.smallImage2:hover .product-text,
+.smallImage3:hover .product-text {
+    opacity: 1;
+}
+
+.texts {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+
+.small-images {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+
+}
+
+
+
+
+.smallImage1,
+.smallImage2,
+.smallImage3 {
+    height: 130px;
+}
+
+.art-name,
+.size,
+.made-with {
+    font-size: 15px;
+    font-family: Montserrat, system-ui;
+    font-weight: 450;
+}
+
+.price {
+    margin-top: 8px;
+    color: orange;
+    font-size: 26px;
+    font-family: Montserrat, system-ui;
+    font-weight: 500;
+}
+
+.priceSmall {
+    margin-top: 8px;
+    color: orange;
+    font-size: 16px;
+    font-family: Montserrat, system-ui;
+    font-weight: 500;
+}
+
+.arter-name {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 10px;
+    font-family: Montserrat, system-ui;
+    font-size: 20px;
+    color: rgba(0, 0, 0, 0.724);
+    text-align: center;
+
+}
+
+
+/* Applies to each text line that may be too long */
+.smallImage1 .art-name,
+.smallImage1 .priceSmall,
+.smallImage2 .art-name,
+.smallImage2 .priceSmall,
+.smallImage3 .art-name,
+.smallImage3 .priceSmall {
+  white-space: nowrap;       /* Force single line */
+  overflow: hidden;          /* Hide overflow */
+  text-overflow: ellipsis;   /* Add ... when overflow */
+  display: block;
+  max-width: 100%;
+}
+
+.product-text {
+  max-width: 100%;
+  width: 100%;
+}
+
+
+.product-text p {
+  max-width: 200px;
+}
+
+
+
+@media screen and (max-width: 1080px) {
+
+    .artists {
+        grid-template-columns: 1fr 1fr;
+    }
+    
+}
+
+@media screen and (max-width: 720px) {
+
+    .artists {
+        grid-template-columns:  1fr;
+    }
+    
+}

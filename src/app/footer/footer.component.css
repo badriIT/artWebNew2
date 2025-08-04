@@ -1,0 +1,218 @@
+footer {
+    max-width: 1360px;
+    margin: auto;
+    margin-top: 32px;
+    align-items: center;
+    border-top: 3px solid #f39c4f;
+    padding: 8px 30px;
+}
+
+.footer-up {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 30px;
+}
+
+.logo-text {
+
+    font-family: poppins;
+    font-size: 40px;
+    font-weight: 500;
+    border-bottom: 5px solid #f39c4f;
+    width: fit-content;
+}
+
+
+.text {
+    color: #525252;
+
+    font-family: "Montserrat";
+    font-size: 26px;
+    font-style: normal;
+    font-weight: 500;
+
+}
+
+.ul {
+    display: flex;
+    gap: 60px;
+    margin-top: 20px;
+}
+
+
+.service {
+    font-family: Montserrat;
+    font-weight: 600;
+    width: fit-content;
+
+}
+
+.service:hover {
+    border-bottom: 1.5px solid black;
+}
+
+.service-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.footer-middle {
+    margin-top: 50px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+
+}
+
+.subs-text {
+    font-family: Montserrat;
+    font-size: 20px;
+    color: rgb(26, 25, 25);
+}
+
+.subscribe {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+
+
+}
+
+.submit-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+input[type="checkbox"] {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid rgba(64, 62, 62, 0.18);
+
+    cursor: pointer;
+    outline: none;
+    position: relative;
+
+}
+
+input[type="checkbox"]:checked {
+    background-color: black;
+}
+
+input[type="checkbox"]:checked::after {
+
+    align-items: center;
+    justify-content: center;
+    content: "✔";
+    color: white;
+    font-size: 16px;
+    position: absolute;
+    top: -2px;
+    left: 2px;
+}
+
+.agree {
+    font-family: Monteserrat;
+    font-size: 14px;
+    color: #525252;
+}
+
+
+.agree-rules {
+    border-bottom: 1px solid black;
+    cursor: pointer;
+}
+
+.email-inp {
+    max-width: 280px;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 16px 9px;
+    font-family: Montserrat;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.submit-btn {
+    padding: 14px 23px 16px 23px;
+    background-color: #2D2E2C;
+    color: #FFF;
+    text-align: center;
+    font-family: Montserrat;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 20px;
+    color: white;
+}
+
+.email {
+    display: flex;
+    width: 100%;
+}
+
+.service-list-mobile {
+    display: none;
+}
+
+
+@media screen and (max-width: 1268px) {
+    .subscribe {
+        margin-top: 20px;
+    }
+}
+
+
+@media screen and (max-width: 950px) {
+    .text {
+        font-size: 20px;
+    }
+}
+
+
+@media screen and (max-width: 770px) {
+    .footer-up {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .subs-text {
+        font-size: 14px;
+    }
+
+    .subscribe {
+        gap: 10px;
+    }
+}
+
+
+@media screen and (max-width: 600px) {
+    .ul ul:nth-child(3) {
+        display: none;
+    }
+
+    .service-list-mobile {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        margin-top: 20px;
+    }
+
+    .service-mobile {
+        color: #4D4D4D;
+        cursor: pointer;
+    }
+
+    .ul {
+        flex-wrap: wrap;
+    }
+}

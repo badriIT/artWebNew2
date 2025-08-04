@@ -1,0 +1,775 @@
+<section class="catalog">
+    <div class="overlay" [class.active]="isFilterOpen || isSortOpen" (click)="closePanels()"></div>
+
+    <div class="up-content">
+        <button class="filter" (click)="openFilter()">გაფილტვრა</button>
+        <p class="catalog-title">კატალოგი</p>
+        <button class="sort" (click)="openSort()">დასორტირება</button>
+    </div>
+
+
+    <div class="up-content-mobile">
+        <p class="catalog-title">კატალოგი</p>
+        <div class="buttons">
+            <button class="filter" (click)="openFilter()">გაფილტვრა</button>
+
+            <button class="sort" (click)="openSort()">დასორტირება</button>
+        </div>
+    </div>
+
+    <div class="side-panel left-panel" [class.active]="isFilterOpen">
+        <button class="close-btn" (click)="closePanels()">×</button>
+        <p class="filter-text">ფილტრი</p>
+
+        <div class="accordions">
+            <div class="accordion-item">
+                <div class="accordion-title">
+                    <span class="title-text">ფასი</span>
+                    <svg class="w-4 h-4" viewBox="0 0 32 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M2 2L16 14L30 2" stroke="currentColor" stroke-linecap="round"></path>
+                    </svg>
+                </div>
+                <div class="accordion-content">
+                    <div class="price-choose">
+                        <input type="radio" name="price">
+                        <p>300 ლარამდე</p>
+                    </div>
+                    <div class="price-choose">
+                        <input type="radio" name="price">
+                        <p>300 - 2000 ლარი</p>
+                    </div>
+                    <div class="price-choose">
+                        <input type="radio" name="price">
+                        <p>2000 - 3000 ლარი</p>
+                    </div>
+                    <div class="price-choose">
+                        <input type="radio" name="price">
+                        <p>3000 - 5000 ლარი</p>
+                    </div>
+                    <div class="price-choose">
+                        <input type="radio" name="price">
+                        <p>5000 - 9000 ლარი</p>
+                    </div>
+                    <div class="price-choose">
+                        <input type="radio" name="price">
+                        <p>9000 - 11000 ლარი</p>
+                    </div>
+                    <div class="price-choose">
+                        <input type="radio" name="price">
+
+                        <p>11000 ლარზე მეტი</p>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="accordion-item">
+                <div class="accordion-title">
+                    <span class="title-text">ხელოვნების ფორმა</span>
+                    <svg class="w-4 h-4" viewBox="0 0 32 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M2 2L16 14L30 2" stroke="currentColor" stroke-linecap="round"></path>
+                    </svg>
+                </div>
+                <div class="accordion-content">
+                    <div class="price-choose">
+                        <input type="checkbox">
+                        <p>ფერწერა</p>
+                    </div>
+                    <div class="price-choose">
+                        <input type="checkbox">
+                        <p>ბრტყელი ქანდაკება</p>
+                    </div>
+                    <div class="price-choose">
+                        <input type="checkbox">
+                        <p>ქანდაკება</p>
+                    </div>
+                    <div class="price-choose">
+                        <input type="checkbox">
+                        <p>ნამუშევარი ქაღალდზე</p>
+                    </div>
+                    <div class="price-choose">
+                        <input type="checkbox">
+                        <p>ფოტოგრაფია</p>
+                    </div>
+                    <div class="price-choose">
+                        <input type="checkbox">
+                        <p>დეკორატიული და გამოყენებითი ხელოვნება</p>
+                    </div>
+                    <div class="price-choose">
+                        <input type="checkbox">
+                        <p>სხვა</p>
+                    </div>
+
+                </div>
+            </div>
+
+
+
+            <div class="accordion-item">
+                <div class="accordion-title">
+                    <span class="title-text">ხელოვნების სტილი</span>
+                    <svg class="w-4 h-4" viewBox="0 0 32 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M2 2L16 14L30 2" stroke="currentColor" stroke-linecap="round"></path>
+                    </svg>
+                </div>
+                <div class="accordion-content">
+                    <div class="price-choose">
+                        <input type="checkbox">
+                        <p>აბსტრაქციონიზმი</p>
+                    </div>
+                    <div class="price-choose">
+                        <input type="checkbox">
+                        <p>კუბიზმი</p>
+                    </div>
+                    <div class="price-choose">
+                        <input type="checkbox">
+                        <p>ნატურმორტი</p>
+                    </div>
+                    <div class="price-choose">
+                        <input type="checkbox">
+                        <p>პეიზაჟი</p>
+                    </div>
+                    <div class="price-choose">
+                        <input type="checkbox">
+                        <p>პორტრეტი</p>
+                    </div>
+                    <div class="price-choose">
+                        <input type="checkbox">
+                        <p>პოპ-არტი</p>
+                    </div>
+                    <div class="price-choose">
+                        <input type="checkbox">
+                        <p>აქტუალური ხელოვნება</p>
+                    </div>
+
+                    <div class="price-choose">
+                        <input type="checkbox">
+                        <p>გეომეტრიული აბსტრაქციონიზმი</p>
+                    </div>
+
+                    <div class="price-choose">
+                        <input type="checkbox">
+                        <p>რეალიზმი</p>
+                    </div>
+
+
+
+                    <div class="price-choose">
+                        <input type="checkbox">
+                        <p>ჰიპერრეალიზმი</p>
+                    </div>
+
+
+
+                    <div class="price-choose">
+                        <input type="checkbox">
+                        <p>იმპრესიონიზმი</p>
+                    </div>
+
+                    <div class="price-choose">
+                        <input type="checkbox">
+                        <p>მოდერნიზმი</p>
+                    </div>
+
+
+                    <div class="price-choose">
+                        <input type="checkbox">
+                        <p>სიურეალიზმი</p>
+                    </div>
+
+
+                    <div class="price-choose">
+                        <input type="checkbox">
+                        <p>ფიგურული ხელოვნება</p>
+                    </div>
+
+                    <div class="price-choose">
+                        <input type="checkbox">
+                        <p>ციფრული ხელოვნება</p>
+                    </div>
+
+
+                    <div class="price-choose">
+                        <input type="checkbox">
+                        <p>მაგიური რეალიზმი</p>
+                    </div>
+
+                    <div class="price-choose">
+                        <input type="checkbox">
+                        <p>პრიმიტიზმი</p>
+                    </div>
+
+                    <div class="price-choose">
+                        <input type="checkbox">
+                        <p>სოცრეალიზმი</p>
+                    </div>
+
+
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-title">
+                    <span class="title-text">მატერიალი</span>
+                    <svg class="w-4 h-4" viewBox="0 0 32 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M2 2L16 14L30 2" stroke="currentColor" stroke-linecap="round"></path>
+                    </svg>
+                </div>
+                <div class="accordion-content">
+                    <div class="price-choose">
+                        <input type="checkbox">
+                        <p>ბერვრი კონტენტია და ახლა არ აქვს აზრი დამატებას: იგივე იქნება რაც ზემოთ</p>
+                    </div>
+
+
+                </div>
+            </div>
+
+
+
+
+
+
+
+            <div class="accordion-item">
+                <div class="accordion-title">
+                    <span class="title-text">ზომა</span>
+                    <svg class="w-4 h-4" viewBox="0 0 32 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M2 2L16 14L30 2" stroke="currentColor" stroke-linecap="round"></path>
+                    </svg>
+                </div>
+                <div class="accordion-content">
+                    <div class="price-choose">
+                        <input type="checkbox">
+                        <p>პატარა (30 × 30 CM მდე)</p>
+                    </div>
+                    <div class="price-choose">
+                        <input type="checkbox">
+                        <p>
+                            საშუალო ( 80 × 80 CM მდე)</p>
+                    </div>
+                    <div class="price-choose">
+                        <input type="checkbox">
+                        <p>
+                            მსხცვილი ( 80 × 80 CM ზე მეტი)</p>
+                    </div>
+                    <div class="price-choose">
+                        <input type="checkbox">
+                        <p>150CM ზე მეტი</p>
+                    </div>
+
+
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+            <div class="accordion-item">
+                <div class="accordion-title">
+                    <span class="title-text">ფერი</span>
+                    <svg class="w-4 h-4" viewBox="0 0 32 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M2 2L16 14L30 2" stroke="currentColor" stroke-linecap="round"></path>
+                    </svg>
+                </div>
+                <div class="accordion-content-colors">
+                    <div class="color-box" [class.active]="selectedColors.has(0)" (click)="toggleColor(0)">
+                        <div class="color-cream"></div>
+                        <p>კრემისფერი</p>
+                    </div>
+                    <div class="color-box" [class.active]="selectedColors.has(1)" (click)="toggleColor(1)">
+                        <div class="color-white"></div>
+                        <p>თეთრი</p>
+                    </div>
+                    <div class="color-box" [class.active]="selectedColors.has(2)" (click)="toggleColor(2)">
+                        <div class="color-orange-non"></div>
+                        <p>ღია ნარინჯისფერი</p>
+                    </div>
+                    <div class="color-box" [class.active]="selectedColors.has(3)" (click)="toggleColor(3)">
+                        <div class="color-brinjao"></div>
+                        <p>ბრინჯაოსფერი</p>
+                    </div>
+                    <div class="color-box" [class.active]="selectedColors.has(4)" (click)="toggleColor(4)">
+                        <div class="color-sky"></div>
+                        <p>ცისფერი</p>
+                    </div>
+                    <div class="color-box" [class.active]="selectedColors.has(5)" (click)="toggleColor(5)">
+                        <div class="color-yellow"></div>
+                        <p>ყვითელი</p>
+                    </div>
+                    <div class="color-box" [class.active]="selectedColors.has(6)" (click)="toggleColor(6)">
+                        <div class="color-green"></div>
+                        <p>მწვანე</p>
+                    </div>
+                    <div class="color-box" [class.active]="selectedColors.has(7)" (click)="toggleColor(7)">
+                        <div class="color-gold"></div>
+                        <p>ოქროსფერი</p>
+                    </div>
+                    <div class="color-box" [class.active]="selectedColors.has(8)" (click)="toggleColor(8)">
+                        <div class="color-coffe"></div>
+                        <p>ყავისფერი</p>
+                    </div>
+                    <div class="color-box" [class.active]="selectedColors.has(9)" (click)="toggleColor(9)">
+                        <div class="color-red"></div>
+                        <p>წითელი</p>
+                    </div>
+                    <div class="color-box" [class.active]="selectedColors.has(10)" (click)="toggleColor(10)">
+                        <div class="color-flower"></div>
+                        <p>იისფერი</p>
+                    </div>
+                    <div class="color-box" [class.active]="selectedColors.has(11)" (click)="toggleColor(11)">
+                        <div class="color-orange"></div>
+                        <p>ნარინჯისფერი</p>
+                    </div>
+                    <div class="color-box" [class.active]="selectedColors.has(12)" (click)="toggleColor(12)">
+                        <div class="color-pink"></div>
+                        <p>ვარდისფერი</p>
+                    </div>
+                    <div class="color-box" [class.active]="selectedColors.has(13)" (click)="toggleColor(13)">
+                        <div class="color-green-non"></div>
+                        <p>ღია მწვანე</p>
+                    </div>
+                    <div class="color-box" [class.active]="selectedColors.has(14)" (click)="toggleColor(14)">
+                        <div class="color-silver"></div>
+                        <p>ვერცხლისფერი</p>
+                    </div>
+                    <div class="color-box" [class.active]="selectedColors.has(15)" (click)="toggleColor(15)">
+                        <div class="color-gray"></div>
+                        <p>ნაცრისფერი</p>
+                    </div>
+                    <div class="color-box" [class.active]="selectedColors.has(16)" (click)="toggleColor(16)">
+                        <div class="color-blue"></div>
+                        <p>ლურჯი</p>
+                    </div>
+                    <div class="color-box" [class.active]="selectedColors.has(17)" (click)="toggleColor(17)">
+                        <div class="color-green-deep"></div>
+                        <p>მუქი მწვანე</p>
+                    </div>
+                    <div class="color-box" [class.active]="selectedColors.has(18)" (click)="toggleColor(18)">
+                        <div class="color-flower2"></div>
+                        <p>იასამნისფერი</p>
+                    </div>
+                    <div class="color-box" [class.active]="selectedColors.has(19)" (click)="toggleColor(19)">
+                        <div class="color-black"></div>
+                        <p>შავი</p>
+                    </div>
+                </div>
+
+            </div>
+
+
+
+
+            <div class="accordion-item">
+                <div class="accordion-title">
+                    <span class="title-text">თემა</span>
+                    <svg class="w-4 h-4" viewBox="0 0 32 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M2 2L16 14L30 2" stroke="currentColor" stroke-linecap="round"></path>
+                    </svg>
+                </div>
+                <div class="accordion-content">
+                    <div class="price-choose">
+                        <input type="checkbox">
+                        <p>აქტუალური ხელოვნება</p>
+                    </div>
+                    <div class="price-choose">
+                        <input type="checkbox">
+                        <p>
+                            ქველმოქმედება
+                        </p>
+                    </div>
+                    <div class="price-choose">
+                        <input type="checkbox">
+                        <p>
+                            ცხოველები</p>
+                    </div>
+                    <div class="price-choose">
+                        <input type="checkbox">
+                        <p>სიყვარული</p>
+                    </div>
+
+                    <div class="price-choose">
+                        <input type="checkbox">
+                        <p>მოდერნ</p>
+                    </div>
+
+
+                    <div class="price-choose">
+                        <input type="checkbox">
+                        <p>ახალი</p>
+                    </div>
+
+                    <div class="price-choose">
+                        <input type="checkbox">
+                        <p>პოპ-არტი</p>
+                    </div>
+
+
+
+                    <div class="price-choose">
+                        <input type="checkbox">
+                        <p>სიუჟეტი</p>
+                    </div>
+
+
+
+                    <div class="price-choose">
+                        <input type="checkbox">
+                        <p>ფიგურატიზმი</p>
+                    </div>
+
+
+
+                    <div class="price-choose">
+                        <input type="checkbox">
+                        <p>ქალაქი</p>
+                    </div>
+
+
+                    <div class="price-choose">
+                        <input type="checkbox">
+                        <p>ბუნება</p>
+                    </div>
+
+
+
+                    <div class="price-choose">
+                        <input type="checkbox">
+                        <p>სქესი</p>
+                    </div>
+
+
+
+                    <div class="price-choose">
+                        <input type="checkbox">
+                        <p>მოდა</p>
+                    </div>
+
+
+                    <div class="price-choose">
+                        <input type="checkbox">
+                        <p>მისთვის</p>
+                    </div>
+
+                    <div class="price-choose">
+                        <input type="checkbox">
+                        <p>მისთვის (გოგო)</p>
+                    </div>
+
+
+                    <div class="price-choose">
+                        <input type="checkbox">
+                        <p>მისთვის (ბიჭი)</p>
+                    </div>
+
+
+                    <div class="price-choose">
+                        <input type="checkbox">
+                        <p>საჩუქარი</p>
+                    </div>
+
+
+                    <div class="price-choose">
+                        <input type="checkbox">
+                        <p>პორტრეტი</p>
+                    </div>
+
+
+
+                    <div class="price-choose">
+                        <input type="checkbox">
+                        <p>პეიზაჟი</p>
+                    </div>
+
+
+
+                    <div class="price-choose">
+                        <input type="checkbox">
+                        <p>ნატურმორტი</p>
+                    </div>
+
+                    <div class="price-choose">
+                        <input type="checkbox">
+                        <p>რეალიზმი</p>
+                    </div>
+
+
+                    <div class="price-choose">
+                        <input type="checkbox">
+                        <p>ზღვა</p>
+                    </div>
+
+
+
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+
+            <div class="accordion-item">
+                <div class="accordion-title">
+                    <span class="title-text">ფორმატი</span>
+                    <svg class="w-4 h-4" viewBox="0 0 32 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M2 2L16 14L30 2" stroke="currentColor" stroke-linecap="round"></path>
+                    </svg>
+                </div>
+                <div class="accordion-content">
+                    <div class="price-choose">
+                        <input type="checkbox">
+                        <p>ჰორიზონტალური</p>
+                    </div>
+                    <div class="price-choose">
+                        <input type="checkbox">
+                        <p>
+                            ფიგურატიზმი
+                        </p>
+                    </div>
+                    <div class="price-choose">
+                        <input type="checkbox">
+                        <p>
+                            ვერტიკალური</p>
+                    </div>
+                    <div class="price-choose">
+                        <input type="checkbox">
+                        <p>კვადრატი</p>
+                    </div>
+
+                    <div class="price-choose">
+                        <input type="checkbox">
+                        <p>წრე</p>
+                    </div>
+
+
+                    <div class="price-choose">
+                        <input type="checkbox">
+                        <p>ოვალური</p>
+                    </div>
+
+                    <div class="price-choose">
+                        <input type="checkbox">
+                        <p>დიპტიქი</p>
+                    </div>
+
+
+
+                    <div class="price-choose">
+                        <input type="checkbox">
+                        <p>პოლიპტიქი</p>
+                    </div>
+
+
+
+                    <div class="price-choose">
+                        <input type="checkbox">
+                        <p>სხვა</p>
+                    </div>
+
+
+
+                    <div class="price-choose">
+                        <input type="checkbox">
+                        <p>ტრიპტიქი</p>
+                    </div>
+
+
+
+
+
+
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+
+    <div class="side-panel right-panel" [class.active]="isSortOpen">
+        <button class="close-btn" (click)="closePanels()">×</button>
+        <p class="sort-text">სორტირება</p>
+        <div class="line"></div>
+        <div class="sorts">
+            <p class="sort-types">ორიგინალი</p>
+            <p class="sort-types">ჯერ მაღალი ფასი</p>
+            <p class="sort-types">ჯერ დაბალი ფასი</p>
+            <p class="sort-types">ახლები</p>
+        </div>
+    </div>
+
+
+
+
+    <div class="product-section">
+        <div class="product-card">
+            <img src="https://artonline24.ru/upload/iblock/5ef/v8xivqkslu9wmpvaa3fe81dmq78v7ksx.JPG" alt="">
+            <div class="product-info">
+                <p class="name">Untitled III</p>
+                <p class="arter">ბარანოვი გლები</p>
+                <p class="size">61 x 61 cm</p>
+                <p class="theme">პოპ-არტი, ტიპოგრაფიული ფერები</p>
+                <p class="price">190000$</p>
+            </div>
+        </div>
+
+
+        <div class="product-card">
+            <img src="https://artonline24.ru/upload/iblock/01b/vqvpwvkgk3ce5xyqef7qnqwsog53n8dm.jpg" alt="">
+            <div class="product-info">
+                <p class="name">Ню1. Контрасты</p>
+                <p class="arter">რემიზოვა სვეტლანა</p>
+                <p class="size">80 x 100 cm</p>
+                <p class="theme">აქტუალური ხელოვნება, ზეთი</p>
+                <p class="price">280000$</p>
+            </div>
+        </div>
+
+
+
+        <div class="product-card">
+            <img src="https://artonline24.ru/upload/iblock/484/mgn8aivkqv9d175l0ze8ozq7gmjejlkt.png" alt="">
+            <div class="product-info">
+                <p class="name">თავდაჯერებულობა</p>
+                <p class="arter">სარდაევა ევგენია</p>
+                <p class="size">30 x 30 cm</p>
+                <p class="theme">რეალიზმი , ტილო</p>
+                <p class="price">35000$</p>
+            </div>
+        </div>
+
+
+
+        <div class="product-card">
+            <img src="https://artonline24.ru/upload/iblock/5ef/v8xivqkslu9wmpvaa3fe81dmq78v7ksx.JPG" alt="">
+            <div class="product-info">
+                <p class="name">Untitled III</p>
+                <p class="arter">ბარანოვი გლები</p>
+                <p class="size">61 x 61 cm</p>
+                <p class="theme">პოპ-არტი, ტიპოგრაფიული ფერები</p>
+                <p class="price">190000$</p>
+            </div>
+        </div>
+
+
+        <div class="product-card">
+            <img src="https://artonline24.ru/upload/iblock/01b/vqvpwvkgk3ce5xyqef7qnqwsog53n8dm.jpg" alt="">
+            <div class="product-info">
+                <p class="name">Ню1. Контрасты</p>
+                <p class="arter">რემიზოვა სვეტლანა</p>
+                <p class="size">80 x 100 cm</p>
+                <p class="theme">აქტუალური ხელოვნება, ზეთი</p>
+                <p class="price">280000$</p>
+            </div>
+        </div>
+
+
+
+        <div class="product-card">
+            <img src="https://artonline24.ru/upload/iblock/484/mgn8aivkqv9d175l0ze8ozq7gmjejlkt.png" alt="">
+            <div class="product-info">
+                <p class="name">თავდაჯერებულობა</p>
+                <p class="arter">სარდაევა ევგენია</p>
+                <p class="size">30 x 30 cm</p>
+                <p class="theme">რეალიზმი , ტილო</p>
+                <p class="price">35000$</p>
+            </div>
+        </div>
+
+
+
+        <div class="product-card">
+            <img src="https://artonline24.ru/upload/iblock/5ef/v8xivqkslu9wmpvaa3fe81dmq78v7ksx.JPG" alt="">
+            <div class="product-info">
+                <p class="name">Untitled III</p>
+                <p class="arter">ბარანოვი გლები</p>
+                <p class="size">61 x 61 cm</p>
+                <p class="theme">პოპ-არტი, ტიპოგრაფიული ფერები</p>
+                <p class="price">190000$</p>
+            </div>
+        </div>
+
+
+        <div class="product-card">
+            <img src="https://artonline24.ru/upload/iblock/01b/vqvpwvkgk3ce5xyqef7qnqwsog53n8dm.jpg" alt="">
+            <div class="product-info">
+                <p class="name">Ню1. Контрасты</p>
+                <p class="arter">რემიზოვა სვეტლანა</p>
+                <p class="size">80 x 100 cm</p>
+                <p class="theme">აქტუალური ხელოვნება, ზეთი</p>
+                <p class="price">280000$</p>
+            </div>
+        </div>
+
+
+
+        <div class="product-card">
+            <img src="https://artonline24.ru/upload/iblock/484/mgn8aivkqv9d175l0ze8ozq7gmjejlkt.png" alt="">
+            <div class="product-info">
+                <p class="name">თავდაჯერებულობა</p>
+                <p class="arter">სარდაევა ევგენია</p>
+                <p class="size">30 x 30 cm</p>
+                <p class="theme">რეალიზმი , ტილო</p>
+                <p class="price">35000$</p>
+            </div>
+        </div>
+
+
+
+        <div class="product-card">
+            <img src="https://artonline24.ru/upload/iblock/5ef/v8xivqkslu9wmpvaa3fe81dmq78v7ksx.JPG" alt="">
+            <div class="product-info">
+                <p class="name">Untitled III</p>
+                <p class="arter">ბარანოვი გლები</p>
+                <p class="size">61 x 61 cm</p>
+                <p class="theme">პოპ-არტი, ტიპოგრაფიული ფერები</p>
+                <p class="price">190000$</p>
+            </div>
+        </div>
+
+
+        <div class="product-card">
+            <img src="https://artonline24.ru/upload/iblock/01b/vqvpwvkgk3ce5xyqef7qnqwsog53n8dm.jpg" alt="">
+            <div class="product-info">
+                <p class="name">Ню1. Контрасты</p>
+                <p class="arter">რემიზოვა სვეტლანა</p>
+                <p class="size">80 x 100 cm</p>
+                <p class="theme">აქტუალური ხელოვნება, ზეთი</p>
+                <p class="price">280000$</p>
+            </div>
+        </div>
+
+
+
+        <div class="product-card">
+            <img src="https://artonline24.ru/upload/iblock/484/mgn8aivkqv9d175l0ze8ozq7gmjejlkt.png" alt="">
+            <div class="product-info">
+                <p class="name">თავდაჯერებულობა</p>
+                <p class="arter">სარდაევა ევგენია</p>
+                <p class="size">30 x 30 cm</p>
+                <p class="theme">რეალიზმი , ტილო</p>
+                <p class="price">35000$</p>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="last-texts">
+        <p>Plankton.ge — აქტრუალური და თანამედროვე ხელოვნების ონლაინ გალერეა</p>
+        <p>ონლაინ გალერეა plankton-ის კატალოგში შეგიძლიათ აირჩიოთ და შეიძინოთ სხვადასხვა მიმართულების მხატვრების
+            ნახატები, გრაფიკა, ქანდაკებები, ხელოვნების ობიექტები, ფოტოები და სხვა ხელოვნების ნიმუშები: რეალიზმიდან
+            პოპ-არტით, იმპრესიონიზმიდან თანამედროვე ტენდენციებამდე. ჩვენი კურატორები დაგეხმარებიან თქვენი კოლექციისთვის
+            ახალი ნამუშევრების პოვნაში ან ინტერიერისთვის ნახატების შერჩევაში. ჩვენ ვთანამშრომლობთ როგორც ახალგაზრდა
+            პერსპექტიულ ავტორებთან, ასევე ცნობილ მხატვრებთან, რომელთა ნამუშევრებიც კერძო კოლექციებსა და მუზეუმებშია
+            წარმოდგენილი.</p>
+    </div>
+</section>

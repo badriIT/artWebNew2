@@ -1,0 +1,170 @@
+
+section {
+  padding: 16px;
+}
+
+.accordion-title {
+
+  
+ 
+   cursor: pointer;
+
+   transition: 0.3s;
+   font-family: Montserrat;
+   color: black;
+   font-size: 14px;
+
+
+   position: relative;
+   
+
+   align-items: center;
+   
+   padding: 12px;
+   
+
+ 
+
+  
+
+ }
+
+ .accordion-content {
+   height: 0;
+   overflow: hidden;
+   transition: height 0.4s ease;
+   display: flex;
+   align-items: center;
+   padding: 0 10px;
+   gap: 20px;
+
+ }
+
+ .img {
+   max-width: 200px;
+   width: 100%;
+   height: 200px;
+ }
+
+ .content-text {
+   font-family: Montserrat;
+   font-size: 18px;
+ }
+
+
+ .help {
+   margin: auto;
+   display: flex;
+   justify-self: center;
+   font-family: Montserrat;
+   font-size: 30px;
+   padding-bottom: 20px;
+ }
+
+ .accordion {
+   display: flex;
+   flex-direction: column;
+   gap: 30px;
+   max-width: 1320px;
+   width: 100%;
+   margin: auto;
+ }
+
+ .accordion-content.show {
+   display: block;
+   padding: 20px;
+   align-items: center;
+ }
+
+ .accordion-item {
+   padding: 8px;
+   background-color: rgba(128, 127, 127, 0.119);
+
+ }
+
+
+
+ .w-4 {
+   width: 16px;
+   height: 16px;
+   rotate: 270deg;
+   margin-top: -4px;
+ }
+
+
+
+
+
+ .title-text {
+   transition: transform 0.4s ease, margin-left 0.4s ease;
+   display: inline-block;
+   font-size: 18px;
+ }
+
+ .accordion-title.centered .title-text {
+   margin-left: 50%;
+   transform: translate(-50%);
+   font-weight: 600;
+   
+   
+ }
+
+ .accordion-title svg {
+   position: absolute;
+   right: 12px;
+   top: 50%;
+   
+   transform: translateY(-50%) rotate(0deg);
+   width: 16px;
+   height: 16px;
+   transition: transform 0.3s ease;
+ }
+
+ .accordion-title.centered svg {
+   transform: translateY(-50%) rotate(90deg);
+   /* optional rotation */
+ }
+
+ .next-stage {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+ }
+
+ .comm-text {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  font-size: 18px;
+  font-family: Montserrat;
+  max-width: 900px;
+  margin: auto;
+ }
+
+
+
+ @media screen and (max-width: 1080px) {
+  .accordion-title.centered .title-text {
+  display: flex;
+  justify-content: center;
+  margin-left: 0;
+  transform: translate(0%);
+   
+   
+ }
+ } 
+
+ @media screen and (max-width: 1080px) {
+ 
+   
+   
+ 
+ }
+
+ @media screen and (max-width: 1080px) {
+ .accordion-content {
+     flex-direction: column-reverse;
+     text-align: center;
+     justify-content: center;
+ }
+}
