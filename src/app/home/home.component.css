@@ -828,6 +828,11 @@
     .product-info {
         font-size: 10px;
     }
+
+    .product-section {
+   
+    grid-template-columns:  1fr;
+}
 }
 
 
