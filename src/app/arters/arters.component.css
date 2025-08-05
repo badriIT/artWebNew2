@@ -140,7 +140,7 @@
 
 .price {
     margin-top: 8px;
-    color: orange;
+    color:  rgb(84, 61, 255);
     font-size: 26px;
     font-family: 'Noto Sans Georgian', sans-serif;
     font-weight: 500;
@@ -148,13 +148,14 @@
 
 .priceSmall {
     margin-top: 8px;
-    color: orange;
+    color:  rgb(84, 61, 255);
     font-size: 16px;
     font-family: 'Noto Sans Georgian', sans-serif;
     font-weight: 500;
 }
 
 .arter-name {
+    cursor: pointer;
     display: flex;
     justify-content: center;
     padding-bottom: 10px;

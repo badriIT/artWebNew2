@@ -80,8 +80,8 @@
 }
 
 .arter-names {
-    color: #f39c4f;
-    border-bottom: 2px solid #f39c4f;
+    color:  rgb(84, 61, 255);
+    border-bottom: 2px solid rgb(84, 61, 255);
     cursor: pointer;
     width: fit-content;
     margin-left: 4px;
@@ -92,6 +92,7 @@
 .price {
     margin-top: 50px;
     font-size: 40px;
+    
 }
 
 .buy {
@@ -282,7 +283,7 @@
 
 .priceSmall {
     margin-top: 8px;
-    color: orange;
+    color:  rgb(84, 61, 255);
     font-size: 24px;
     font-family: 'Noto Sans Georgian', sans-serif;
     font-weight: 500;

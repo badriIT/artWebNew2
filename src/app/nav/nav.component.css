@@ -94,7 +94,7 @@ nav {
 }
 
 .catalog:hover {
-    border-bottom: 2px solid #f39c4f;
+    border-bottom: 2px solid  rgb(64, 50, 164);
 
 }
 
@@ -451,7 +451,7 @@ nav {
 
 
 .activeRout {
-    border-bottom: 2px solid #f394cf
+    border-bottom: 2px solid rgb(64, 50, 164)
 }
 
 
