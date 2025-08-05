@@ -7,6 +7,8 @@ import { ContactComponent } from './contact/contact.component';
 import { ErrorInWorkComponent } from './error-in-work/error-in-work.component';
 import { ProductComponent } from './product/product.component';
 import { EachArterComponent } from './each-arter/each-arter.component';
+import { ProductFromCatalogComponent } from './product-from-catalog/product-from-catalog.component';
+import { EachArterFromCatalogComponent } from './each-arter-from-catalog/each-arter-from-catalog.component';
 
 const routes: Routes = [
   { path: "", component: HomeComponent },
@@ -15,6 +17,8 @@ const routes: Routes = [
   { path: "contact", component: ContactComponent },
   { path: "product", component: ProductComponent },
   { path: "eachArter", component: EachArterComponent },
+  { path: "fromCatalog", component: ProductFromCatalogComponent },
+  { path: "eachArterFromCatalog", component: EachArterFromCatalogComponent},
 
 
   { path: "**", component: ErrorInWorkComponent } // Wildcard route for a 404 page,

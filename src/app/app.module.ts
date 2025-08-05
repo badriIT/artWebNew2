@@ -13,6 +13,8 @@ import { ErrorInWorkComponent } from './error-in-work/error-in-work.component';
 import { FormsModule } from '@angular/forms';
 import { ProductComponent } from './product/product.component';
 import { EachArterComponent } from './each-arter/each-arter.component';
+import { ProductFromCatalogComponent } from './product-from-catalog/product-from-catalog.component';
+import { EachArterFromCatalogComponent } from './each-arter-from-catalog/each-arter-from-catalog.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,9 @@ import { EachArterComponent } from './each-arter/each-arter.component';
     ContactComponent,
     ErrorInWorkComponent,
     ProductComponent,
-    EachArterComponent
+    EachArterComponent,
+    ProductFromCatalogComponent,
+    EachArterFromCatalogComponent
   ],
   imports: [
     BrowserModule,
