@@ -132,7 +132,8 @@
 
 
 .small-images {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
     gap: 10px;
     margin-top: 10px;
 
@@ -229,6 +230,14 @@
 
 @media screen and (max-width: 800px) {
 
+    .small-images {
+    display: grid;
+    grid-template-columns: 1fr 1fr ;
+    gap: 10px;
+    margin-top: 10px;
+
+}
+
     .arter {
         display: flex;
         align-items: center;
@@ -276,10 +285,20 @@
         height: 400px;
         object-fit: cover;
     }
+
+        .small-images {
+    display: grid;
+    grid-template-columns:  1fr ;
+    gap: 10px;
+    margin-top: 10px;
+
+}
 }
 
 
 @media screen and (max-width: 440px) {
+
+ 
 
     .name {
         font-size: 26px;
