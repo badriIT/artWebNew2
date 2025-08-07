@@ -292,7 +292,7 @@
             <div class="burger-menu-content">
 
 
-                <p class="catalog-burger" routerLink="">
+                <p (click)="toggleMenu()"  class="catalog-burger" routerLink="">
 
                     კატალოგი
                     <svg class="arrow" viewBox="0 0 32 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -303,7 +303,7 @@
 
 
 
-                <p class="catalog-burger" routerLink="/arters">
+                <p (click)="toggleMenu()"  class="catalog-burger" routerLink="/arters">
 
                     მხატვრები
                     <svg class="arrow" viewBox="0 0 32 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -312,13 +312,13 @@
                 </p>
 
               
-                <p routerLink="/service-communicate" class="catalog-burger">მომსახურეობა - თანამშრომლობა <svg
+                <p routerLink="/service-communicate" (click)="toggleMenu()"  class="catalog-burger">მომსახურეობა - თანამშრომლობა <svg
                         class="arrow" viewBox="0 0 32 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M2 2L16 14L30 2" stroke="currentColor" stroke-linecap="round"></path>
                     </svg></p>
 
               
-                <p routerLink="/contact" class="catalog-burger">კონტაქტი <svg class="arrow" viewBox="0 0 32 16"
+                <p routerLink="/contact" (click)="toggleMenu()"  class="catalog-burger">კონტაქტი <svg class="arrow" viewBox="0 0 32 16"
                         fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M2 2L16 14L30 2" stroke="currentColor" stroke-linecap="round"></path>
                     </svg></p>
