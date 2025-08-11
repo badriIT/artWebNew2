@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { ServiceService } from '../service.service';
 
 @Component({
   selector: 'app-product',
@@ -9,6 +11,87 @@ import { Component } from '@angular/core';
 export class ProductComponent {
   transform = 'scale(1)';
   transformOrigin = 'center center';
+
+
+
+  title!: string;
+  artist!: string;
+  price!: string;
+  matherial!: string;
+  style!: string;
+  year!: string;
+  img!: string;
+  productId!: string;
+  artistData: any;
+  otherWorks: any[] = [];
+
+  constructor(private route: ActivatedRoute, private service: ServiceService) {}
+
+  ngOnInit() {
+    this.route.paramMap.subscribe(params => {
+      this.productId = params.get('id')!;
+    });
+
+    this.route.queryParams.subscribe(params => {
+      this.title = params['title'] || '';
+      this.artist = params['artist_name'] || '';
+      this.price = params['price'] || '';
+      this.matherial = params['matherial'] || '';
+      this.style = params['style'] || '';
+      this.year = params['year'] || '';
+      this.img = params['img'] || '';
+
+      console.log("authorName", this.artist);
+
+      if (this.artist) {
+        this.loadArtistData(this.artist);
+      }
+    });
+  }
+
+  loadArtistData(name: string) {
+    this.service.getArtists().subscribe((data: any) => {
+      this.artistData = data.artists.find((a: any) =>
+        a.artist_name.toLowerCase().trim() === name.toLowerCase().trim()
+      );
+
+      if (this.artistData) {
+        this.otherWorks = this.artistData.featured_items.filter((item: any) => item.id !== this.productId);
+      }
+
+      console.log("artistData inside subscribe:", this.artistData);
+    });
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   onMouseMove(event: MouseEvent) {
     const target = event.currentTarget as HTMLElement;
@@ -25,4 +108,8 @@ export class ProductComponent {
     this.transform = 'scale(1)';
     this.transformOrigin = 'center center';
   }
+
+
+
+
 }

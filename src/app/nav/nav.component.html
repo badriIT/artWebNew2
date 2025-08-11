@@ -117,15 +117,47 @@
                         <circle cx="7.5" cy="7.5" r="6.25" stroke="#333333" stroke-width="1.5"></circle>
                         <path d="M12 12L17 17" stroke="#333333" stroke-width="1.5"></path>
                     </svg>
-                    <input type="text" class="search-bar" placeholder="ძიება..." />
-                    <button class="close-search" (click)="searchActive = false">✕</button>
+                    <input class="search-bar" type="text" [(ngModel)]="searchTerm" (input)="onSearch()"
+                        placeholder="Search..." />
+                    <button class="close-search" (click)="searchActive = false; isProductsTabOpen = false">✕</button>
                 </div>
             </div>
 
 
 
+
+
         </div>
 
+        <div class="products-popup" *ngIf="isProductsTabOpen">
+            <p class="catalog-text">კატალოგი:</p>
+
+
+            <div *ngIf="products.length > 0; else noResults" class="product-section">
+                <div [queryParams]="{
+                     title: product.title, 
+       artist_name: product.artist_name, 
+       price: product.price, 
+       matherial: product.material,
+       style: product.style,
+       year: product.year_created,
+       img: product.image
+
+                }" (click)="isProductsTabOpen = false" [routerLink]="['/product', product.id]"
+                    *ngFor="let product of products" class="product-card">
+                    <img [src]="product.image" alt="{{product.title}}" />
+                    <div class="product-info">
+                        <p class="name">{{ product.title }}</p>
+                        <p class="arter">{{ product.artist_name }}</p>
+                        <p class="price">{{ product.price }} {{ product.currency }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <ng-template #noResults>
+                <p class="noProducts">No products found.</p>
+            </ng-template>
+        </div>
 
 
 
@@ -137,8 +169,9 @@
                     <circle cx="7.5" cy="7.5" r="6.25" stroke="#333333" stroke-width="1.5"></circle>
                     <path d="M12 12L17 17" stroke="#333333" stroke-width="1.5"></path>
                 </svg>
-                <input type="text" class="search-bar" placeholder="ძიება..." />
-                <button class="close-search" (click)="searchActive2 = false">✕</button>
+                <input [(ngModel)]="searchTerm" (input)="onSearch()" type="text" class="search-bar"
+                    placeholder="ძიება..." />
+                <button class="close-search" (click)="searchActive2 = false; isProductsTabOpen = false">✕</button>
             </div>
         </div>
 
@@ -279,8 +312,9 @@
                         <circle cx="7.5" cy="7.5" r="6.25" stroke="#333333" stroke-width="1.5"></circle>
                         <path d="M12 12L17 17" stroke="#333333" stroke-width="1.5"></path>
                     </svg>
-                    <input type="text" class="search-bar" placeholder="ძიება..." />
-                    <button class="close-search" (click)="searchActive3 = false">✕</button>
+                    <input [(ngModel)]="searchTerm" (input)="onSearch()" type="text" class="search-bar"
+                        placeholder="ძიება..." />
+                    <button class="close-search" (click)="searchActive3 = false; isProductsTabOpen = false">✕</button>
                 </div>
             </div>
 
@@ -292,7 +326,7 @@
             <div class="burger-menu-content">
 
 
-                <p (click)="toggleMenu()"  class="catalog-burger" routerLink="">
+                <p (click)="toggleMenu()" class="catalog-burger" routerLink="">
 
                     კატალოგი
                     <svg class="arrow" viewBox="0 0 32 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -303,7 +337,7 @@
 
 
 
-                <p (click)="toggleMenu()"  class="catalog-burger" routerLink="/arters">
+                <p (click)="toggleMenu()" class="catalog-burger" routerLink="/arters">
 
                     მხატვრები
                     <svg class="arrow" viewBox="0 0 32 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -311,18 +345,18 @@
                     </svg>
                 </p>
 
-              
-                <p routerLink="/service-communicate" (click)="toggleMenu()"  class="catalog-burger">მომსახურეობა - თანამშრომლობა <svg
-                        class="arrow" viewBox="0 0 32 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+                <p routerLink="/service-communicate" (click)="toggleMenu()" class="catalog-burger">მომსახურეობა -
+                    თანამშრომლობა <svg class="arrow" viewBox="0 0 32 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M2 2L16 14L30 2" stroke="currentColor" stroke-linecap="round"></path>
                     </svg></p>
 
-              
-                <p routerLink="/contact" (click)="toggleMenu()"  class="catalog-burger">კონტაქტი <svg class="arrow" viewBox="0 0 32 16"
-                        fill="none" xmlns="http://www.w3.org/2000/svg">
+
+                <p routerLink="/contact" (click)="toggleMenu()" class="catalog-burger">კონტაქტი <svg class="arrow"
+                        viewBox="0 0 32 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M2 2L16 14L30 2" stroke="currentColor" stroke-linecap="round"></path>
                     </svg></p>
-             
+
 
 
                 <div class="menu-down-content">

@@ -22,7 +22,7 @@
 
     <div class="product-information">
         <div class="zoom-container" (mousemove)="onMouseMove($event)" (mouseleave)="onMouseLeave()">
-            <img src="https://scontent.ftbs6-2.fna.fbcdn.net/v/t39.30808-6/514246569_122180915222582481_8356977830558249603_n.jpg?stp=dst-jpg_p552x414_tt6&_nc_cat=110&ccb=1-7&_nc_sid=833d8c&_nc_ohc=R-nPG1APgFgQ7kNvwF944m6&_nc_oc=AdmHhThWe2gcGM3A58amjYpPPst6T2komggHM4oAKD9shxhRkUuEhAwbMVyAZYz_DIg&_nc_zt=23&_nc_ht=scontent.ftbs6-2.fna&_nc_gid=nHTS2dvDzYf5aG2mIy5ckw&oh=00_AfX1ZweinJ23uWk_2wb8s_2UgfMXXsnmtowUxjhuzlWy1A&oe=689A226A" alt="Zoom"
+            <img [src]="img" alt="Zoom"
                 [ngStyle]="{
       'transform': transform,
       'transform-origin': transformOrigin
@@ -30,16 +30,16 @@
         </div>
 
         <div class="right-part">
-            <p class="name">პეიზაჟი</p>
+            <p class="name">{{title}}</p>
             <div class="information">
-                <p class="arter">ავტორი: <span routerLink="/eachArter" class="arter-names"> თენგიზ მირზაშვილი </span></p>
-                <p class="matherial">მატერიალი: მუყაო, ტემპერა</p>
-                <p class="style">სტილი: აბსტრაქციონიზმი</p> 
-                <p class="year">წელი: 2004</p> 
-                <p class="size">ზომა: 17,5 X 25 სმ</p>
-                <p class="quaintity">რაოდენობაში: 1</p>
+                <p class="arter">ავტორი: <span routerLink="/eachArter" class="arter-names"> {{artist}} </span></p>
+                <p class="matherial">მატერიალი: {{matherial}}</p>
+                <p class="style">სტილი: {{style}}</p> 
+                <p class="year">წელი: {{year}}</p> 
+                
+               
             </div>
-            <p class="price"> 700$ </p>
+            <p class="price"> {{price}} $</p>
             <div class="buttons">
                 <button class="buy">შეკვეთა ერთ დაჭერაში</button>
                 <button class="toCart">კალათაში დამატება</button>

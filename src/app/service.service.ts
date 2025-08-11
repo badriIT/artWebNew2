@@ -18,7 +18,24 @@ export class ServiceService {
   selectedFormats: string[] = [];
   selectedTypes: string[] = [];
 
+  widthMaxValues!: any
+  widthMinValues!: any
+  heightMaxValues!: any
+  heightMinValues!: any
+
   constructor(private http: HttpClient) { }
+
+
+
+  getArtists() {
+  return this.http.get('https://artshop-backend-demo.fly.dev/artists?page=1&limit=12');
+}
+
+
+  getWholeProcucts(): Observable<any> {
+     return this.http.get<any>(`https://artshop-backend-demo.fly.dev/items?`);
+  }
+  
 
   getProducts(page: number = 1, limit: number = 12): Observable<any> {
     let params: string[] = [];
@@ -31,9 +48,24 @@ export class ServiceService {
     }
 
     // Sizes filter (send as comma separated)
-    if (this.selectedSizesLabels.length > 0) {
+    if (this.widthMinValues) {
       // encodeURIComponent to avoid issues with special characters
-      params.push(`size=${encodeURIComponent(this.selectedSizesLabels.join(','))}`);
+      params.push(`min_width_cm=${encodeURIComponent(this.widthMinValues.join(','))}`);
+    }
+
+    if (this.widthMaxValues) {
+      // encodeURIComponent to avoid issues with special characters
+      params.push(`max_width_cm=${encodeURIComponent(this.widthMaxValues.join(','))}`);
+    }
+
+    if (this.heightMaxValues) {
+      // encodeURIComponent to avoid issues with special characters
+      params.push(`max_height_cm=${encodeURIComponent(this.heightMaxValues.join(','))}`);
+    }
+
+    if (this.heightMaxValues) {
+      // encodeURIComponent to avoid issues with special characters
+      params.push(`min_height_cm=${encodeURIComponent(this.heightMinValues.join(','))}`);
     }
 
     // Colors filter (comma separated color names)
@@ -58,7 +90,7 @@ export class ServiceService {
 
     // Formats filter
     if (this.selectedFormats.length > 0) {
-      params.push(`format=${encodeURIComponent(this.selectedFormats.join(','))}`);
+      params.push(`shape=${encodeURIComponent(this.selectedFormats.join(','))}`);
     }
 
     // Types filter
@@ -75,3 +107,4 @@ export class ServiceService {
     return this.http.get<any>(url);
   }
 }
+

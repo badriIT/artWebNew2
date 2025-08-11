@@ -303,7 +303,6 @@
 
 .color-cream {
     background-color: #eadaca;
-    background: #eadaca;
     width: 80px;
     height: 80px;
     border-radius: 8px;
@@ -311,68 +310,55 @@
 
 .color-white {
     background-color: #e7e7e7;
-    background: #e7e7e7;
-    width: 80px;
-    border-radius: 8px;
-    height: 80px;
-}
-
-.color-orange-non {
-    background-color: #fecc99;
-    background: #fecc99;
     width: 80px;
     height: 80px;
     border-radius: 8px;
 }
 
-.color-brinjao {
+.color-light-orange {
+    background-color: #fcb97d;
+    width: 80px;
+    height: 80px;
+    border-radius: 8px;
+}
+
+.color-bronze {
     background-color: #cd7f32;
-    background: #cd7f32;
     width: 80px;
     height: 80px;
     border-radius: 8px;
 }
 
-.color-sky {
+.color-blue {
     background-color: #8ed4f3;
-    background: #8ed4f3;
     width: 80px;
     height: 80px;
     border-radius: 8px;
-    ;
 }
 
 .color-yellow {
     background-color: #f3f182;
-    background: #f3f182;
     width: 80px;
     height: 80px;
     border-radius: 8px;
-    ;
 }
 
 .color-green {
     background-color: #73a08a;
-    background: #73a08a;
     width: 80px;
     height: 80px;
     border-radius: 8px;
-    ;
 }
 
 .color-gold {
     background-color: #dfa745;
-    background: #dfa745;
     width: 80px;
     height: 80px;
     border-radius: 8px;
-    ;
 }
 
-
-.color-coffe {
+.color-brown {
     background-color: #7f6c67;
-    background: #7f6c67;
     width: 80px;
     height: 80px;
     border-radius: 8px;
@@ -380,15 +366,13 @@
 
 .color-red {
     background-color: #a8474b;
-    background: #a8474b;
     width: 80px;
     height: 80px;
     border-radius: 8px;
 }
 
-.color-flower {
+.color-purple {
     background-color: #dbc7fc;
-    background: #dbc7fc;
     width: 80px;
     height: 80px;
     border-radius: 8px;
@@ -396,7 +380,6 @@
 
 .color-orange {
     background-color: #e19c57;
-    background: #e19c57;
     width: 80px;
     height: 80px;
     border-radius: 8px;
@@ -404,15 +387,13 @@
 
 .color-pink {
     background-color: #feb8c3;
-    background: #feb8c3;
     width: 80px;
-    border-radius: 8px;
     height: 80px;
+    border-radius: 8px;
 }
 
-.color-green-non {
+.color-light-green {
     background-color: #86c984;
-    background: #86c984;
     width: 80px;
     height: 80px;
     border-radius: 8px;
@@ -420,40 +401,34 @@
 
 .color-silver {
     background-color: #929292;
-    background: #929292;
     width: 80px;
     height: 80px;
     border-radius: 8px;
-
 }
 
 .color-gray {
     background-color: #999999;
-    background: #999999;
     width: 80px;
     height: 80px;
     border-radius: 8px;
 }
 
-.color-blue {
+.color-navy {
     background-color: #444b5f;
-    background: #444b5f;
     width: 80px;
     height: 80px;
     border-radius: 8px;
 }
 
-.color-green-deep {
+.color-dark-green {
     background-color: #658d44;
-    background: #658d44;
     width: 80px;
     height: 80px;
     border-radius: 8px;
 }
 
-.color-flower2 {
+.color-violet {
     background-color: #835781;
-    background: #835781;
     width: 80px;
     height: 80px;
     border-radius: 8px;
@@ -461,11 +436,11 @@
 
 .color-black {
     background-color: #2d2e2c;
-    background: #2d2e2c;
     width: 80px;
     height: 80px;
     border-radius: 8px;
 }
+
 
 .color-box {
     display: flex;

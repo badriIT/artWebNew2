@@ -218,10 +218,10 @@
         <p class="sort-text">სორტირება</p>
         <div class="line"></div>
         <div class="sorts">
-            <p class="sort-types">ორიგინალი</p>
-            <p class="sort-types">ჯერ მაღალი ფასი</p>
-            <p class="sort-types">ჯერ დაბალი ფასი</p>
-            <p class="sort-types">ახლები</p>
+            <p (click)="originalProducts()" class="sort-types">ორიგინალი</p>
+            <p (click)="priceUp()" class="sort-types">ჯერ მაღალი ფასი</p>
+            <p (click)="priceDown()" class="sort-types">ჯერ დაბალი ფასი</p>
+            <p (click)="News()" class="sort-types">ახლები</p>
         </div>
     </div>
 
@@ -232,7 +232,16 @@
 
 
     <div class="product-section">
-        <div [routerLink]="['/product', art.id]" *ngFor="let art of products" class="product-card">
+        <div [routerLink]="['/product', art.id]" [queryParams]="{
+                     title: art.title, 
+       artist_name: art.artist_name, 
+       price: art.price, 
+       matherial: art.material,
+       style: art.style,
+       year: art.year_created,
+       img: art.image
+
+                }" *ngFor="let art of products" class="product-card">
             <img [src]="art.image" alt="{{art.title}}" />
             <div class="product-info">
                 <p class="name">{{ art.title }}</p>

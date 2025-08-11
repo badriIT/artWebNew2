@@ -85,6 +85,22 @@ export class HomeComponent implements AfterViewInit {
     this.service.maxPrice = this.selectedPriceRange?.max;
 
     this.service.selectedColorsNames = this.selectedColorNames; // from your component Set
+
+    const widthMaxValues = this.getSelectedSizeObjects().map(s => s.widthMax);
+    const widthMinValues = this.getSelectedSizeObjects().map(s => s.widthMin);
+    const heightMaxValues = this.getSelectedSizeObjects().map(s => s.heightMax);
+    const heightMinValues = this.getSelectedSizeObjects().map(s => s.heightMin);
+
+
+    this.service.widthMaxValues = widthMaxValues
+    
+    this.service.widthMinValues = widthMinValues
+    
+    this.service.heightMaxValues = heightMaxValues
+    
+    this.service.heightMinValues = heightMinValues
+
+    
     this.service.selectedSizesLabels = this.selectedSizes;     // from your component selectedSizes array
     this.service.selectedMaterials = this.selectedMaterials;
     this.service.selectedStyles = this.selectedStyles;
@@ -92,15 +108,15 @@ export class HomeComponent implements AfterViewInit {
     this.service.selectedFormats = this.selectedFormats;
     this.service.selectedTypes = this.selectedTypes;
 
-    console.log('Selected color IDs:', Array.from(this.selectedColors));
-    console.log('Selected color names:', this.selectedColorNames);
-
+    console.log("sizes", this.selectedSizes, widthMaxValues )
 
     this.service.getProducts().subscribe(data => {
       this.products = data.items;
       console.log("filtered products Last", this.products);
       if (this.products.length === 0) {
         this.noProdFound = true
+      } else {
+         this.noProdFound = false
       }
     });
   }
@@ -108,6 +124,25 @@ export class HomeComponent implements AfterViewInit {
   unfilter() {
     this.service.minPrice = undefined;
     this.service.maxPrice = undefined;
+
+     this.service.widthMaxValues = undefined
+    
+    this.service.widthMinValues = undefined
+    
+    this.service.heightMaxValues = undefined
+    
+    this.service.heightMinValues = undefined
+
+
+    this.service.selectedColorsNames = [] // from your component Set
+    this.service.selectedSizesLabels = []    // from your component selectedSizes array
+    this.service.selectedMaterials = []
+    this.service.selectedStyles = []
+    this.service.selectedThemes = []
+    this.service.selectedFormats = []
+    this.service.selectedTypes = []
+
+
     this.service.getProducts().subscribe(data => {
       this.products = data.items;
       console.log("unfiltered products", this.products);
@@ -610,6 +645,7 @@ export class HomeComponent implements AfterViewInit {
   }
 
 
+
   constructor(private service: ServiceService, private route: ActivatedRoute, private http: HttpClient) {
     this.service.getProducts().subscribe(data => {
       this.products = data.items
@@ -629,19 +665,37 @@ export class HomeComponent implements AfterViewInit {
 
 
 
-
     this.service.minPrice = undefined;
     this.service.maxPrice = undefined;
+
+
+    this.service.widthMaxValues = undefined
+    
+    this.service.widthMinValues = undefined
+    
+    this.service.heightMaxValues = undefined
+    
+    this.service.heightMinValues = undefined
+
+
+    this.service.selectedColorsNames = [] // from your component Set
+    this.service.selectedSizesLabels = []    // from your component selectedSizes array
+    this.service.selectedMaterials = []
+    this.service.selectedStyles = []
+    this.service.selectedThemes = []
+    this.service.selectedFormats = []
+    this.service.selectedTypes = []
+
+
     this.service.getProducts().subscribe(data => {
       this.products = data.items;
       console.log("unfiltered products", this.products);
-      console.log('Selected types:', this.selectedTypes);
       this.noProdFound = false;
     });
   }
 
 
-
+  
 
 
 
@@ -709,6 +763,31 @@ export class HomeComponent implements AfterViewInit {
       });
     });
   }
+
+
+
+originalProducts() {
+  this.service.getProducts().subscribe(data => {
+    this.products = data.items;
+    console.log("original products", this.products);
+    this.noProdFound = false;
+  });
+}
+
+priceUp() {
+  this.products.sort((b, a) => a.price - b.price);
+  console.log("products sorted by price ascending", this.products);
+}
+
+priceDown() {
+  this.products.sort((a, b) => a.price - b.price);
+  console.log("products sorted by price descending", this.products);
+}
+
+News() {
+   this.products.sort((a, b) => b.year_created - a.year_created);
+  console.log("products sorted by price descending", this.products);
+}
 
 
 
