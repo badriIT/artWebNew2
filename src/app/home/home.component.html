@@ -18,6 +18,8 @@
     </div>
 
     <div class="side-panel left-panel" [class.active]="isFilterOpen">
+
+
         <button class="close-btn" (click)="closePanels()">×</button>
         <p class="filter-text">ფილტრი</p>
 
@@ -30,37 +32,13 @@
                     </svg>
                 </div>
                 <div class="accordion-content">
-                    <div class="price-choose">
-                        <input type="radio" name="price">
-                        <p>300 ლარამდე</p>
+                    <div *ngFor="let price of priceRanges" class="price-choose">
+                        <input type="radio" name="price" [value]="price" [(ngModel)]="selectedPriceRange"
+                            [ngModelOptions]="{standalone: true}" id="{{price.label}}">
+                        <label for="{{price.label}}">{{price.label}}</label>
                     </div>
-                    <div class="price-choose">
-                        <input type="radio" name="price">
-                        <p>300 - 2000 ლარი</p>
-                    </div>
-                    <div class="price-choose">
-                        <input type="radio" name="price">
-                        <p>2000 - 3000 ლარი</p>
-                    </div>
-                    <div class="price-choose">
-                        <input type="radio" name="price">
-                        <p>3000 - 5000 ლარი</p>
-                    </div>
-                    <div class="price-choose">
-                        <input type="radio" name="price">
-                        <p>5000 - 9000 ლარი</p>
-                    </div>
-                    <div class="price-choose">
-                        <input type="radio" name="price">
-                        <p>9000 - 11000 ლარი</p>
-                    </div>
-                    <div class="price-choose">
-                        <input type="radio" name="price">
-
-                        <p>11000 ლარზე მეტი</p>
-                    </div>
-
                 </div>
+
             </div>
 
 
@@ -72,36 +50,13 @@
                     </svg>
                 </div>
                 <div class="accordion-content">
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>ფერწერა</p>
+                    <div class="price-choose" *ngFor="let type of types">
+                        <input type="checkbox" [value]="type.value" (change)="onTypeChange($event)"
+                            [checked]="selectedTypes.includes(type.value)" id="{{type.value}}" />
+                        <label for="{{type.value}}">{{type.label}}</label>
                     </div>
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>ბრტყელი ქანდაკება</p>
-                    </div>
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>ქანდაკება</p>
-                    </div>
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>ნამუშევარი ქაღალდზე</p>
-                    </div>
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>ფოტოგრაფია</p>
-                    </div>
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>დეკორატიული და გამოყენებითი ხელოვნება</p>
-                    </div>
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>სხვა</p>
-                    </div>
-
                 </div>
+
             </div>
 
 
@@ -114,96 +69,12 @@
                     </svg>
                 </div>
                 <div class="accordion-content">
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>აბსტრაქციონიზმი</p>
-                    </div>
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>კუბიზმი</p>
-                    </div>
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>ნატურმორტი</p>
-                    </div>
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>პეიზაჟი</p>
-                    </div>
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>პორტრეტი</p>
-                    </div>
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>პოპ-არტი</p>
-                    </div>
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>აქტუალური ხელოვნება</p>
+                    <div class="price-choose" *ngFor="let style of styles">
+                        <input type="checkbox" [value]="style.value" (change)="onStyleChange($event)"
+                            [checked]="selectedStyles.includes(style.value)" id="{{style.value}}" />
+                        <label for="{{style.value}}">{{style.label}}</label>
                     </div>
 
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>გეომეტრიული აბსტრაქციონიზმი</p>
-                    </div>
-
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>რეალიზმი</p>
-                    </div>
-
-
-
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>ჰიპერრეალიზმი</p>
-                    </div>
-
-
-
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>იმპრესიონიზმი</p>
-                    </div>
-
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>მოდერნიზმი</p>
-                    </div>
-
-
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>სიურეალიზმი</p>
-                    </div>
-
-
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>ფიგურული ხელოვნება</p>
-                    </div>
-
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>ციფრული ხელოვნება</p>
-                    </div>
-
-
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>მაგიური რეალიზმი</p>
-                    </div>
-
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>პრიმიტიზმი</p>
-                    </div>
-
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>სოცრეალიზმი</p>
-                    </div>
 
 
                 </div>
@@ -218,725 +89,14 @@
                 </div>
                 <div class="accordion-content">
 
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>ლედ ნეონი</p>
+                    <div class="price-choose" *ngFor="let material of materials">
+                        <input type="checkbox" [value]="material.value" (change)="onStyleChange($event)"
+                            [checked]="selectedStyles.includes(material.value)" id="{{material.value}}" />
+                        <label for="{{material.value}}">{{material.label}}</label>
                     </div>
 
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>ალუმინი</p>
-                    </div>
-
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>ვინილი</p>
-                    </div>
-
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>უჟანგავი ფოლადი</p>
-                    </div>
-
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>პოლიმერული ფაიფური</p>
-                    </div>
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>ბრინგის ქაღალდი</p>
-                    </div>
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>ცემენტი</p>
-                    </div>
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>მელანი</p>
-                    </div>
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>ავტორის ბეჭედი</p>
-                    </div>
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>აკვარელი</p>
-                    </div>
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>აკრილი</p>
-                    </div>
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>ბეტონი</p>
-                    </div>
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>ბრინჯაო</p>
-                    </div>
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>ქაღალდი</p>
-                    </div>
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>თაბაშირი</p>
-                    </div>
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>ხე</p>
-                    </div>
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>ხელოვნური ქვა</p>
-                    </div>
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>ქვა</p>
-                    </div>
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>კარდონი</p>
-                    </div>
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>კერამიკა</p>
-                    </div>
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>კოლაჟი</p>
-                    </div>
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>გესო</p>
-                    </div>
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>ლინოგრავიტურა</p>
-                    </div>
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>მეტალი</p>
-                    </div>
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>მოზაიკა</p>
-                    </div>
-
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>მყარი დაფა</p>
-                    </div>
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>გადამუშავებული პლასტმასი</p>
-                    </div>
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>პლასტმასი</p>
-                    </div>
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>შერეული ტექნიკა</p>
-                    </div>
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>მინა</p>
-                    </div>
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>მინაბოჭკოვანი</p>
-                    </div>
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>გამოცემის ბეჭდვა</p>
-                    </div>
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>ფანერა</p>
-                    </div>
-
-                     <div class="price-choose">
-                        <input type="checkbox">
-                        <p>ფაიფური</p>
-                    </div>
-
-                     <div class="price-choose">
-                        <input type="checkbox">
-                        <p>ფოტო ქაღალდი</p>
-                    </div>
-                     <div class="price-choose">
-                        <input type="checkbox">
-                        <p>ფოტო</p>
-                    </div>
-                     <div class="price-choose">
-                        <input type="checkbox">
-                        <p>ბამბა</p>
-                    </div>
-                     <div class="price-choose">
-                        <input type="checkbox">
-                        <p>ტილო</p>
-                    </div>
-                     <div class="price-choose">
-                        <input type="checkbox">
-                        <p>ციფრული ფოტოგრაფია</p>
-                    </div>
-                     <div class="price-choose">
-                        <input type="checkbox">
-                        <p>შამოტი</p>
-                    </div>
-                     <div class="price-choose">
-                        <input type="checkbox">
-                        <p>ეგლომიზე</p>
-                    </div>
-                     <div class="price-choose">
-                        <input type="checkbox">
-                        <p>PETG</p>
-                    </div>
-                     <div class="price-choose">
-                        <input type="checkbox">
-                        <p>აკრილის მინანქარი</p>
-                    </div>
-                     <div class="price-choose">
-                        <input type="checkbox">
-                        <p>აკრილის მინა</p>
-                    </div>
-                     <div class="price-choose">
-                        <input type="checkbox">
-                        <p>აკრილის თაბაშირი</p>
-                    </div>
-                     <div class="price-choose">
-                        <input type="checkbox">
-                        <p>აკრილის თოკი</p>
-                    </div>
-                     <div class="price-choose">
-                        <input type="checkbox">
-                        <p>ალკიდის საღებავი</p>
-                    </div>
-                     <div class="price-choose">
-                        <input type="checkbox">
-                        <p>ამბროტიპი</p>
-                    </div>
-                  
-                     <div class="price-choose">
-                        <input type="checkbox">
-                        <p>საარქივო ქაღალდი</p>
-                    </div>
-                     <div class="price-choose">
-                        <input type="checkbox">
-                        <p>საარქივო ფოტოქაღალდი</p>
-                    </div>
-                     <div class="price-choose">
-                        <input type="checkbox">
-                        <p>ასფალტი</p>
-                    </div>
-                     <div class="price-choose">
-                        <input type="checkbox">
-                        <p>სპრეი საღებავი</p>
-                    </div>
-                     <div class="price-choose">
-                        <input type="checkbox">
-                        <p>ბრეზენტი</p>
-                    </div>
-                     <div class="price-choose">
-                        <input type="checkbox">
-                        <p>ბარი</p>
-                    </div>
-                     <div class="price-choose">
-                        <input type="checkbox">
-                        <p>გაზეთი</p>
-                    </div>
-                     <div class="price-choose">
-                        <input type="checkbox">
-                        <p>თაბაშირ-მუყაო</p>
-                    </div>
-                     <div class="price-choose">
-                        <input type="checkbox">
-                        <p>მინანქარი</p>
-                    </div>
-                     <div class="price-choose">
-                        <input type="checkbox">
-                        <p>თიხა</p>
-                    </div>
-                     <div class="price-choose">
-                        <input type="checkbox">
-                        <p>გრანიტი</p>
-                    </div>
-
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>გრაფიტი</p>
-                    </div>
-
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>გუაში</p>
-                    </div>
-
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>ბოჭკოვანი დაფა</p>
-                    </div>
-
-                     <div class="price-choose">
-                        <input type="checkbox">
-                        <p>სტიკერი</p>
-                    </div>
-
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>დიბონდი</p>
-                    </div>
-
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>ჟიკლი</p>
-                    </div>
-
-
-                     <div class="price-choose">
-                        <input type="checkbox">
-                        <p>მინის ქარალდი</p>
-                    </div>
-
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>მინის მოზაიკა</p>
-                    </div>
-
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>ოქრო</p>
-                    </div>
-
-
-                     <div class="price-choose">
-                        <input type="checkbox">
-                        <p>მოოქროებული</p>
-                    </div>
-
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>ირიდესცენტური ფირი</p>
-                    </div>
-
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>ხელოვნური ქვები</p>
-                    </div>
-
-
-                     <div class="price-choose">
-                        <input type="checkbox">
-                        <p>სახაზავი ქაღალდი</p>
-                    </div>
-
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>ქვის მასა</p>
-                    </div>
-
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>ფანქარი</p>
-                    </div>
-
-
-                     <div class="price-choose">
-                        <input type="checkbox">
-                        <p>კერამიკული ფილა</p>
-                    </div>
-
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>ფერი</p>
-                    </div>
-
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>კომპოზიტი</p>
-                    </div>
-
-
-                     <div class="price-choose">
-                        <input type="checkbox">
-                        <p>ფესვები</p>
-                    </div>
-
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>ყავის ტომარა</p>
-                    </div>
-
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>კრაფტის ქაღალდი</p>
-                    </div>
-
-
-                     <div class="price-choose">
-                        <input type="checkbox">
-                        <p>ლაქი</p>
-                    </div>
-
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>ლინზური ვარიო ბეჭდვა</p>
-                    </div>
-
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>ლაინერები</p>
-                    </div>
-
-
-                     <div class="price-choose">
-                        <input type="checkbox">
-                        <p>ლინზური რასტერი</p>
-                    </div>
-
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>ლითოგრაფია</p>
-                    </div>
-
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>ქასთინგი</p>
-                    </div>
-
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>მარკერები</p>
-                    </div>
-
-                     <div class="price-choose">
-                        <input type="checkbox">
-                        <p>ზეთი</p>
-                    </div>
-
-                     <div class="price-choose">
-                        <input type="checkbox">
-                        <p>MDF</p>
-                    </div>
-
-                     <div class="price-choose">
-                        <input type="checkbox">
-                        <p>საშუალო</p>
-                    </div>
-
-                     <div class="price-choose">
-                        <input type="checkbox">
-                        <p>ცარცი</p>
-                    </div>
-
-
-                     <div class="price-choose">
-                        <input type="checkbox">
-                        <p>ცარცის მუყაო</p>
-                    </div>
-
-                     <div class="price-choose">
-                        <input type="checkbox">
-                        <p>ცარცის საღებავები</p>
-                    </div>
-
-                     <div class="price-choose">
-                        <input type="checkbox">
-                        <p>მინერალური საღებავები</p>
-                    </div>
-
-                     <div class="price-choose">
-                        <input type="checkbox">
-                        <p>მოდელის ფისი</p>
-                    </div>
-                     <div class="price-choose">
-                        <input type="checkbox">
-                        <p>ხავსი</p>
-                    </div>
-
-                     <div class="price-choose">
-                        <input type="checkbox">
-                        <p>მარმარილო</p>
-                    </div>
-
-                     <div class="price-choose">
-                        <input type="checkbox">
-                        <p>გრავირება</p>
-                    </div>
-
-                     <div class="price-choose">
-                        <input type="checkbox">
-                        <p>პასტელი</p>
-                    </div>
-
-                     <div class="price-choose">
-                        <input type="checkbox">
-                        <p>პატინა</p>
-                    </div>
-
-                     <div class="price-choose">
-                        <input type="checkbox">
-                        <p>პოლივინილქლორიდი</p>
-                    </div>
-
-                     <div class="price-choose">
-                        <input type="checkbox">
-                        <p>ქაფის დაფა</p>
-                    </div>
-
-                     <div class="price-choose">
-                        <input type="checkbox">
-                        <p>პოლისტიროლის ქაფი</p>
-                    </div>
-                     <div class="price-choose">
-                        <input type="checkbox">
-                        <p>ქვიშა</p>
-                    </div>
-
-                     <div class="price-choose">
-                        <input type="checkbox">
-                        <p>პლანშეტი</p>
-                    </div>
-
-                     <div class="price-choose">
-                        <input type="checkbox">
-                        <p>პლასტიზაცია</p>
-                    </div>
-
-                     <div class="price-choose">
-                        <input type="checkbox">
-                        <p>პლატინა</p>
-                    </div>
-
-                     <div class="price-choose">
-                        <input type="checkbox">
-                        <p>ფირი</p>
-                    </div>
-
-                     <div class="price-choose">
-                        <input type="checkbox">
-                        <p>პოლიმერული თიხა</p>
-                    </div>
-
-                     <div class="price-choose">
-                        <input type="checkbox">
-                        <p>პოლიმერული შპაკლი</p>
-                    </div>
-
-                     <div class="price-choose">
-                        <input type="checkbox">
-                        <p>პოლისტოუნი</p>
-                    </div>
-
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>ნახევრად ფაიფური</p>
-                    </div>
-
-                     <div class="price-choose">
-                        <input type="checkbox">
-                        <p>პოტალი</p>
-                    </div>
-
-
-                     <div class="price-choose">
-                        <input type="checkbox">
-                        <p>PFH</p>
-                    </div>
-
-
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>ჩარჩო</p>
-                    </div>
-
-                     <div class="price-choose">
-                        <input type="checkbox">
-                        <p>თვითმოსმენის ხრახნი</p>
-                    </div>
-
-
-                     <div class="price-choose">
-                        <input type="checkbox">
-                        <p>ლუმინესცენტური საღებავები</p>
-                    </div>
-
-
-
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>ვერცხლი</p>
-                    </div>
-
-                     <div class="price-choose">
-                        <input type="checkbox">
-                        <p>სმალტი</p>
-                    </div>
-
-
-                     <div class="price-choose">
-                        <input type="checkbox">
-                        <p>ფისი</p>
-                    </div>
-
-
-
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>ფოლადი</p>
-                    </div>
-
-                     <div class="price-choose">
-                        <input type="checkbox">
-                        <p>ოქროს ფოთოლი</p>
-                    </div>
-
-
-                     <div class="price-choose">
-                        <input type="checkbox">
-                        <p>მშრალი ნემსი</p>
-                    </div>
-
-
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>მშრალი პიგმენტი</p>
-                    </div>
-
-                     <div class="price-choose">
-                        <input type="checkbox">
-                        <p>ნაქარგი ტილო</p>
-                    </div>
-
-
-                     <div class="price-choose">
-                        <input type="checkbox">
-                        <p>ტექსტილი</p>
-                    </div>
-
-
-
-                     <div class="price-choose">
-                        <input type="checkbox">
-                        <p>ტექსტური პასტა</p>
-                    </div>
-
-
-
-
-                     <div class="price-choose">
-                        <input type="checkbox">
-                        <p>ტექსტურის გელი</p>
-                    </div>
-
-
-                      <div class="price-choose">
-                        <input type="checkbox">
-                        <p>ტემპერა</p>
-                    </div>
-
-
-                      <div class="price-choose">
-                        <input type="checkbox">
-                        <p>საბეჭდი მელანი</p>
-                    </div>
-                      <div class="price-choose">
-                        <input type="checkbox">
-                        <p>ტექსტილი</p>
-                    </div>
-
-
-                     <div class="price-choose">
-                        <input type="checkbox">
-                        <p>შეფერილობის ფილმი</p>
-                    </div>
-
 
-                      <div class="price-choose">
-                        <input type="checkbox">
-                        <p>ტუში</p>
-                    </div>
-
-
-                      <div class="price-choose">
-                        <input type="checkbox">
-                        <p>ქვანახშირი</p>
-                    </div>
-                      <div class="price-choose">
-                        <input type="checkbox">
-                        <p>ფასადის საღებავი</p>
-                    </div>
-                    
-
-
-
-                     <div class="price-choose">
-                        <input type="checkbox">
-                        <p>ბამბის ძაფი</p>
-                    </div>
-
-
-                      <div class="price-choose">
-                        <input type="checkbox">
-                        <p>ქრომი</p>
-                    </div>
-
-
-                      <div class="price-choose">
-                        <input type="checkbox">
-                        <p>ციფრული ხატვა</p>
-                    </div>
-                      <div class="price-choose">
-                        <input type="checkbox">
-                        <p>ციფრული ბეჭდვა</p>
-                    </div>
-                    
-
-                     <div class="price-choose">
-                        <input type="checkbox">
-                        <p>ციფრული კოლაჟი</p>
-                    </div>
-
-
-                      <div class="price-choose">
-                        <input type="checkbox">
-                        <p>შამოტის მასა</p>
-                    </div>
-
-
-                      <div class="price-choose">
-                        <input type="checkbox">
-                        <p>აბრეშუმი</p>
-                    </div>
-                      <div class="price-choose">
-                        <input type="checkbox">
-                        <p>აბრეშუმის ტრაფარეტული ბეჭდვა</p>
-                    </div>
-                    
 
-
-                     <div class="price-choose">
-                        <input type="checkbox">
-                        <p>შალის ძაფი</p>
-                    </div>
-
-
-                      <div class="price-choose">
-                        <input type="checkbox">
-                        <p>ეკო ტყავი</p>
-                    </div>
-
-
-                      <div class="price-choose">
-                        <input type="checkbox">
-                        <p>ეპოქსიდური ფისი</p>
-                    </div>
-                      <div class="price-choose">
-                        <input type="checkbox">
-                        <p>იაპონური მელანი</p>
-                    </div>
-                    
 
 
 
@@ -959,27 +119,13 @@
                     </svg>
                 </div>
                 <div class="accordion-content">
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>პატარა (30 × 30 CM მდე)</p>
+                    <div class="price-choose" *ngFor="let size of sizes">
+                        <input type="checkbox" [value]="size.label" (change)="onSizeChange($event)"
+                            [checked]="selectedSizes.includes(size.label)" id="{{size.label}}" />
+                        <label for="{{size.label}}">{{size.label}}</label>
                     </div>
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>
-                            საშუალო ( 80 × 80 CM მდე)</p>
-                    </div>
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>
-                            მსხცვილი ( 80 × 80 CM ზე მეტი)</p>
-                    </div>
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>150CM ზე მეტი</p>
-                    </div>
-
-
                 </div>
+
             </div>
 
 
@@ -997,85 +143,10 @@
                     </svg>
                 </div>
                 <div class="accordion-content-colors">
-                    <div class="color-box" [class.active]="selectedColors.has(0)" (click)="toggleColor(0)">
-                        <div class="color-cream"></div>
-                        <p>კრემისფერი</p>
-                    </div>
-                    <div class="color-box" [class.active]="selectedColors.has(1)" (click)="toggleColor(1)">
-                        <div class="color-white"></div>
-                        <p>თეთრი</p>
-                    </div>
-                    <div class="color-box" [class.active]="selectedColors.has(2)" (click)="toggleColor(2)">
-                        <div class="color-orange-non"></div>
-                        <p>ღია ნარინჯისფერი</p>
-                    </div>
-                    <div class="color-box" [class.active]="selectedColors.has(3)" (click)="toggleColor(3)">
-                        <div class="color-brinjao"></div>
-                        <p>ბრინჯაოსფერი</p>
-                    </div>
-                    <div class="color-box" [class.active]="selectedColors.has(4)" (click)="toggleColor(4)">
-                        <div class="color-sky"></div>
-                        <p>ცისფერი</p>
-                    </div>
-                    <div class="color-box" [class.active]="selectedColors.has(5)" (click)="toggleColor(5)">
-                        <div class="color-yellow"></div>
-                        <p>ყვითელი</p>
-                    </div>
-                    <div class="color-box" [class.active]="selectedColors.has(6)" (click)="toggleColor(6)">
-                        <div class="color-green"></div>
-                        <p>მწვანე</p>
-                    </div>
-                    <div class="color-box" [class.active]="selectedColors.has(7)" (click)="toggleColor(7)">
-                        <div class="color-gold"></div>
-                        <p>ოქროსფერი</p>
-                    </div>
-                    <div class="color-box" [class.active]="selectedColors.has(8)" (click)="toggleColor(8)">
-                        <div class="color-coffe"></div>
-                        <p>ყავისფერი</p>
-                    </div>
-                    <div class="color-box" [class.active]="selectedColors.has(9)" (click)="toggleColor(9)">
-                        <div class="color-red"></div>
-                        <p>წითელი</p>
-                    </div>
-                    <div class="color-box" [class.active]="selectedColors.has(10)" (click)="toggleColor(10)">
-                        <div class="color-flower"></div>
-                        <p>იისფერი</p>
-                    </div>
-                    <div class="color-box" [class.active]="selectedColors.has(11)" (click)="toggleColor(11)">
-                        <div class="color-orange"></div>
-                        <p>ნარინჯისფერი</p>
-                    </div>
-                    <div class="color-box" [class.active]="selectedColors.has(12)" (click)="toggleColor(12)">
-                        <div class="color-pink"></div>
-                        <p>ვარდისფერი</p>
-                    </div>
-                    <div class="color-box" [class.active]="selectedColors.has(13)" (click)="toggleColor(13)">
-                        <div class="color-green-non"></div>
-                        <p>ღია მწვანე</p>
-                    </div>
-                    <div class="color-box" [class.active]="selectedColors.has(14)" (click)="toggleColor(14)">
-                        <div class="color-silver"></div>
-                        <p>ვერცხლისფერი</p>
-                    </div>
-                    <div class="color-box" [class.active]="selectedColors.has(15)" (click)="toggleColor(15)">
-                        <div class="color-gray"></div>
-                        <p>ნაცრისფერი</p>
-                    </div>
-                    <div class="color-box" [class.active]="selectedColors.has(16)" (click)="toggleColor(16)">
-                        <div class="color-blue"></div>
-                        <p>ლურჯი</p>
-                    </div>
-                    <div class="color-box" [class.active]="selectedColors.has(17)" (click)="toggleColor(17)">
-                        <div class="color-green-deep"></div>
-                        <p>მუქი მწვანე</p>
-                    </div>
-                    <div class="color-box" [class.active]="selectedColors.has(18)" (click)="toggleColor(18)">
-                        <div class="color-flower2"></div>
-                        <p>იასამნისფერი</p>
-                    </div>
-                    <div class="color-box" [class.active]="selectedColors.has(19)" (click)="toggleColor(19)">
-                        <div class="color-black"></div>
-                        <p>შავი</p>
+                    <div *ngFor="let colorId of getColorIds()" class="color-box"
+                        [class.active]="selectedColors.has(colorId)" (click)="toggleColor(colorId)">
+                        <div [class]="'color-' + colorMap[colorId]"></div>
+                        <p>{{ colorLabels[colorId] }}</p>
                     </div>
                 </div>
 
@@ -1092,136 +163,12 @@
                     </svg>
                 </div>
                 <div class="accordion-content">
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>აქტუალური ხელოვნება</p>
-                    </div>
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>
-                            ქველმოქმედება
-                        </p>
-                    </div>
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>
-                            ცხოველები</p>
-                    </div>
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>სიყვარული</p>
+                    <div class="price-choose" *ngFor="let theme of themes">
+                        <input type="checkbox" [value]="theme.value" (change)="onThemeChange($event)"
+                            [checked]="selectedStyles.includes(theme.value)" id="{{theme.value}}" />
+                        <label for="{{theme.value}}">{{theme.label}}</label>
                     </div>
 
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>მოდერნ</p>
-                    </div>
-
-
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>ახალი</p>
-                    </div>
-
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>პოპ-არტი</p>
-                    </div>
-
-
-
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>სიუჟეტი</p>
-                    </div>
-
-
-
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>ფიგურატიზმი</p>
-                    </div>
-
-
-
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>ქალაქი</p>
-                    </div>
-
-
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>ბუნება</p>
-                    </div>
-
-
-
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>სქესი</p>
-                    </div>
-
-
-
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>მოდა</p>
-                    </div>
-
-
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>მისთვის</p>
-                    </div>
-
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>მისთვის (გოგო)</p>
-                    </div>
-
-
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>მისთვის (ბიჭი)</p>
-                    </div>
-
-
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>საჩუქარი</p>
-                    </div>
-
-
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>პორტრეტი</p>
-                    </div>
-
-
-
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>პეიზაჟი</p>
-                    </div>
-
-
-
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>ნატურმორტი</p>
-                    </div>
-
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>რეალიზმი</p>
-                    </div>
-
-
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>ზღვა</p>
-                    </div>
 
 
 
@@ -1244,62 +191,12 @@
                     </svg>
                 </div>
                 <div class="accordion-content">
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>ჰორიზონტალური</p>
-                    </div>
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>
-                            ფიგურატიზმი
-                        </p>
-                    </div>
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>
-                            ვერტიკალური</p>
-                    </div>
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>კვადრატი</p>
+                    <div class="price-choose" *ngFor="let format of formats">
+                        <input type="checkbox" [value]="format.value" (change)="onFormatChange($event)"
+                            [checked]="selectedStyles.includes(format.value)" id="{{format.value}}" />
+                        <label for="{{format.value}}">{{format.label}}</label>
                     </div>
 
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>წრე</p>
-                    </div>
-
-
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>ოვალური</p>
-                    </div>
-
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>დიპტიქი</p>
-                    </div>
-
-
-
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>პოლიპტიქი</p>
-                    </div>
-
-
-
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>სხვა</p>
-                    </div>
-
-
-
-                    <div class="price-choose">
-                        <input type="checkbox">
-                        <p>ტრიპტიქი</p>
-                    </div>
 
 
 
@@ -1310,8 +207,10 @@
             </div>
 
 
-
+            <button (click)="filter()">filter</button>
+            <button (click)="unfilter()">unfilter</button>
         </div>
+
     </div>
 
     <div class="side-panel right-panel" [class.active]="isSortOpen">
@@ -1332,175 +231,68 @@
 
 
 
-
     <div class="product-section">
-        <div routerLink="/product" class="product-card">
-            <img src="https://scontent.ftbs6-2.fna.fbcdn.net/v/t39.30808-6/514246569_122180915222582481_8356977830558249603_n.jpg?stp=dst-jpg_p552x414_tt6&_nc_cat=110&ccb=1-7&_nc_sid=833d8c&_nc_ohc=R-nPG1APgFgQ7kNvwF944m6&_nc_oc=AdmHhThWe2gcGM3A58amjYpPPst6T2komggHM4oAKD9shxhRkUuEhAwbMVyAZYz_DIg&_nc_zt=23&_nc_ht=scontent.ftbs6-2.fna&_nc_gid=6N8wedGMXMaK9RlH0T3poQ&oh=00_AfWDa-A5lmufERKUZlP1OjSbGADn4yBbb_04jy0stwyqow&oe=689A5AAA"
-                alt="">
+        <div [routerLink]="['/product', art.id]" *ngFor="let art of products" class="product-card">
+            <img [src]="art.image" alt="{{art.title}}" />
             <div class="product-info">
-                <p class="name">პეიზაჟი</p>
-                <p class="arter">თენგიზ მირზაშვილი (1934-2008)</p>
-                <p class="size">17,5 x 25 cm</p>
-                <p class="theme">მუყაო, ტემპერა</p>
-                <p class="price">700 $</p>
+                <p class="name">{{ art.title }}</p>
+                <p class="arter">{{ art.artist_name }}</p>
+                <p class="size">{{ art.height_cm }} x {{ art.width_cm }} CM</p>
+                <p class="theme">{{ art.material }}</p>
+                <p class="price">{{ art.price }} {{ art.currency }}</p>
             </div>
         </div>
+    </div>
 
 
 
 
-        <div class="product-card">
-            <img src="https://scontent.ftbs6-2.fna.fbcdn.net/v/t39.30808-6/526741232_1063741592624891_7318582264913220880_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=108&ccb=1-7&_nc_sid=f727a1&_nc_ohc=cnOUS4LdbxIQ7kNvwGL0eXy&_nc_oc=AdmUOOsQX7Nb80BibZIxwqkjs8l3L2aOAlzN8f-1a7NcwRof-FZXfy_zrfGF0KagAxE&_nc_zt=23&_nc_ht=scontent.ftbs6-2.fna&_nc_gid=OI7SQB-LQ2kAsb0eDJXVrg&oh=00_AfWGDgwDRH61MzZcSB17V1Tbo09f0qhUt4OnSjsM_i6HPQ&oe=689A5CFA"
-                alt="">
-            <div class="product-info">
-                <p class="name">untitled</p>
-                <p class="arter">ნიკო ცეცხლაძე</p>
-                <p class="size">40 x 50 cm</p>
-                <p class="theme">აქტუალური ხელოვნება, ტილო, ზეთი,</p>
-                <p class="price">3 000$</p>
-            </div>
-        </div>
+    <div *ngIf="noProdFound" class="noproductsFound">
+        <p>No Products Found with such filtering</p>
+    </div>
+
+
+    <div class="pagination">
+        <button *ngIf="currentPage > 1" class="prevPage" (click)="firstPage()" [disabled]="currentPage === 1">
+            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">
+                <path d="M13.5801 5L20.5801 12L13.5801 19M5.58008 5L12.5801 12L5.58008 19" stroke="#F39C4F"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+        </button>
+
+        <button *ngIf="currentPage > 1" class="prevPage" (click)="prevPage()" [disabled]="currentPage === 1">
+            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">
+                <path d="M9.28027 5L16.2803 12L9.28027 19" stroke="#F39C4F" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round"></path>
+            </svg>
+        </button>
+
+        <button *ngFor="let page of getDisplayedPages()" class="pageNumber" (click)="handlePageClick(page)"
+            [class.active]="page === currentPage" [disabled]="page === '...'">
+            {{ page }}
+        </button>
 
 
 
-        <div class="product-card">
-            <img src="https://scontent.ftbs4-2.fna.fbcdn.net/v/t39.30808-6/496940952_1263025322490748_2913949836698697751_n.jpg?stp=dst-jpg_s720x720_tt6&_nc_cat=100&ccb=1-7&_nc_sid=127cfc&_nc_ohc=eb-3Jugi5jgQ7kNvwGvrUa2&_nc_oc=AdnajCl-sWEf8X4J7DDwHz1m2uD5GUdBXbV6ofUIlk--CEXLJWEGRp4MXbHQW87FEo8&_nc_zt=23&_nc_ht=scontent.ftbs4-2.fna&_nc_gid=3_aGnFxJwJrWe0boSLhUSA&oh=00_AfUcihObCgv8lO4T9Cehv1c08aCGIKvjuJWPHtbePyOJig&oe=689A3EA1"
-                alt="">
-            <div class="product-info">
-                <p class="name">Fence</p>
-                <p class="arter">რამაზ რაზმაძე</p>
-                <p class="size">60 x 80 cm</p>
-                <p class="theme">რეალიზმი , ტილო</p>
-                <p class="price">5 000$</p>
-            </div>
-        </div>
+        <button class="nextPage" (click)="nextPage()" [disabled]="currentPage === totalPages">
+            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">
+                <path d="M9.28027 5L16.2803 12L9.28027 19" stroke="#F39C4F" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round"></path>
+            </svg>
+        </button>
 
 
-
-        <div class="product-card">
-            <img src="https://scontent.ftbs6-2.fna.fbcdn.net/v/t39.30808-6/527740321_1118895396967604_3170277746306497728_n.jpg?stp=dst-jpg_s720x720_tt6&_nc_cat=110&ccb=1-7&_nc_sid=833d8c&_nc_ohc=_E62Atio8IAQ7kNvwFaZfHT&_nc_oc=Adm0jiwPfxEeYe38DlxkP3CXCflxVu0CUAHdBr972T-wcXmMh-mE4ZJzBzK5oCc6RPc&_nc_zt=23&_nc_ht=scontent.ftbs6-2.fna&_nc_gid=eNRxLCCYw6MumSTBHfNYAA&oh=00_AfWo4wj9ctEXcJoDdGiEw0vngGHFO3sJPiEIQfHLIrxTcg&oe=689A45D8"
-                alt="">
-            <div class="product-info">
-                <p class="name">დოღი</p>
-                <p class="arter">მიხეილ ფანჯიკიძე</p>
-                <p class="size">61 x 43 cm</p>
-                <p class="theme">ქაღალდი შერეული ტექნიკა</p>
-                <p class="price">700 $</p>
-            </div>
-        </div>
-
-
-        <div class="product-card">
-            <img src="https://scontent.ftbs6-2.fna.fbcdn.net/v/t39.30808-6/504784960_1021623020170082_6350672831372153459_n.jpg?stp=cp6_dst-jpg_s600x600_tt6&_nc_cat=103&ccb=1-7&_nc_sid=f727a1&_nc_ohc=zRYQXKtDKhUQ7kNvwHYrb48&_nc_oc=AdlSWUuQhkJZRASbDow31vYKRQnoUvon-PRY8smTgPvJqK1jZxUj83AsXH6h2ZxQG-U&_nc_zt=23&_nc_ht=scontent.ftbs6-2.fna&_nc_gid=fQPqWBCoupNUFrIC6_0g0A&oh=00_AfWLoy7mC08lZQN7mfh9Q6fafWYtxOhk15DffKnKTusl2Q&oe=689A5BBF"
-                alt="">
-            <div class="product-info">
-                <p class="name">untitled</p>
-                <p class="arter">გრიგოლ ღვანია</p>
-                <p class="size">20 x 30 cm</p>
-                <p class="theme">აბსტრაქციონიზმი, ტილო</p>
-                <p class="price">1 000$</p>
-            </div>
-        </div>
-
-
-
-        <div class="product-card">
-            <img src="https://scontent.ftbs6-2.fna.fbcdn.net/v/t39.30808-6/500546524_1012038017795249_4708303682834292908_n.jpg?stp=cp6_dst-jpg_s600x600_tt6&_nc_cat=107&ccb=1-7&_nc_sid=f727a1&_nc_ohc=ga2jHJrUALkQ7kNvwH8gmwz&_nc_oc=AdkKxFuuwZCV03560_lFekAgdNm1RpfICY3MuSwPpjimCBiO-_m_r1lYAkEavweXmik&_nc_zt=23&_nc_ht=scontent.ftbs6-2.fna&_nc_gid=lW24j27BlBRYse__mstoPg&oh=00_AfWA3eTBgqVD86iuvxz8PlF44x8ty-O5jS925VcCeusxqA&oe=689A6401"
-                alt="">
-            <div class="product-info">
-                <p class="name">untitled</p>
-                <p class="arter">ნუცა დუჩიძე</p>
-                <p class="size">50 x 40 cm</p>
-                <p class="theme">ციფრული ხელოვნება , აკრილი</p>
-                <p class="price">180 $</p>
-            </div>
-        </div>
-
-
-
-        <div routerLink="/product" class="product-card">
-            <img src="https://scontent.ftbs6-2.fna.fbcdn.net/v/t39.30808-6/514246569_122180915222582481_8356977830558249603_n.jpg?stp=dst-jpg_p552x414_tt6&_nc_cat=110&ccb=1-7&_nc_sid=833d8c&_nc_ohc=R-nPG1APgFgQ7kNvwF944m6&_nc_oc=AdmHhThWe2gcGM3A58amjYpPPst6T2komggHM4oAKD9shxhRkUuEhAwbMVyAZYz_DIg&_nc_zt=23&_nc_ht=scontent.ftbs6-2.fna&_nc_gid=6N8wedGMXMaK9RlH0T3poQ&oh=00_AfWDa-A5lmufERKUZlP1OjSbGADn4yBbb_04jy0stwyqow&oe=689A5AAA"
-                alt="">
-            <div class="product-info">
-                <p class="name">პეიზაჟი</p>
-                <p class="arter">თენგიზ მირზაშვილი (1934-2008)</p>
-                <p class="size">17,5 x 25 cm</p>
-                <p class="theme">მუყაო, ტემპერა</p>
-                <p class="price">700 $</p>
-            </div>
-        </div>
-
-
-
-
-        <div class="product-card">
-            <img src="https://scontent.ftbs6-2.fna.fbcdn.net/v/t39.30808-6/526741232_1063741592624891_7318582264913220880_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=108&ccb=1-7&_nc_sid=f727a1&_nc_ohc=cnOUS4LdbxIQ7kNvwGL0eXy&_nc_oc=AdmUOOsQX7Nb80BibZIxwqkjs8l3L2aOAlzN8f-1a7NcwRof-FZXfy_zrfGF0KagAxE&_nc_zt=23&_nc_ht=scontent.ftbs6-2.fna&_nc_gid=OI7SQB-LQ2kAsb0eDJXVrg&oh=00_AfWGDgwDRH61MzZcSB17V1Tbo09f0qhUt4OnSjsM_i6HPQ&oe=689A5CFA"
-                alt="">
-            <div class="product-info">
-                <p class="name">untitled</p>
-                <p class="arter">ნიკო ცეცხლაძე</p>
-                <p class="size">40 x 50 cm</p>
-                <p class="theme">აქტუალური ხელოვნება, ტილო, ზეთი,</p>
-                <p class="price">3 000$</p>
-            </div>
-        </div>
-
-
-
-        <div class="product-card">
-            <img src="https://scontent.ftbs4-2.fna.fbcdn.net/v/t39.30808-6/496940952_1263025322490748_2913949836698697751_n.jpg?stp=dst-jpg_s720x720_tt6&_nc_cat=100&ccb=1-7&_nc_sid=127cfc&_nc_ohc=eb-3Jugi5jgQ7kNvwGvrUa2&_nc_oc=AdnajCl-sWEf8X4J7DDwHz1m2uD5GUdBXbV6ofUIlk--CEXLJWEGRp4MXbHQW87FEo8&_nc_zt=23&_nc_ht=scontent.ftbs4-2.fna&_nc_gid=3_aGnFxJwJrWe0boSLhUSA&oh=00_AfUcihObCgv8lO4T9Cehv1c08aCGIKvjuJWPHtbePyOJig&oe=689A3EA1"
-                alt="">
-            <div class="product-info">
-                <p class="name">Fence</p>
-                <p class="arter">რამაზ რაზმაძე</p>
-                <p class="size">60 x 80 cm</p>
-                <p class="theme">რეალიზმი , ტილო</p>
-                <p class="price">5 000$</p>
-            </div>
-        </div>
-
-
-
-        <div class="product-card">
-            <img src="https://scontent.ftbs6-2.fna.fbcdn.net/v/t39.30808-6/527740321_1118895396967604_3170277746306497728_n.jpg?stp=dst-jpg_s720x720_tt6&_nc_cat=110&ccb=1-7&_nc_sid=833d8c&_nc_ohc=_E62Atio8IAQ7kNvwFaZfHT&_nc_oc=Adm0jiwPfxEeYe38DlxkP3CXCflxVu0CUAHdBr972T-wcXmMh-mE4ZJzBzK5oCc6RPc&_nc_zt=23&_nc_ht=scontent.ftbs6-2.fna&_nc_gid=eNRxLCCYw6MumSTBHfNYAA&oh=00_AfWo4wj9ctEXcJoDdGiEw0vngGHFO3sJPiEIQfHLIrxTcg&oe=689A45D8"
-                alt="">
-            <div class="product-info">
-                <p class="name">დოღი</p>
-                <p class="arter">მიხეილ ფანჯიკიძე</p>
-                <p class="size">61 x 43 cm</p>
-                <p class="theme">ქაღალდი შერეული ტექნიკა</p>
-                <p class="price">700 $</p>
-            </div>
-        </div>
-
-
-        <div class="product-card">
-            <img src="https://scontent.ftbs6-2.fna.fbcdn.net/v/t39.30808-6/504784960_1021623020170082_6350672831372153459_n.jpg?stp=cp6_dst-jpg_s600x600_tt6&_nc_cat=103&ccb=1-7&_nc_sid=f727a1&_nc_ohc=zRYQXKtDKhUQ7kNvwHYrb48&_nc_oc=AdlSWUuQhkJZRASbDow31vYKRQnoUvon-PRY8smTgPvJqK1jZxUj83AsXH6h2ZxQG-U&_nc_zt=23&_nc_ht=scontent.ftbs6-2.fna&_nc_gid=fQPqWBCoupNUFrIC6_0g0A&oh=00_AfWLoy7mC08lZQN7mfh9Q6fafWYtxOhk15DffKnKTusl2Q&oe=689A5BBF"
-                alt="">
-            <div class="product-info">
-                <p class="name">untitled</p>
-                <p class="arter">გრიგოლ ღვანია</p>
-                <p class="size">20 x 30 cm</p>
-                <p class="theme">აბსტრაქციონიზმი, ტილო</p>
-                <p class="price">1 000$</p>
-            </div>
-        </div>
-
-
-
-        <div class="product-card">
-            <img src="https://scontent.ftbs6-2.fna.fbcdn.net/v/t39.30808-6/500546524_1012038017795249_4708303682834292908_n.jpg?stp=cp6_dst-jpg_s600x600_tt6&_nc_cat=107&ccb=1-7&_nc_sid=f727a1&_nc_ohc=ga2jHJrUALkQ7kNvwH8gmwz&_nc_oc=AdkKxFuuwZCV03560_lFekAgdNm1RpfICY3MuSwPpjimCBiO-_m_r1lYAkEavweXmik&_nc_zt=23&_nc_ht=scontent.ftbs6-2.fna&_nc_gid=lW24j27BlBRYse__mstoPg&oh=00_AfWA3eTBgqVD86iuvxz8PlF44x8ty-O5jS925VcCeusxqA&oe=689A6401"
-                alt="">
-            <div class="product-info">
-                <p class="name">untitled</p>
-                <p class="arter">ნუცა დუჩიძე</p>
-                <p class="size">50 x 40 cm</p>
-                <p class="theme">ციფრული ხელოვნება , აკრილი</p>
-                <p class="price">180 $</p>
-            </div>
-        </div>
+        <button class="nextPage" (click)="lastPage()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">
+                <path d="M13.5801 5L20.5801 12L13.5801 19M5.58008 5L12.5801 12L5.58008 19" stroke="#F39C4F"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+        </button>
 
     </div>
+
+
+
 
 
 

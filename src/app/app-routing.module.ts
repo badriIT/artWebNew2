@@ -15,7 +15,7 @@ const routes: Routes = [
   { path: "arters", component: ArtersComponent },
   { path: "service-communicate", component: ServicesCommunicateComponent },
   { path: "contact", component: ContactComponent },
-  { path: "product", component: ProductComponent },
+  { path: "product/:id", component: ProductComponent },
   { path: "eachArter", component: EachArterComponent },
   { path: "fromCatalog", component: ProductFromCatalogComponent },
   { path: "eachArterFromCatalog", component: EachArterFromCatalogComponent},
