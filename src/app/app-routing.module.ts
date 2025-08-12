@@ -10,6 +10,8 @@ import { EachArterComponent } from './each-arter/each-arter.component';
 import { ProductFromCatalogComponent } from './product-from-catalog/product-from-catalog.component';
 import { EachArterFromCatalogComponent } from './each-arter-from-catalog/each-arter-from-catalog.component';
 
+
+
 const routes: Routes = [
   { path: "", component: HomeComponent },
   { path: "arters", component: ArtersComponent },
