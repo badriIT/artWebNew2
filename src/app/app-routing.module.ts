@@ -17,11 +17,14 @@ const routes: Routes = [
   { path: "arters", component: ArtersComponent },
   { path: "service-communicate", component: ServicesCommunicateComponent },
   { path: "contact", component: ContactComponent },
-   {
-    path: 'product/:id',
-    loadComponent: () => import('./product/product.component').then(m => m.ProductComponent),
-    data: { renderMode: 'client' }
-  },
+// ...existing code...
+{
+  path: 'product/:id',
+  component: ProductComponent,
+  data: { renderMode: 'default' } // <-- add this line
+},
+// ...existing code...
+
   { path: "eachArter/:id", component: EachArterComponent },
   { path: "fromCatalog", component: ProductFromCatalogComponent },
   { path: "eachArterFromCatalog", component: EachArterFromCatalogComponent},
