@@ -1,14 +1,17 @@
-import { Component } from '@angular/core';
-import { ActivatedRoute, Route, Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ServiceService } from '../service.service';
+import { RouterModule } from '@angular/router';
 
 @Component({
-  selector: 'app-product',
-  standalone: false,
+   selector: 'app-product',
+  standalone: true,              // <-- Make it standalone
+  imports: [CommonModule, RouterModule],  // <-- Add these imports
   templateUrl: './product.component.html',
-  styleUrl: './product.component.css'
+  styleUrls: ['./product.component.css']
 })
-export class ProductComponent {
+export class ProductComponent implements OnInit {
   transform = 'scale(1)';
   transformOrigin = 'center center';
 
@@ -23,17 +26,12 @@ export class ProductComponent {
   artistData: any;
   otherWorks: any[] = [];
 
-
-  
-
-
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private service: ServiceService
-  ) { }
+  ) {}
 
- 
   loadProduct(id: string) {
     this.service.getProductById(id).subscribe(product => {
       if (!product) return;
@@ -52,26 +50,23 @@ export class ProductComponent {
   }
 
   loadArtistData(name: string) {
-  this.service.getArtists().subscribe((data: any) => {
-    this.artistData = data.artists.find((a: any) =>
-      a.artist_name.toLowerCase().trim() === name.toLowerCase().trim()
-    );
-
-    console.log("artist data", this.artistData);  // <-- Here, after assignment
-    this.service.EachArtistsInfo = this.artistData;
-
-
-    if (this.artistData) {
-      this.otherWorks = this.artistData.featured_items.filter(
-        (item: any) => item.id !== this.productId
+    this.service.getArtists().subscribe((data: any) => {
+      this.artistData = data.artists.find((a: any) =>
+        a.artist_name.toLowerCase().trim() === name.toLowerCase().trim()
       );
-    }
-  });
-}
 
+      console.log("artist data", this.artistData);
+      this.service.EachArtistsInfo = this.artistData;
+
+      if (this.artistData) {
+        this.otherWorks = this.artistData.featured_items.filter(
+          (item: any) => item.id !== this.productId
+        );
+      }
+    });
+  }
 
   changeProduct(art: any) {
-    // Navigate to same route with different ID → triggers reload
     this.router.navigate(['/product', art.id]);
   }
 
@@ -89,12 +84,7 @@ export class ProductComponent {
     this.transformOrigin = 'center center';
   }
 
-
-
-   ngOnInit() {
-
-    // When ID changes (navigation inside same component)
-     console.log("artist data",  this.artistData)
+  ngOnInit() {
     this.route.paramMap.subscribe(params => {
       this.productId = params.get('id')!;
       if (this.productId) {
@@ -103,7 +93,4 @@ export class ProductComponent {
       }
     });
   }
-
-
-
 }

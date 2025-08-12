@@ -27,7 +27,7 @@ import { HttpClientModule } from '@angular/common/http';
     ServicesCommunicateComponent,
     ContactComponent,
     ErrorInWorkComponent,
-    ProductComponent,
+
     EachArterComponent,
     ProductFromCatalogComponent,
     EachArterFromCatalogComponent
@@ -36,7 +36,8 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule 
+    HttpClientModule ,
+    ProductComponent // <-- Import the ProductComponent here
     
   ],
     
