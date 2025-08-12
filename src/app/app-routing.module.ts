@@ -21,7 +21,6 @@ const routes: Routes = [
 {
   path: 'product/:id',
   component: ProductComponent,
-  data: { renderMode: 'default' } // <-- add this line
 },
 // ...existing code...
 
