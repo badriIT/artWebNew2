@@ -4,7 +4,7 @@ import { ServiceService } from '../service.service';
 
 @Component({
   selector: 'app-product',
-  standalone: true,
+  standalone: false,
   templateUrl: './product.component.html',
   styleUrl: './product.component.css'
 })
@@ -24,7 +24,7 @@ export class ProductComponent {
   otherWorks: any[] = [];
 
 
-  ;
+  
 
 
   constructor(
