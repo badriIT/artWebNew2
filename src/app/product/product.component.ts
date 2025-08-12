@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Route, Router } from '@angular/router';
 import { ServiceService } from '../service.service';
 
 @Component({
@@ -12,8 +12,6 @@ export class ProductComponent {
   transform = 'scale(1)';
   transformOrigin = 'center center';
 
-
-
   title!: string;
   artist!: string;
   price!: string;
@@ -25,82 +23,64 @@ export class ProductComponent {
   artistData: any;
   otherWorks: any[] = [];
 
-  constructor(private route: ActivatedRoute, private service: ServiceService) {}
 
-  ngOnInit() {
-    this.route.paramMap.subscribe(params => {
-      this.productId = params.get('id')!;
-    });
+  ;
 
-    this.route.queryParams.subscribe(params => {
-      this.title = params['title'] || '';
-      this.artist = params['artist_name'] || '';
-      this.price = params['price'] || '';
-      this.matherial = params['matherial'] || '';
-      this.style = params['style'] || '';
-      this.year = params['year'] || '';
-      this.img = params['img'] || '';
 
-      console.log("authorName", this.artist);
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private service: ServiceService
+  ) { }
 
-      if (this.artist) {
-        this.loadArtistData(this.artist);
-      }
+ 
+  loadProduct(id: string) {
+    this.service.getProductById(id).subscribe(product => {
+      if (!product) return;
+
+      this.title = product.title;
+      this.artist = product.artist_name;
+      this.price = product.price;
+      this.matherial = product.material;
+      this.style = product.style;
+      this.year = product.year_created;
+      this.img = product.image;
+
+      // Load artist's other works
+      this.loadArtistData(product.artist_name);
     });
   }
 
   loadArtistData(name: string) {
-    this.service.getArtists().subscribe((data: any) => {
-      this.artistData = data.artists.find((a: any) =>
-        a.artist_name.toLowerCase().trim() === name.toLowerCase().trim()
+  this.service.getArtists().subscribe((data: any) => {
+    this.artistData = data.artists.find((a: any) =>
+      a.artist_name.toLowerCase().trim() === name.toLowerCase().trim()
+    );
+
+    console.log("artist data", this.artistData);  // <-- Here, after assignment
+    this.service.EachArtistsInfo = this.artistData;
+
+
+    if (this.artistData) {
+      this.otherWorks = this.artistData.featured_items.filter(
+        (item: any) => item.id !== this.productId
       );
+    }
+  });
+}
 
-      if (this.artistData) {
-        this.otherWorks = this.artistData.featured_items.filter((item: any) => item.id !== this.productId);
-      }
 
-      console.log("artistData inside subscribe:", this.artistData);
-    });
+  changeProduct(art: any) {
+    // Navigate to same route with different ID → triggers reload
+    this.router.navigate(['/product', art.id]);
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   onMouseMove(event: MouseEvent) {
     const target = event.currentTarget as HTMLElement;
     const rect = target.getBoundingClientRect();
-
     const x = ((event.clientX - rect.left) / rect.width) * 100;
     const y = ((event.clientY - rect.top) / rect.height) * 100;
-
-    this.transform = 'scale(2.5)'; // zoom level
+    this.transform = 'scale(2.5)';
     this.transformOrigin = `${x}% ${y}%`;
   }
 
@@ -109,6 +89,20 @@ export class ProductComponent {
     this.transformOrigin = 'center center';
   }
 
+
+
+   ngOnInit() {
+
+    // When ID changes (navigation inside same component)
+     console.log("artist data",  this.artistData)
+    this.route.paramMap.subscribe(params => {
+      this.productId = params.get('id')!;
+      if (this.productId) {
+        this.loadProduct(this.productId);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    });
+  }
 
 
 

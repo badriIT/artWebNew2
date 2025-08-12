@@ -29,10 +29,22 @@
     cursor: pointer;
 }
 
+.no-products {
+    font-size: 24px;
+    display: flex;
+    margin: auto;
+    justify-content: center;
+    align-self: center;
+    margin-top: 50px;
+}
+
+.digit.selected {
+  border-bottom: 2px solid rgb(145, 2, 2) ;
+}
 
 
-.artists 
-{
+
+.artists {
     max-width: 1360px;
     margin: auto;
     display: grid;
@@ -41,7 +53,7 @@
     padding: 0px;
     gap: 32px;
     grid-template-columns: 1fr 1fr 1fr;
-      margin-top: 30px;
+    margin-top: 30px;
 }
 
 
@@ -140,7 +152,7 @@
 
 .price {
     margin-top: 8px;
-    color:  rgb(84, 61, 255);
+    color: rgb(84, 61, 255);
     font-size: 26px;
     font-family: 'Noto Sans Georgian', sans-serif;
     font-weight: 500;
@@ -148,7 +160,7 @@
 
 .priceSmall {
     margin-top: 8px;
-    color:  rgb(84, 61, 255);
+    color: rgb(84, 61, 255);
     font-size: 16px;
     font-family: 'Noto Sans Georgian', sans-serif;
     font-weight: 500;
@@ -174,22 +186,156 @@
 .smallImage2 .priceSmall,
 .smallImage3 .art-name,
 .smallImage3 .priceSmall {
-  white-space: nowrap;       /* Force single line */
-  overflow: hidden;          /* Hide overflow */
-  text-overflow: ellipsis;   /* Add ... when overflow */
-  display: block;
-  max-width: 100%;
+    white-space: nowrap;
+    /* Force single line */
+    overflow: hidden;
+    /* Hide overflow */
+    text-overflow: ellipsis;
+    /* Add ... when overflow */
+    display: block;
+    max-width: 100%;
 }
 
 .product-text {
-  max-width: 100%;
-  width: 100%;
+    max-width: 100%;
+    width: 100%;
 }
 
 
 .product-text p {
-  max-width: 200px;
+    max-width: 200px;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.noproductsFound {
+    display: flex;
+    justify-content: center;
+    font-size: 32px;
+
+}
+
+
+
+
+.prevPage,
+.nextPage {
+    background: none;
+    border: none;
+
+}
+
+.prevPage {
+    background: none;
+    border: none;
+}
+
+
+
+.prevPage svg {
+    rotate: 180deg;
+}
+
+
+.pageNumber {
+    background: none;
+    border: none;
+    font-size: 18px;
+
+}
+
+
+
+.cards-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.card {
+    width: 200px;
+    border: 1px solid #ccc;
+    padding: 8px;
+}
+
+.pagination {
+    margin-top: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 32px;
+
+}
+
+.pagination button {
+    margin: 0 8px;
+    padding-top: 10px;
+}
+
+.pagination button svg {
+    margin-top: 4px;
+}
+
+.pagination button.active {
+
+    color: #a592ff;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -198,14 +344,14 @@
     .artists {
         grid-template-columns: 1fr 1fr;
     }
-    
+
 }
 
 @media screen and (max-width: 720px) {
 
     .artists {
-      
-        grid-template-columns:  1fr;
+
+        grid-template-columns: 1fr;
     }
-    
+
 }

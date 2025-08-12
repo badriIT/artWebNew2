@@ -16,7 +16,7 @@ const routes: Routes = [
   { path: "service-communicate", component: ServicesCommunicateComponent },
   { path: "contact", component: ContactComponent },
   { path: "product/:id", component: ProductComponent },
-  { path: "eachArter", component: EachArterComponent },
+  { path: "eachArter/:id", component: EachArterComponent },
   { path: "fromCatalog", component: ProductFromCatalogComponent },
   { path: "eachArterFromCatalog", component: EachArterFromCatalogComponent},
 
@@ -25,7 +25,9 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [ RouterModule.forRoot(routes, { onSameUrlNavigation: 'reload' }) // ✅ important
+   
+  ],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

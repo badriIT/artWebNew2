@@ -6,6 +6,21 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ServiceService {
+
+
+
+
+  EachArtistsInfo: any
+
+
+
+
+
+
+
+
+
+
   maxPrice?: number;
   minPrice?: number;
 
@@ -28,14 +43,14 @@ export class ServiceService {
 
 
   getArtists() {
-  return this.http.get('https://artshop-backend-demo.fly.dev/artists?page=1&limit=12');
-}
+    return this.http.get('https://artshop-backend-demo.fly.dev/artists?page=1&limit=12');
+  }
 
 
   getWholeProcucts(): Observable<any> {
-     return this.http.get<any>(`https://artshop-backend-demo.fly.dev/items?`);
+    return this.http.get<any>(`https://artshop-backend-demo.fly.dev/items?`);
   }
-  
+
 
   getProducts(page: number = 1, limit: number = 12): Observable<any> {
     let params: string[] = [];
@@ -106,5 +121,24 @@ export class ServiceService {
 
     return this.http.get<any>(url);
   }
+
+
+
+  getProductById(id: string): Observable<any> {
+    return this.http.get<any>(`https://artshop-backend-demo.fly.dev/items/${id}`);
+  }
+
+  getArtistById(id: string): Observable<any> {
+    return this.http.get<any>(`https://artshop-backend-demo.fly.dev/artists/${id}`);
+  }
+
+
+getAllArtists(initial: string = '', page: number = 1, limit: number = 12): Observable<any> {
+  const initialParam = initial ? `initial=${initial}&` : '';
+  const url = `https://artshop-backend-demo.fly.dev/artists?${initialParam}page=${page}&limit=${limit}`;
+  return this.http.get<any>(url);
+}
+
+
 }
 

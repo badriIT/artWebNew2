@@ -2,334 +2,56 @@
     <div class="up-content">
         <p class="title">მხატვრები</p>
         <div class="digits">
-            <p class="digit">ა</p>
-            <p class="digit">ბ</p>
-            <p class="digit">გ</p>
-            <p class="digit">დ</p>
-            <p class="digit">ე</p>
-            <p class="digit">ვ</p>
-            <p class="digit">ზ</p>
-            <p class="digit">თ</p>
-            <p class="digit">ი</p>
-            <p class="digit">კ</p>
-            <p class="digit">ლ</p>
-            <p class="digit">მ</p>
-            <p class="digit">ნ</p>
-            <p class="digit">ო</p>
-            <p class="digit">პ</p>
-            <p class="digit">ჟ</p>
-            <p class="digit">რ</p>
-            <p class="digit">ს</p>
-            <p class="digit">ტ</p>
-            <p class="digit">უ</p>
-            <p class="digit">ფ</p>
-            <p class="digit">ქ</p>
-            <p class="digit">დ</p>
-            <p class="digit">ყ</p>
-            <p class="digit">შ</p>
-            <p class="digit">ჩ</p>
-            <p class="digit">ც</p>
-            <p class="digit">ძ</p>
-            <p class="digit">წ</p>
-            <p class="digit">ჭ</p>
-            <p class="digit">ხ</p>
-            <p class="digit">ჯ</p>
-            <p class="digit">ჰ</p>
+
+            <div class="digits">
+                <p class="digit" *ngFor="let d of georgianDigits" (click)="onDigitFilter(d.value)"
+                    [class.selected]="selectedDigit === d.value" style="cursor:pointer; user-select:none;">
+                    {{ d.label }}
+                </p>
+            </div>
+
+
+            <div class="digits">
+                <p class="digit" *ngFor="let d of EnglishDigits" (click)="onDigitFilter(d.value)"
+                    [class.selected]="selectedDigit === d.value" style="cursor:pointer; user-select:none;">
+                    {{ d.label }}
+                </p>
+            </div>
+
+
+
         </div>
 
     </div>
 
     <div class="artists">
-        <div routerLink="/product" class="each-card">
-            <p routerLink="/eachArter" class="arter-name">თენგიზ მირზაშვილი</p>
+        <div *ngFor="let artist of artists" class="each-card">
+            <p class="arter-name" [routerLink]="['/eachArter', artist.artist_id]">{{ artist.artist_name }}</p>
 
-            <div class="big-image">
-                <img src="https://scontent.ftbs6-2.fna.fbcdn.net/v/t39.30808-6/514246569_122180915222582481_8356977830558249603_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=833d8c&_nc_ohc=R-nPG1APgFgQ7kNvwF944m6&_nc_oc=AdmHhThWe2gcGM3A58amjYpPPst6T2komggHM4oAKD9shxhRkUuEhAwbMVyAZYz_DIg&_nc_zt=23&_nc_ht=scontent.ftbs6-2.fna&_nc_gid=iuaJLQ6rayLDqcgYfBNI3A&oh=00_AfVkcwYRMMSBHCPtCp_OL9mmjuXuxOCDQYk1uQEQnZXMCw&oe=689A5AAA"
-                    alt="">
-
+            <!-- Big image and main_item -->
+            <div [routerLink]="['/product', artist.main_item.id]" class="big-image">
+                <img [src]="artist.main_item.image" alt="{{artist.main_item.title}}">
                 <div class="product-text">
                     <div class="texts">
-                        <p class="art-name">'პეიზაჟი'
-                        </p>
-                        <p class="size">17,5 X 25 სმ.</p>
-                        <p class="made-with">მუყაო, ტემპერა</p>
+                        <p class="art-name">{{artist.main_item.title}}</p>
+                        <p class="size">{{artist.main_item.width_cm}} X {{artist.main_item.height_cm}} cm</p>
+                        <p class="made-with">{{artist.main_item.material}}</p>
                     </div>
-                    <p class="price">700$</p>
+                    <p class="price">{{artist.main_item.price}}$</p>
                 </div>
             </div>
 
+            <!-- Loop featured_items correctly -->
             <div class="small-images">
-
-                <div class="smallImage1">
-                    <img src="https://scontent.ftbs4-2.fna.fbcdn.net/v/t39.30808-6/524326952_122180915270582481_4977365253275701551_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=833d8c&_nc_ohc=ltNUuOD_VrwQ7kNvwF7Q340&_nc_oc=AdlGUCMN05VG3Lu_e88HhAMatfU-bUH5azz-1kNSjDpxSOYkvitNNODSQOr1qYes7lI&_nc_zt=23&_nc_ht=scontent.ftbs4-2.fna&_nc_gid=yopBs4zFiaP7aH56I_Maag&oh=00_AfXnyskbK4A6znTv7d9VRxiaMMksRi1yWfcsAlf4cVLKdA&oe=689A29FF"
-                        alt="">
+                <div *ngFor="let underImg of artist.featured_items" class="smallImage1"
+                    [routerLink]="['/product', underImg.id]">
+                    <img [src]="underImg.image" alt="{{underImg.title}}">
                     <div class="product-text">
-                        <p class="art-name">'პეიზაჟი'</p>
-                        <p class="priceSmall">650$</p>
+                        <p class="art-name">{{underImg.title}}</p>
+                        <p class="priceSmall">{{underImg.price}}$</p>
                     </div>
-                </div>
-
-                <div class="smallImage2">
-                    <img src="https://scontent.ftbs6-2.fna.fbcdn.net/v/t39.30808-6/514259183_122180915324582481_822458356229010020_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=833d8c&_nc_ohc=EMkWsNHtHN8Q7kNvwEFVmm_&_nc_oc=AdmF-zu2w6BzxjPx0aX_T4SIXWd5k8l9vFuNE3YJSEfov35iFhsCg8TMs4wre6luHks&_nc_zt=23&_nc_ht=scontent.ftbs6-2.fna&_nc_gid=g7Xncy7_s5E-upZsAmNavg&oh=00_AfXTQTWlWL6QE_bqUJ-NDCU7J6umX23K2uMcqjfMax7TMQ&oe=689A511B"
-                        alt="">
-                    <div class="product-text">
-                        <p class="art-name">'პეიზაჟი'</p>
-                        <p class="priceSmall">600$</p>
-                    </div>
-                </div>
-
-
-                <div class="smallImage2">
-                    <img src="https://scontent.ftbs6-2.fna.fbcdn.net/v/t39.30808-6/514259183_122180915324582481_822458356229010020_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=833d8c&_nc_ohc=EMkWsNHtHN8Q7kNvwEFVmm_&_nc_oc=AdmF-zu2w6BzxjPx0aX_T4SIXWd5k8l9vFuNE3YJSEfov35iFhsCg8TMs4wre6luHks&_nc_zt=23&_nc_ht=scontent.ftbs6-2.fna&_nc_gid=g7Xncy7_s5E-upZsAmNavg&oh=00_AfXTQTWlWL6QE_bqUJ-NDCU7J6umX23K2uMcqjfMax7TMQ&oe=689A511B"
-                        alt="">
-                    <div class="product-text">
-                        <p class="art-name">'პეიზაჟი'</p>
-                        <p class="priceSmall">650$</p>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-
-
-
-
-
-
-
-
-        <div class="each-card">
-            <p class="arter-name">ნიკო ცეცხლაძე</p>
-
-            <div class="big-image">
-                <img src="https://scontent.ftbs6-2.fna.fbcdn.net/v/t39.30808-6/526741232_1063741592624891_7318582264913220880_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=108&ccb=1-7&_nc_sid=f727a1&_nc_ohc=cnOUS4LdbxIQ7kNvwGL0eXy&_nc_oc=AdmUOOsQX7Nb80BibZIxwqkjs8l3L2aOAlzN8f-1a7NcwRof-FZXfy_zrfGF0KagAxE&_nc_zt=23&_nc_ht=scontent.ftbs6-2.fna&_nc_gid=N7go3ppuP0phwOwMVBE0xg&oh=00_AfUIl4EbzTUKMXDimGKPQtVfrZCksauiWoBYZHYD0J9qZg&oe=689A5CFA"
-                    alt="">
-
-                <div class="product-text">
-                    <div class="texts">
-                        <p class="art-name">untitled</p>
-                        <p class="size">40 X 50 სმ</p>
-                        <p class="made-with">ტილო, ზეთი,</p>
-                    </div>
-                    <p class="price">3 000$</p>
                 </div>
             </div>
-
-            <div class="small-images">
-
-                <div class="smallImage1">
-                    <img src="https://scontent.ftbs4-2.fna.fbcdn.net/v/t39.30808-6/515493930_1063742669291450_6942130363341257474_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=101&ccb=1-7&_nc_sid=f727a1&_nc_ohc=XbZbVVxbJZIQ7kNvwHRZab7&_nc_oc=Adn6Mh-TNNM7fkcqmSoMw-_N2CfditA6XCiYqH2qTOVu9EDZBCkwMFVuP9ewaNM-HMI&_nc_zt=23&_nc_ht=scontent.ftbs4-2.fna&_nc_gid=nF_O4Fqsufg3_mryw79EzA&oh=00_AfVqvWMJ2-0CmTyxhvUu0KoTi8v6MB1EBLqRwG2SQpjcEQ&oe=689A59F8"
-                        alt="">
-                    <div class="product-text">
-                        <p class="art-name">untitled</p>
-                        <p class="priceSmall">4 000$</p>
-                    </div>
-                </div>
-
-                <div class="smallImage2">
-                    <img src="https://scontent.ftbs6-2.fna.fbcdn.net/v/t39.30808-6/526366149_1063742819291435_7530747836163309781_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=109&ccb=1-7&_nc_sid=f727a1&_nc_ohc=bvdHIlPuCKUQ7kNvwF5stcW&_nc_oc=Adm52KqYPRGW9XEdCt3pqz5VO1uuDugj6z2_AtGQTd1IsPkMtPDKHjbUJ9SLK3Nf3L8&_nc_zt=23&_nc_ht=scontent.ftbs6-2.fna&_nc_gid=NzHPxp2P9-roOXUvadJhcA&oh=00_AfUVSpGVDPqyUoao_vip9uJ9NiQg2MwRNemsKK8D0x69EQ&oe=689A4E13"
-                        alt="">
-                    <div class="product-text">
-                        <p class="art-name">untitled</p>
-                        <p class="priceSmall">5 000$</p>
-                    </div>
-                </div>
-
-
-                <div class="smallImage3">
-                    <img src="https://scontent.ftbs4-2.fna.fbcdn.net/v/t39.30808-6/526449493_1063741812624869_4839246607190228134_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=101&ccb=1-7&_nc_sid=f727a1&_nc_ohc=PynBxGt5F-8Q7kNvwEIew2e&_nc_oc=AdkOoCSrl87jbSZ78UVsEq1e1gK3RDytHkVS3aWrTJEoW2kqwUsjLhP-6ixB9vn2PKk&_nc_zt=23&_nc_ht=scontent.ftbs4-2.fna&_nc_gid=Ph2M8gtI2uvjFvyIDpHI3Q&oh=00_AfViVoAmG-5Tjcc2mp482P-yw2ErAGL9uwlTxdsmzBuIHg&oe=689A35EC"
-                        alt="">
-                    <div class="product-text">
-                        <p class="art-name">untitled</p>
-                        <p class="priceSmall">6 000$</p>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-
-
-
-        <div class="each-card">
-            <p class="arter-name">რამაზ რაზმაძე</p>
-
-            <div class="big-image">
-                <img src="https://scontent.ftbs4-2.fna.fbcdn.net/v/t51.75761-15/490763600_18404905153103982_6819845897738443205_n.jpg?stp=dst-jpg_p180x540_tt6&_nc_cat=105&ccb=1-7&_nc_sid=127cfc&_nc_ohc=ISO8y_RmqRwQ7kNvwHChcHt&_nc_oc=AdlILwTxNarG7E1mSLVcDIpJpaOsvErFUfq82nKIx7jk7bmj1jmCki868bFgYVhZbgU&_nc_zt=23&_nc_ht=scontent.ftbs4-2.fna&_nc_gid=8PSJ-8RtX0eH-EFrMQ01sA&oh=00_AfUWG0d-3rA6DvhA8kxD88cGjXZKktR6O204eV1Am_S8rQ&oe=689A4573"
-                    alt="">
-
-                <div class="product-text">
-                    <div class="texts">
-                        <p class="art-name">Tourist Trophy</p>
-                        <p class="size">40 x 50 სმ</p>
-                        <p class="made-with">ტილო,ზეთი, ქვიშა</p>
-                    </div>
-                    <p class="price">5 000$</p>
-                </div>
-            </div>
-
-            <div class="small-images">
-
-                <div class="smallImage1">
-                    <img src="https://scontent.ftbs4-2.fna.fbcdn.net/v/t39.30808-6/496940952_1263025322490748_2913949836698697751_n.jpg?stp=dst-jpg_s720x720_tt6&_nc_cat=100&ccb=1-7&_nc_sid=127cfc&_nc_ohc=eb-3Jugi5jgQ7kNvwGvrUa2&_nc_oc=AdnajCl-sWEf8X4J7DDwHz1m2uD5GUdBXbV6ofUIlk--CEXLJWEGRp4MXbHQW87FEo8&_nc_zt=23&_nc_ht=scontent.ftbs4-2.fna&_nc_gid=ZyHZV_Y0XRJQM5V2fb9CYQ&oh=00_AfUvJJ3moB7q6KMh-KcZqJo6Y0e_p-QaVdNli4UO_wYeVw&oe=689A3EA1"
-                        alt="">
-                    <div class="product-text">
-                        <p class="art-name">Fence</p>
-                        <p class="priceSmall">7 000$</p>
-                    </div>
-                </div>
-
-                <div class="smallImage2">
-                    <img src="https://scontent.ftbs4-2.fna.fbcdn.net/v/t51.75761-15/491416162_18405182947103982_5630448083309423225_n.webp?stp=dst-jpg_s640x640_tt6&_nc_cat=111&ccb=1-7&_nc_sid=127cfc&_nc_ohc=JvYMlat-TnYQ7kNvwFQNICN&_nc_oc=Adld9YxsEEjOOxk-N6imvNgoZmZFwVtjnkWWt9p8ejwXOiYEJkr3wGumJ2qYAspERO0&_nc_zt=23&_nc_ht=scontent.ftbs4-2.fna&_nc_gid=LzEVD4SrvqABQcUZmmhi3Q&oh=00_AfV-eFgvl53UvI-j9GshGYhUEhNH9wRpKkOolZiV-PqdsQ&oe=689A5DA2"
-                        alt="">
-                    <div class="product-text">
-                        <p class="art-name">Neighborhood</p>
-                        <p class="priceSmall">8 000$</p>
-                    </div>
-                </div>
-
-
-                <div class="smallImage3">
-                    <img src="https://scontent.ftbs6-2.fna.fbcdn.net/v/t51.75761-15/488271435_18401962564103982_435933956058042333_n.jpg?stp=dst-jpg_s640x640_tt6&_nc_cat=107&ccb=1-7&_nc_sid=127cfc&_nc_ohc=v5NpXTYBymgQ7kNvwF82E_6&_nc_oc=AdmUa3tJnQlV68SV4W7Hg2T-0kJEsOZDljJ8nEm_-5ubB15w0XvVJOIHkuOhLvsKZgQ&_nc_zt=23&_nc_ht=scontent.ftbs6-2.fna&_nc_gid=9WaNngR-ht7A2HJAaL9ZlA&oh=00_AfXzwVb8s9VFX09gbySy2UM5MJ0sWnseyd-jF_cEyq_-dw&oe=689A2F02"
-                        alt="">
-                    <div class="product-text">
-                        <p class="art-name"> Island</p>
-                        <p class="priceSmall">9 000$</p>
-                    </div>
-                </div>
-
-            </div>
-
-
-
-
-        </div>
-
-
-
-
-
-
-
-
-        <div class="each-card">
-            <p class="arter-name">მიხეილ ფანჯიკიძე</p>
-
-            <div class="big-image">
-                <img src="https://scontent.ftbs6-2.fna.fbcdn.net/v/t39.30808-6/527740321_1118895396967604_3170277746306497728_n.jpg?stp=dst-jpg_s720x720_tt6&_nc_cat=110&ccb=1-7&_nc_sid=833d8c&_nc_ohc=_E62Atio8IAQ7kNvwFaZfHT&_nc_oc=Adm0jiwPfxEeYe38DlxkP3CXCflxVu0CUAHdBr972T-wcXmMh-mE4ZJzBzK5oCc6RPc&_nc_zt=23&_nc_ht=scontent.ftbs6-2.fna&_nc_gid=uKJx3GzYfcBMjavgCp6Xeg&oh=00_AfUB3OGgVjS4ED7VB8R3sI7qbwADL3c9tvME5WEz782UOA&oe=689A45D8"
-                    alt="">
-
-                <div class="product-text">
-                    <div class="texts">
-                        <p class="art-name">დოღი</p>
-                        <p class="size">61 x 43 სმ</p>
-                        <p class="made-with">ქაღალდი შერეული ტექნიკა.</p>
-                    </div>
-                    <p class="price">700$</p>
-                </div>
-            </div>
-
-            <div class="small-images">
-
-                <div class="smallImage1">
-                    <img src="https://scontent.ftbs4-2.fna.fbcdn.net/v/t39.30808-6/527713276_1117447503779060_955612791262767329_n.jpg?stp=dst-jpg_s720x720_tt6&_nc_cat=105&ccb=1-7&_nc_sid=833d8c&_nc_ohc=sBu_xMrZ86IQ7kNvwHOVaDY&_nc_oc=AdmKrrMyjc647f4izfyyynVICO9LvxB4-Xpq77eKoeu5eFutnSWeY64Ovc0E5lJzEQE&_nc_zt=23&_nc_ht=scontent.ftbs4-2.fna&_nc_gid=1yx9-ZgpDFRFka-pgBWOYg&oh=00_AfU7XruvTitputm9ZhUNPC2TTxeX7e6nphutFhphkm7MQw&oe=689A464E"
-                        alt="">
-                    <div class="product-text">
-                        <p class="art-name">Corida</p>
-                        <p class="priceSmall">850$</p>
-                    </div>
-                </div>
-
-                <div class="smallImage2">
-                    <img src="https://scontent.ftbs6-2.fna.fbcdn.net/v/t39.30808-6/526615128_1115590920631385_5980897452479704817_n.jpg?stp=dst-jpg_s600x600_tt6&_nc_cat=102&ccb=1-7&_nc_sid=833d8c&_nc_ohc=IRxWd7Kj-4wQ7kNvwFe-fnZ&_nc_oc=AdloVKPLcuKNBUZ-Qyc6ASgnx6voMievlL0U2xKpf4LUIXztX1vPySRhyE_EboUrfHY&_nc_zt=23&_nc_ht=scontent.ftbs6-2.fna&_nc_gid=ffig5zv-bfJsXihU5j42bQ&oh=00_AfVHE5BTxQUeygpDz8RYFZsGYpJNCofVh14EciAk0doqHQ&oe=689A45F4"
-                        alt="">
-                    <div class="product-text">
-                        <p class="art-name">Torero</p>
-                        <p class="priceSmall">1 200$</p>
-                    </div>
-                </div>
-
-
-                <div class="smallImage3">
-                    <img src="https://scontent.ftbs4-2.fna.fbcdn.net/v/t39.30808-6/527723903_1116838723839938_4802875946762381528_n.jpg?stp=dst-jpg_p552x414_tt6&_nc_cat=101&ccb=1-7&_nc_sid=833d8c&_nc_ohc=oIBk5eGnYUMQ7kNvwGS2daM&_nc_oc=AdlfCzBGs8B2z_vHdAPiLv-QNRoAD9vnA8H6P0ZsQb9z5C-pFDQkF-mP84QWQs7yf54&_nc_zt=23&_nc_ht=scontent.ftbs4-2.fna&_nc_gid=1yx9-ZgpDFRFka-pgBWOYg&oh=00_AfWB1T4w01zIggTuPs_F139413X3Dw380dJpz3W1npteRA&oe=689A47EF"
-                        alt="">
-                    <div class="product-text">
-                        <p class="art-name"> დოღი</p>
-                        <p class="priceSmall">850$</p>
-                    </div>
-                </div>
-
-            </div>
-
-
-
-        </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        <div class="each-card">
-            <p class="arter-name">გრიგოლ ღვანიას</p>
-
-            <div class="big-image">
-                <img src="https://scontent.ftbs6-2.fna.fbcdn.net/v/t39.30808-6/504784960_1021623020170082_6350672831372153459_n.jpg?stp=cp6_dst-jpg_s600x600_tt6&_nc_cat=103&ccb=1-7&_nc_sid=f727a1&_nc_ohc=zRYQXKtDKhUQ7kNvwHYrb48&_nc_oc=AdlSWUuQhkJZRASbDow31vYKRQnoUvon-PRY8smTgPvJqK1jZxUj83AsXH6h2ZxQG-U&_nc_zt=23&_nc_ht=scontent.ftbs6-2.fna&_nc_gid=bPBpLRrM_ne_BLIllIb3aQ&oh=00_AfXvWQ8F4MiHci00jVPhG4EJVrRm7Rp-xhQ_5ldZQkMkDQ&oe=689A5BBF"
-                    alt="">
-
-                <div class="product-text">
-                    <div class="texts">
-                        <p class="art-name">untitled</p>
-                        <p class="size">20 x 30 სმ</p>
-                        <p class="made-with">ტილო, ზეთი</p>
-                    </div>
-                    <p class="price">1 000$</p>
-                </div>
-            </div>
-
-            <div class="small-images">
-
-                <div class="smallImage1">
-                    <img src="https://scontent.ftbs6-2.fna.fbcdn.net/v/t39.30808-6/505522429_1021623120170072_8681766119875955342_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=108&ccb=1-7&_nc_sid=f727a1&_nc_ohc=pcB-B8iqAwwQ7kNvwED1GH8&_nc_oc=AdnM9eE_8bnfWBcGDaUew0Qcni3PPzkdmlkOq1UqtS8ohQnuxWCHdqnU-c72OYnJwTc&_nc_zt=23&_nc_ht=scontent.ftbs6-2.fna&_nc_gid=-aElB3_UYVowQxHXK-SC9A&oh=00_AfV4jTAzzxR2bUslOfld2QEXF2TOLxrCs8N_wbPt7x6WSA&oe=689A4A3D"
-                        alt="">
-                    <div class="product-text">
-                        <p class="art-name">untitled</p>
-                        <p class="priceSmall">2 000$</p>
-                    </div>
-                </div>
-
-                <div class="smallImage2">
-                    <img src="https://scontent.ftbs6-2.fna.fbcdn.net/v/t39.30808-6/505114314_1021623066836744_7917018756205354327_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=109&ccb=1-7&_nc_sid=f727a1&_nc_ohc=7jvSDClqkXgQ7kNvwF3V9A2&_nc_oc=Adn1d-uf7I05x7VeUBU2TGLTbDQyag1f-uJzF58tNS9y8TA7RtYBQ5iOLZMrhLQu_EE&_nc_zt=23&_nc_ht=scontent.ftbs6-2.fna&_nc_gid=4JOLXo4bI8D4GF_mzz-Y2Q&oh=00_AfXahNv76Q7EpJyB1g-T4d5whl-PozKCW5eLI5DmZTclPw&oe=689A3B94"
-                        alt="">
-                    <div class="product-text">
-                        <p class="art-name">untitled</p>
-                        <p class="priceSmall">3 000$</p>
-                    </div>
-                </div>
-
-
-                <div class="smallImage3">
-                    <img src="https://scontent.ftbs6-2.fna.fbcdn.net/v/t39.30808-6/505399571_1021623270170057_2235998663325845051_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=109&ccb=1-7&_nc_sid=f727a1&_nc_ohc=Cr7caz4_yGMQ7kNvwE50Z0b&_nc_oc=Adm5nr5syJlGtkn-GxEqq_7psjFcgRlnOQNzmcr1etiTyCQ4cRGda7Vd7ebHm1F3By8&_nc_zt=23&_nc_ht=scontent.ftbs6-2.fna&_nc_gid=IVNir1aRc8f-Q4XrnKCV-g&oh=00_AfXS8NPGPG2LQJaCjGK5w2ifq8lvPh_-zrO6Wg3QU_5USA&oe=689A5C71"
-                        alt="">
-                    <div class="product-text">
-                        <p class="art-name">untitled</p>
-                        <p class="priceSmall">20 000$</p>
-                    </div>
-                </div>
-
-            </div>
-
-
-
         </div>
 
 
@@ -347,439 +69,15 @@
 
 
 
-        <div class="each-card">
-            <p class="arter-name">ნუცა დუჩიძე</p>
 
-            <div class="big-image">
-                <img src="https://scontent.ftbs6-2.fna.fbcdn.net/v/t39.30808-6/500546524_1012038017795249_4708303682834292908_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=107&ccb=1-7&_nc_sid=f727a1&_nc_ohc=ga2jHJrUALkQ7kNvwH8gmwz&_nc_oc=AdkKxFuuwZCV03560_lFekAgdNm1RpfICY3MuSwPpjimCBiO-_m_r1lYAkEavweXmik&_nc_zt=23&_nc_ht=scontent.ftbs6-2.fna&_nc_gid=zKlBiy8eYz4HeTh2di4bgw&oh=00_AfWzdMskf-KFUt7aWmr2_2zdmNGL6QDRptYOh8REB4ZGAA&oe=689A2BC1"
-                    alt="">
 
-                <div class="product-text">
-                    <div class="texts">
-                        <p class="art-name">untitled</p>
-                        <p class="size">50 x 40 cm</p>
-                        <p class="made-with">ტილო, აკრილი</p>
-                    </div>
-                    <p class="price">180 $</p>
-                </div>
-            </div>
 
-            <div class="small-images">
 
-                <div class="smallImage1">
-                    <img src="https://scontent.ftbs6-2.fna.fbcdn.net/v/t39.30808-6/500170905_1012037827795268_4650453939081354121_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=110&ccb=1-7&_nc_sid=f727a1&_nc_ohc=_BAqxzBI8ZsQ7kNvwEcRZHQ&_nc_oc=AdlDKAJ-0pUepiGR9MoO6Mdxw-u7ifgQ3swzxbrHl4j9Gdj3l72FWaLXGTtdVcNsF1M&_nc_zt=23&_nc_ht=scontent.ftbs6-2.fna&_nc_gid=0X4u_KCUYZ-e9hdyRhYwFg&oh=00_AfU4GWRgCWNHi1YSMQYL6vtbSW0qPbS6KjjfHCRqoDfVrg&oe=689A3C74"
-                        alt="">
-                    <div class="product-text">
-                        <p class="art-name">untitled</p>
-                        <p class="priceSmall">180 $</p>
-                    </div>
-                </div>
 
-                <div class="smallImage2">
-                    <img src="https://scontent.ftbs6-2.fna.fbcdn.net/v/t39.30808-6/501750649_1012038051128579_8651313222029090201_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=102&ccb=1-7&_nc_sid=f727a1&_nc_ohc=Xi1gxWk5PsoQ7kNvwF1cwuC&_nc_oc=AdltQuxss2baAxrpK-RYNcm_NUHyw3YQNNkgSY0KUPJFX4_sjEPk5laKNBX5NUwfUTg&_nc_zt=23&_nc_ht=scontent.ftbs6-2.fna&_nc_gid=BpdseP5SlTZQ97FQLH-sDQ&oh=00_AfUPCGO5rkbvs9mbRLFysMWLXKz8JQAsFX4y71X7KDtACg&oe=689A4963"
-                        alt="">
-                    <div class="product-text">
-                        <p class="art-name">untitled</p>
-                        <p class="priceSmall">180 $</p>
-                    </div>
-                </div>
 
 
-                <div class="smallImage3">
-                    <img src="https://scontent.ftbs6-2.fna.fbcdn.net/v/t39.30808-6/501747681_1012038084461909_6650923003090389170_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=109&ccb=1-7&_nc_sid=f727a1&_nc_ohc=JLPy3_oeCuoQ7kNvwFgL7CQ&_nc_oc=Adlq4k9SUYulcPLqElNhoW75H3dNWs5njM3cwnqlZIbk5LTUi0JWZhnQwNNtLvCWNoI&_nc_zt=23&_nc_ht=scontent.ftbs6-2.fna&_nc_gid=3R2RdY9pNSHv1PQLhlKirw&oh=00_AfXobFml25BansC6A4t97sN04WwBgkqX_qSRF25JVRia0g&oe=689A52DF"
-                        alt="">
-                    <div class="product-text">
-                        <p class="art-name">untitled</p>
-                        <p class="priceSmall">180 $</p>
-                    </div>
-                </div>
 
-            </div>
 
-
-
-
-
-
-
-
-
-        </div>
-
-
-
-
-
-
-
-
-
-
-        <div routerLink="/product" class="each-card">
-            <p routerLink="/eachArter" class="arter-name">თენგიზ მირზაშვილი</p>
-
-            <div class="big-image">
-                <img src="https://scontent.ftbs6-2.fna.fbcdn.net/v/t39.30808-6/514246569_122180915222582481_8356977830558249603_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=833d8c&_nc_ohc=R-nPG1APgFgQ7kNvwF944m6&_nc_oc=AdmHhThWe2gcGM3A58amjYpPPst6T2komggHM4oAKD9shxhRkUuEhAwbMVyAZYz_DIg&_nc_zt=23&_nc_ht=scontent.ftbs6-2.fna&_nc_gid=iuaJLQ6rayLDqcgYfBNI3A&oh=00_AfVkcwYRMMSBHCPtCp_OL9mmjuXuxOCDQYk1uQEQnZXMCw&oe=689A5AAA"
-                    alt="">
-
-                <div class="product-text">
-                    <div class="texts">
-                        <p class="art-name">'პეიზაჟი'
-                        </p>
-                        <p class="size">17,5 X 25 სმ.</p>
-                        <p class="made-with">მუყაო, ტემპერა</p>
-                    </div>
-                    <p class="price">700$</p>
-                </div>
-            </div>
-
-            <div class="small-images">
-
-                <div class="smallImage1">
-                    <img src="https://scontent.ftbs4-2.fna.fbcdn.net/v/t39.30808-6/524326952_122180915270582481_4977365253275701551_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=833d8c&_nc_ohc=ltNUuOD_VrwQ7kNvwF7Q340&_nc_oc=AdlGUCMN05VG3Lu_e88HhAMatfU-bUH5azz-1kNSjDpxSOYkvitNNODSQOr1qYes7lI&_nc_zt=23&_nc_ht=scontent.ftbs4-2.fna&_nc_gid=yopBs4zFiaP7aH56I_Maag&oh=00_AfXnyskbK4A6znTv7d9VRxiaMMksRi1yWfcsAlf4cVLKdA&oe=689A29FF"
-                        alt="">
-                    <div class="product-text">
-                        <p class="art-name">'პეიზაჟი'</p>
-                        <p class="priceSmall">650$</p>
-                    </div>
-                </div>
-
-                <div class="smallImage2">
-                    <img src="https://scontent.ftbs6-2.fna.fbcdn.net/v/t39.30808-6/514259183_122180915324582481_822458356229010020_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=833d8c&_nc_ohc=EMkWsNHtHN8Q7kNvwEFVmm_&_nc_oc=AdmF-zu2w6BzxjPx0aX_T4SIXWd5k8l9vFuNE3YJSEfov35iFhsCg8TMs4wre6luHks&_nc_zt=23&_nc_ht=scontent.ftbs6-2.fna&_nc_gid=g7Xncy7_s5E-upZsAmNavg&oh=00_AfXTQTWlWL6QE_bqUJ-NDCU7J6umX23K2uMcqjfMax7TMQ&oe=689A511B"
-                        alt="">
-                    <div class="product-text">
-                        <p class="art-name">'პეიზაჟი'</p>
-                        <p class="priceSmall">600$</p>
-                    </div>
-                </div>
-
-
-                <div class="smallImage2">
-                    <img src="https://scontent.ftbs6-2.fna.fbcdn.net/v/t39.30808-6/514259183_122180915324582481_822458356229010020_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=833d8c&_nc_ohc=EMkWsNHtHN8Q7kNvwEFVmm_&_nc_oc=AdmF-zu2w6BzxjPx0aX_T4SIXWd5k8l9vFuNE3YJSEfov35iFhsCg8TMs4wre6luHks&_nc_zt=23&_nc_ht=scontent.ftbs6-2.fna&_nc_gid=g7Xncy7_s5E-upZsAmNavg&oh=00_AfXTQTWlWL6QE_bqUJ-NDCU7J6umX23K2uMcqjfMax7TMQ&oe=689A511B"
-                        alt="">
-                    <div class="product-text">
-                        <p class="art-name">'პეიზაჟი'</p>
-                        <p class="priceSmall">650$</p>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-
-
-
-
-
-
-
-
-        <div class="each-card">
-            <p class="arter-name">ნიკო ცეცხლაძე</p>
-
-            <div class="big-image">
-                <img src="https://scontent.ftbs6-2.fna.fbcdn.net/v/t39.30808-6/526741232_1063741592624891_7318582264913220880_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=108&ccb=1-7&_nc_sid=f727a1&_nc_ohc=cnOUS4LdbxIQ7kNvwGL0eXy&_nc_oc=AdmUOOsQX7Nb80BibZIxwqkjs8l3L2aOAlzN8f-1a7NcwRof-FZXfy_zrfGF0KagAxE&_nc_zt=23&_nc_ht=scontent.ftbs6-2.fna&_nc_gid=N7go3ppuP0phwOwMVBE0xg&oh=00_AfUIl4EbzTUKMXDimGKPQtVfrZCksauiWoBYZHYD0J9qZg&oe=689A5CFA"
-                    alt="">
-
-                <div class="product-text">
-                    <div class="texts">
-                        <p class="art-name">untitled</p>
-                        <p class="size">40 X 50 სმ</p>
-                        <p class="made-with">ტილო, ზეთი,</p>
-                    </div>
-                    <p class="price">3 000$</p>
-                </div>
-            </div>
-
-            <div class="small-images">
-
-                <div class="smallImage1">
-                    <img src="https://scontent.ftbs4-2.fna.fbcdn.net/v/t39.30808-6/515493930_1063742669291450_6942130363341257474_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=101&ccb=1-7&_nc_sid=f727a1&_nc_ohc=XbZbVVxbJZIQ7kNvwHRZab7&_nc_oc=Adn6Mh-TNNM7fkcqmSoMw-_N2CfditA6XCiYqH2qTOVu9EDZBCkwMFVuP9ewaNM-HMI&_nc_zt=23&_nc_ht=scontent.ftbs4-2.fna&_nc_gid=nF_O4Fqsufg3_mryw79EzA&oh=00_AfVqvWMJ2-0CmTyxhvUu0KoTi8v6MB1EBLqRwG2SQpjcEQ&oe=689A59F8"
-                        alt="">
-                    <div class="product-text">
-                        <p class="art-name">untitled</p>
-                        <p class="priceSmall">4 000$</p>
-                    </div>
-                </div>
-
-                <div class="smallImage2">
-                    <img src="https://scontent.ftbs6-2.fna.fbcdn.net/v/t39.30808-6/526366149_1063742819291435_7530747836163309781_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=109&ccb=1-7&_nc_sid=f727a1&_nc_ohc=bvdHIlPuCKUQ7kNvwF5stcW&_nc_oc=Adm52KqYPRGW9XEdCt3pqz5VO1uuDugj6z2_AtGQTd1IsPkMtPDKHjbUJ9SLK3Nf3L8&_nc_zt=23&_nc_ht=scontent.ftbs6-2.fna&_nc_gid=NzHPxp2P9-roOXUvadJhcA&oh=00_AfUVSpGVDPqyUoao_vip9uJ9NiQg2MwRNemsKK8D0x69EQ&oe=689A4E13"
-                        alt="">
-                    <div class="product-text">
-                        <p class="art-name">untitled</p>
-                        <p class="priceSmall">5 000$</p>
-                    </div>
-                </div>
-
-
-                <div class="smallImage3">
-                    <img src="https://scontent.ftbs4-2.fna.fbcdn.net/v/t39.30808-6/526449493_1063741812624869_4839246607190228134_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=101&ccb=1-7&_nc_sid=f727a1&_nc_ohc=PynBxGt5F-8Q7kNvwEIew2e&_nc_oc=AdkOoCSrl87jbSZ78UVsEq1e1gK3RDytHkVS3aWrTJEoW2kqwUsjLhP-6ixB9vn2PKk&_nc_zt=23&_nc_ht=scontent.ftbs4-2.fna&_nc_gid=Ph2M8gtI2uvjFvyIDpHI3Q&oh=00_AfViVoAmG-5Tjcc2mp482P-yw2ErAGL9uwlTxdsmzBuIHg&oe=689A35EC"
-                        alt="">
-                    <div class="product-text">
-                        <p class="art-name">untitled</p>
-                        <p class="priceSmall">6 000$</p>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-
-
-
-        <div class="each-card">
-            <p class="arter-name">რამაზ რაზმაძე</p>
-
-            <div class="big-image">
-                <img src="https://scontent.ftbs4-2.fna.fbcdn.net/v/t51.75761-15/490763600_18404905153103982_6819845897738443205_n.jpg?stp=dst-jpg_p180x540_tt6&_nc_cat=105&ccb=1-7&_nc_sid=127cfc&_nc_ohc=ISO8y_RmqRwQ7kNvwHChcHt&_nc_oc=AdlILwTxNarG7E1mSLVcDIpJpaOsvErFUfq82nKIx7jk7bmj1jmCki868bFgYVhZbgU&_nc_zt=23&_nc_ht=scontent.ftbs4-2.fna&_nc_gid=8PSJ-8RtX0eH-EFrMQ01sA&oh=00_AfUWG0d-3rA6DvhA8kxD88cGjXZKktR6O204eV1Am_S8rQ&oe=689A4573"
-                    alt="">
-
-                <div class="product-text">
-                    <div class="texts">
-                        <p class="art-name">Tourist Trophy</p>
-                        <p class="size">40 x 50 სმ</p>
-                        <p class="made-with">ტილო,ზეთი, ქვიშა</p>
-                    </div>
-                    <p class="price">5 000$</p>
-                </div>
-            </div>
-
-            <div class="small-images">
-
-                <div class="smallImage1">
-                    <img src="https://scontent.ftbs4-2.fna.fbcdn.net/v/t39.30808-6/496940952_1263025322490748_2913949836698697751_n.jpg?stp=dst-jpg_s720x720_tt6&_nc_cat=100&ccb=1-7&_nc_sid=127cfc&_nc_ohc=eb-3Jugi5jgQ7kNvwGvrUa2&_nc_oc=AdnajCl-sWEf8X4J7DDwHz1m2uD5GUdBXbV6ofUIlk--CEXLJWEGRp4MXbHQW87FEo8&_nc_zt=23&_nc_ht=scontent.ftbs4-2.fna&_nc_gid=ZyHZV_Y0XRJQM5V2fb9CYQ&oh=00_AfUvJJ3moB7q6KMh-KcZqJo6Y0e_p-QaVdNli4UO_wYeVw&oe=689A3EA1"
-                        alt="">
-                    <div class="product-text">
-                        <p class="art-name">Fence</p>
-                        <p class="priceSmall">7 000$</p>
-                    </div>
-                </div>
-
-                <div class="smallImage2">
-                    <img src="https://scontent.ftbs4-2.fna.fbcdn.net/v/t51.75761-15/491416162_18405182947103982_5630448083309423225_n.webp?stp=dst-jpg_s640x640_tt6&_nc_cat=111&ccb=1-7&_nc_sid=127cfc&_nc_ohc=JvYMlat-TnYQ7kNvwFQNICN&_nc_oc=Adld9YxsEEjOOxk-N6imvNgoZmZFwVtjnkWWt9p8ejwXOiYEJkr3wGumJ2qYAspERO0&_nc_zt=23&_nc_ht=scontent.ftbs4-2.fna&_nc_gid=LzEVD4SrvqABQcUZmmhi3Q&oh=00_AfV-eFgvl53UvI-j9GshGYhUEhNH9wRpKkOolZiV-PqdsQ&oe=689A5DA2"
-                        alt="">
-                    <div class="product-text">
-                        <p class="art-name">Neighborhood</p>
-                        <p class="priceSmall">8 000$</p>
-                    </div>
-                </div>
-
-
-                <div class="smallImage3">
-                    <img src="https://scontent.ftbs6-2.fna.fbcdn.net/v/t51.75761-15/488271435_18401962564103982_435933956058042333_n.jpg?stp=dst-jpg_s640x640_tt6&_nc_cat=107&ccb=1-7&_nc_sid=127cfc&_nc_ohc=v5NpXTYBymgQ7kNvwF82E_6&_nc_oc=AdmUa3tJnQlV68SV4W7Hg2T-0kJEsOZDljJ8nEm_-5ubB15w0XvVJOIHkuOhLvsKZgQ&_nc_zt=23&_nc_ht=scontent.ftbs6-2.fna&_nc_gid=9WaNngR-ht7A2HJAaL9ZlA&oh=00_AfXzwVb8s9VFX09gbySy2UM5MJ0sWnseyd-jF_cEyq_-dw&oe=689A2F02"
-                        alt="">
-                    <div class="product-text">
-                        <p class="art-name"> Island</p>
-                        <p class="priceSmall">9 000$</p>
-                    </div>
-                </div>
-
-            </div>
-
-
-
-
-        </div>
-
-
-
-
-
-
-
-
-        <div class="each-card">
-            <p class="arter-name">მიხეილ ფანჯიკიძე</p>
-
-            <div class="big-image">
-                <img src="https://scontent.ftbs6-2.fna.fbcdn.net/v/t39.30808-6/527740321_1118895396967604_3170277746306497728_n.jpg?stp=dst-jpg_s720x720_tt6&_nc_cat=110&ccb=1-7&_nc_sid=833d8c&_nc_ohc=_E62Atio8IAQ7kNvwFaZfHT&_nc_oc=Adm0jiwPfxEeYe38DlxkP3CXCflxVu0CUAHdBr972T-wcXmMh-mE4ZJzBzK5oCc6RPc&_nc_zt=23&_nc_ht=scontent.ftbs6-2.fna&_nc_gid=uKJx3GzYfcBMjavgCp6Xeg&oh=00_AfUB3OGgVjS4ED7VB8R3sI7qbwADL3c9tvME5WEz782UOA&oe=689A45D8"
-                    alt="">
-
-                <div class="product-text">
-                    <div class="texts">
-                        <p class="art-name">დოღი</p>
-                        <p class="size">61 x 43 სმ</p>
-                        <p class="made-with">ქაღალდი შერეული ტექნიკა.</p>
-                    </div>
-                    <p class="price">700$</p>
-                </div>
-            </div>
-
-            <div class="small-images">
-
-                <div class="smallImage1">
-                    <img src="https://scontent.ftbs4-2.fna.fbcdn.net/v/t39.30808-6/527713276_1117447503779060_955612791262767329_n.jpg?stp=dst-jpg_s720x720_tt6&_nc_cat=105&ccb=1-7&_nc_sid=833d8c&_nc_ohc=sBu_xMrZ86IQ7kNvwHOVaDY&_nc_oc=AdmKrrMyjc647f4izfyyynVICO9LvxB4-Xpq77eKoeu5eFutnSWeY64Ovc0E5lJzEQE&_nc_zt=23&_nc_ht=scontent.ftbs4-2.fna&_nc_gid=1yx9-ZgpDFRFka-pgBWOYg&oh=00_AfU7XruvTitputm9ZhUNPC2TTxeX7e6nphutFhphkm7MQw&oe=689A464E"
-                        alt="">
-                    <div class="product-text">
-                        <p class="art-name">Corida</p>
-                        <p class="priceSmall">850$</p>
-                    </div>
-                </div>
-
-                <div class="smallImage2">
-                    <img src="https://scontent.ftbs6-2.fna.fbcdn.net/v/t39.30808-6/526615128_1115590920631385_5980897452479704817_n.jpg?stp=dst-jpg_s600x600_tt6&_nc_cat=102&ccb=1-7&_nc_sid=833d8c&_nc_ohc=IRxWd7Kj-4wQ7kNvwFe-fnZ&_nc_oc=AdloVKPLcuKNBUZ-Qyc6ASgnx6voMievlL0U2xKpf4LUIXztX1vPySRhyE_EboUrfHY&_nc_zt=23&_nc_ht=scontent.ftbs6-2.fna&_nc_gid=ffig5zv-bfJsXihU5j42bQ&oh=00_AfVHE5BTxQUeygpDz8RYFZsGYpJNCofVh14EciAk0doqHQ&oe=689A45F4"
-                        alt="">
-                    <div class="product-text">
-                        <p class="art-name">Torero</p>
-                        <p class="priceSmall">1 200$</p>
-                    </div>
-                </div>
-
-
-                <div class="smallImage3">
-                    <img src="https://scontent.ftbs4-2.fna.fbcdn.net/v/t39.30808-6/527723903_1116838723839938_4802875946762381528_n.jpg?stp=dst-jpg_p552x414_tt6&_nc_cat=101&ccb=1-7&_nc_sid=833d8c&_nc_ohc=oIBk5eGnYUMQ7kNvwGS2daM&_nc_oc=AdlfCzBGs8B2z_vHdAPiLv-QNRoAD9vnA8H6P0ZsQb9z5C-pFDQkF-mP84QWQs7yf54&_nc_zt=23&_nc_ht=scontent.ftbs4-2.fna&_nc_gid=1yx9-ZgpDFRFka-pgBWOYg&oh=00_AfWB1T4w01zIggTuPs_F139413X3Dw380dJpz3W1npteRA&oe=689A47EF"
-                        alt="">
-                    <div class="product-text">
-                        <p class="art-name"> დოღი</p>
-                        <p class="priceSmall">850$</p>
-                    </div>
-                </div>
-
-            </div>
-
-
-
-        </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        <div class="each-card">
-            <p class="arter-name">გრიგოლ ღვანიას</p>
-
-            <div class="big-image">
-                <img src="https://scontent.ftbs6-2.fna.fbcdn.net/v/t39.30808-6/504784960_1021623020170082_6350672831372153459_n.jpg?stp=cp6_dst-jpg_s600x600_tt6&_nc_cat=103&ccb=1-7&_nc_sid=f727a1&_nc_ohc=zRYQXKtDKhUQ7kNvwHYrb48&_nc_oc=AdlSWUuQhkJZRASbDow31vYKRQnoUvon-PRY8smTgPvJqK1jZxUj83AsXH6h2ZxQG-U&_nc_zt=23&_nc_ht=scontent.ftbs6-2.fna&_nc_gid=bPBpLRrM_ne_BLIllIb3aQ&oh=00_AfXvWQ8F4MiHci00jVPhG4EJVrRm7Rp-xhQ_5ldZQkMkDQ&oe=689A5BBF"
-                    alt="">
-
-                <div class="product-text">
-                    <div class="texts">
-                        <p class="art-name">untitled</p>
-                        <p class="size">20 x 30 სმ</p>
-                        <p class="made-with">ტილო, ზეთი</p>
-                    </div>
-                    <p class="price">1 000$</p>
-                </div>
-            </div>
-
-            <div class="small-images">
-
-                <div class="smallImage1">
-                    <img src="https://scontent.ftbs6-2.fna.fbcdn.net/v/t39.30808-6/505522429_1021623120170072_8681766119875955342_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=108&ccb=1-7&_nc_sid=f727a1&_nc_ohc=pcB-B8iqAwwQ7kNvwED1GH8&_nc_oc=AdnM9eE_8bnfWBcGDaUew0Qcni3PPzkdmlkOq1UqtS8ohQnuxWCHdqnU-c72OYnJwTc&_nc_zt=23&_nc_ht=scontent.ftbs6-2.fna&_nc_gid=-aElB3_UYVowQxHXK-SC9A&oh=00_AfV4jTAzzxR2bUslOfld2QEXF2TOLxrCs8N_wbPt7x6WSA&oe=689A4A3D"
-                        alt="">
-                    <div class="product-text">
-                        <p class="art-name">untitled</p>
-                        <p class="priceSmall">2 000$</p>
-                    </div>
-                </div>
-
-                <div class="smallImage2">
-                    <img src="https://scontent.ftbs6-2.fna.fbcdn.net/v/t39.30808-6/505114314_1021623066836744_7917018756205354327_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=109&ccb=1-7&_nc_sid=f727a1&_nc_ohc=7jvSDClqkXgQ7kNvwF3V9A2&_nc_oc=Adn1d-uf7I05x7VeUBU2TGLTbDQyag1f-uJzF58tNS9y8TA7RtYBQ5iOLZMrhLQu_EE&_nc_zt=23&_nc_ht=scontent.ftbs6-2.fna&_nc_gid=4JOLXo4bI8D4GF_mzz-Y2Q&oh=00_AfXahNv76Q7EpJyB1g-T4d5whl-PozKCW5eLI5DmZTclPw&oe=689A3B94"
-                        alt="">
-                    <div class="product-text">
-                        <p class="art-name">untitled</p>
-                        <p class="priceSmall">3 000$</p>
-                    </div>
-                </div>
-
-
-                <div class="smallImage3">
-                    <img src="https://scontent.ftbs6-2.fna.fbcdn.net/v/t39.30808-6/505399571_1021623270170057_2235998663325845051_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=109&ccb=1-7&_nc_sid=f727a1&_nc_ohc=Cr7caz4_yGMQ7kNvwE50Z0b&_nc_oc=Adm5nr5syJlGtkn-GxEqq_7psjFcgRlnOQNzmcr1etiTyCQ4cRGda7Vd7ebHm1F3By8&_nc_zt=23&_nc_ht=scontent.ftbs6-2.fna&_nc_gid=IVNir1aRc8f-Q4XrnKCV-g&oh=00_AfXS8NPGPG2LQJaCjGK5w2ifq8lvPh_-zrO6Wg3QU_5USA&oe=689A5C71"
-                        alt="">
-                    <div class="product-text">
-                        <p class="art-name">untitled</p>
-                        <p class="priceSmall">20 000$</p>
-                    </div>
-                </div>
-
-            </div>
-
-
-
-        </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        <div class="each-card">
-            <p class="arter-name">ნუცა დუჩიძე</p>
-
-            <div class="big-image">
-                <img src="https://scontent.ftbs6-2.fna.fbcdn.net/v/t39.30808-6/500546524_1012038017795249_4708303682834292908_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=107&ccb=1-7&_nc_sid=f727a1&_nc_ohc=ga2jHJrUALkQ7kNvwH8gmwz&_nc_oc=AdkKxFuuwZCV03560_lFekAgdNm1RpfICY3MuSwPpjimCBiO-_m_r1lYAkEavweXmik&_nc_zt=23&_nc_ht=scontent.ftbs6-2.fna&_nc_gid=zKlBiy8eYz4HeTh2di4bgw&oh=00_AfWzdMskf-KFUt7aWmr2_2zdmNGL6QDRptYOh8REB4ZGAA&oe=689A2BC1"
-                    alt="">
-
-                <div class="product-text">
-                    <div class="texts">
-                        <p class="art-name">untitled</p>
-                        <p class="size">50 x 40 cm</p>
-                        <p class="made-with">ტილო, აკრილი</p>
-                    </div>
-                    <p class="price">180 $</p>
-                </div>
-            </div>
-
-            <div class="small-images">
-
-                <div class="smallImage1">
-                    <img src="https://scontent.ftbs6-2.fna.fbcdn.net/v/t39.30808-6/500170905_1012037827795268_4650453939081354121_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=110&ccb=1-7&_nc_sid=f727a1&_nc_ohc=_BAqxzBI8ZsQ7kNvwEcRZHQ&_nc_oc=AdlDKAJ-0pUepiGR9MoO6Mdxw-u7ifgQ3swzxbrHl4j9Gdj3l72FWaLXGTtdVcNsF1M&_nc_zt=23&_nc_ht=scontent.ftbs6-2.fna&_nc_gid=0X4u_KCUYZ-e9hdyRhYwFg&oh=00_AfU4GWRgCWNHi1YSMQYL6vtbSW0qPbS6KjjfHCRqoDfVrg&oe=689A3C74"
-                        alt="">
-                    <div class="product-text">
-                        <p class="art-name">untitled</p>
-                        <p class="priceSmall">180 $</p>
-                    </div>
-                </div>
-
-                <div class="smallImage2">
-                    <img src="https://scontent.ftbs6-2.fna.fbcdn.net/v/t39.30808-6/501750649_1012038051128579_8651313222029090201_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=102&ccb=1-7&_nc_sid=f727a1&_nc_ohc=Xi1gxWk5PsoQ7kNvwF1cwuC&_nc_oc=AdltQuxss2baAxrpK-RYNcm_NUHyw3YQNNkgSY0KUPJFX4_sjEPk5laKNBX5NUwfUTg&_nc_zt=23&_nc_ht=scontent.ftbs6-2.fna&_nc_gid=BpdseP5SlTZQ97FQLH-sDQ&oh=00_AfUPCGO5rkbvs9mbRLFysMWLXKz8JQAsFX4y71X7KDtACg&oe=689A4963"
-                        alt="">
-                    <div class="product-text">
-                        <p class="art-name">untitled</p>
-                        <p class="priceSmall">180 $</p>
-                    </div>
-                </div>
-
-
-                <div class="smallImage3">
-                    <img src="https://scontent.ftbs6-2.fna.fbcdn.net/v/t39.30808-6/501747681_1012038084461909_6650923003090389170_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=109&ccb=1-7&_nc_sid=f727a1&_nc_ohc=JLPy3_oeCuoQ7kNvwFgL7CQ&_nc_oc=Adlq4k9SUYulcPLqElNhoW75H3dNWs5njM3cwnqlZIbk5LTUi0JWZhnQwNNtLvCWNoI&_nc_zt=23&_nc_ht=scontent.ftbs6-2.fna&_nc_gid=3R2RdY9pNSHv1PQLhlKirw&oh=00_AfXobFml25BansC6A4t97sN04WwBgkqX_qSRF25JVRia0g&oe=689A52DF"
-                        alt="">
-                    <div class="product-text">
-                        <p class="art-name">untitled</p>
-                        <p class="priceSmall">180 $</p>
-                    </div>
-                </div>
-
-            </div>
-
-
-
-
-
-
-
-
-
-        </div>
 
 
 
@@ -796,4 +94,54 @@
 
 
     </div>
+
+    
+        <div *ngIf="noProdFound" class="no-artists-message">
+            <p class="no-products">არ არის მხატვრები ამ ასოთი!</p>
+        </div>
+
+
+
+    <div class="pagination">
+        <button *ngIf="currentPage > 1" class="prevPage" (click)="firstPage()" [disabled]="currentPage === 1">
+            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">
+                <path d="M13.5801 5L20.5801 12L13.5801 19M5.58008 5L12.5801 12L5.58008 19" stroke="#F39C4F"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+        </button>
+
+        <button *ngIf="currentPage > 1" class="prevPage" (click)="prevPage()" [disabled]="currentPage === 1">
+            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">
+                <path d="M9.28027 5L16.2803 12L9.28027 19" stroke="#F39C4F" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round"></path>
+            </svg>
+        </button>
+
+        <button *ngFor="let page of getDisplayedPages()" class="pageNumber" (click)="handlePageClick(page)"
+            [class.active]="page === currentPage" [disabled]="page === '...'">
+            {{ page }}
+        </button>
+
+
+
+        <button class="nextPage" (click)="nextPage()" [disabled]="currentPage === totalPages">
+            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">
+                <path d="M9.28027 5L16.2803 12L9.28027 19" stroke="#F39C4F" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round"></path>
+            </svg>
+        </button>
+
+
+        <button class="nextPage" (click)="lastPage()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">
+                <path d="M13.5801 5L20.5801 12L13.5801 19M5.58008 5L12.5801 12L5.58008 19" stroke="#F39C4F"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+        </button>
+
+    </div>
+
+
+
+
 </section>

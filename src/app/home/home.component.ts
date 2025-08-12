@@ -78,8 +78,14 @@ export class HomeComponent implements AfterViewInit {
   maxPrice?: number;
   noProdFound: boolean = false;
 
+  showPagination: boolean = true;
 
   filter() {
+
+    this.currentPage = 1;
+    this.loadData(this.currentPage);
+
+
     console.log("selected price range", this.selectedPriceRange)
     this.service.minPrice = this.selectedPriceRange?.min;
     this.service.maxPrice = this.selectedPriceRange?.max;
@@ -93,14 +99,14 @@ export class HomeComponent implements AfterViewInit {
 
 
     this.service.widthMaxValues = widthMaxValues
-    
+
     this.service.widthMinValues = widthMinValues
-    
+
     this.service.heightMaxValues = heightMaxValues
-    
+
     this.service.heightMinValues = heightMinValues
 
-    
+
     this.service.selectedSizesLabels = this.selectedSizes;     // from your component selectedSizes array
     this.service.selectedMaterials = this.selectedMaterials;
     this.service.selectedStyles = this.selectedStyles;
@@ -108,15 +114,25 @@ export class HomeComponent implements AfterViewInit {
     this.service.selectedFormats = this.selectedFormats;
     this.service.selectedTypes = this.selectedTypes;
 
-    console.log("sizes", this.selectedSizes, widthMaxValues )
+    console.log("sizes", this.selectedSizes, widthMaxValues)
 
     this.service.getProducts().subscribe(data => {
+
+      this.totalItems = data.total;  // Make sure backend returns total filtered count
+      this.totalPages = Math.ceil(this.totalItems / this.itemsPerPage);
+
+      this.noProdFound = this.products.length === 0;
+
+      // Show pagination only if products found
+      this.showPagination = !this.noProdFound;
+
+
       this.products = data.items;
       console.log("filtered products Last", this.products);
       if (this.products.length === 0) {
         this.noProdFound = true
       } else {
-         this.noProdFound = false
+        this.noProdFound = false
       }
     });
   }
@@ -125,14 +141,25 @@ export class HomeComponent implements AfterViewInit {
     this.service.minPrice = undefined;
     this.service.maxPrice = undefined;
 
-     this.service.widthMaxValues = undefined
-    
+    this.service.widthMaxValues = undefined
+
     this.service.widthMinValues = undefined
-    
+
     this.service.heightMaxValues = undefined
-    
+
     this.service.heightMinValues = undefined
 
+
+    this.currentPage = 1;
+    this.loadData(this.currentPage);
+    this.service.getProducts(this.currentPage, this.itemsPerPage).subscribe(data => {
+      this.products = data.items;
+      this.totalItems = data.total;
+      this.totalPages = Math.ceil(this.totalItems / this.itemsPerPage);
+
+      this.noProdFound = false;
+      this.showPagination = true;
+    });
 
     this.service.selectedColorsNames = [] // from your component Set
     this.service.selectedSizesLabels = []    // from your component selectedSizes array
@@ -622,6 +649,14 @@ export class HomeComponent implements AfterViewInit {
 
   goToPage(page: number) {
     if (page >= 1 && page <= this.totalPages) {
+      this.currentPage = page;
+      this.service.getProducts(this.currentPage, this.itemsPerPage).subscribe(data => {
+        this.products = data.items;
+        this.noProdFound = this.products.length === 0;
+        this.showPagination = !this.noProdFound;
+      });
+    }
+    if (page >= 1 && page <= this.totalPages) {
       this.loadData(page);
     }
   }
@@ -670,11 +705,11 @@ export class HomeComponent implements AfterViewInit {
 
 
     this.service.widthMaxValues = undefined
-    
+
     this.service.widthMinValues = undefined
-    
+
     this.service.heightMaxValues = undefined
-    
+
     this.service.heightMinValues = undefined
 
 
@@ -695,7 +730,7 @@ export class HomeComponent implements AfterViewInit {
   }
 
 
-  
+
 
 
 
@@ -766,28 +801,30 @@ export class HomeComponent implements AfterViewInit {
 
 
 
-originalProducts() {
-  this.service.getProducts().subscribe(data => {
-    this.products = data.items;
-    console.log("original products", this.products);
-    this.noProdFound = false;
-  });
-}
+  originalProducts() {
+    this.service.getProducts().subscribe(data => {
+      this.products = data.items;
+      console.log("original products", this.products);
+      this.noProdFound = false;
+    });
+  }
 
-priceUp() {
-  this.products.sort((b, a) => a.price - b.price);
-  console.log("products sorted by price ascending", this.products);
-}
+  priceUp() {
+    this.products.sort((b, a) => a.price - b.price);
+    console.log("products sorted by price ascending", this.products);
+  }
 
-priceDown() {
-  this.products.sort((a, b) => a.price - b.price);
-  console.log("products sorted by price descending", this.products);
-}
+  priceDown() {
+    this.products.sort((a, b) => a.price - b.price);
+    console.log("products sorted by price descending", this.products);
+  }
 
-News() {
-   this.products.sort((a, b) => b.year_created - a.year_created);
-  console.log("products sorted by price descending", this.products);
-}
+  News() {
+    this.products.sort((a, b) => b.year_created - a.year_created);
+    console.log("products sorted by price descending", this.products);
+  }
+
+
 
 
 

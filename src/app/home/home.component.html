@@ -205,10 +205,10 @@
 
                 </div>
             </div>
-
-
-            <button (click)="filter()">filter</button>
-            <button (click)="unfilter()">unfilter</button>
+            <div class="filtering-buttons" >
+                <button (click)="filter()">გაფილტვრა</button>
+                <button (click)="unfilter()">გასუფთავება</button>
+            </div>
         </div>
 
     </div>
@@ -232,16 +232,7 @@
 
 
     <div class="product-section">
-        <div [routerLink]="['/product', art.id]" [queryParams]="{
-                     title: art.title, 
-       artist_name: art.artist_name, 
-       price: art.price, 
-       matherial: art.material,
-       style: art.style,
-       year: art.year_created,
-       img: art.image
-
-                }" *ngFor="let art of products" class="product-card">
+        <div [routerLink]="['/product', art.id]" *ngFor="let art of products" class="product-card">
             <img [src]="art.image" alt="{{art.title}}" />
             <div class="product-info">
                 <p class="name">{{ art.title }}</p>
