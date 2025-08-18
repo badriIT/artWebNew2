@@ -1,0 +1,138 @@
+* {
+    font-family: 'Noto Sans Georgian', sans-serif;
+}
+
+.cart-section {
+    padding: 32px;
+    max-width: 1360px;
+    margin: auto;
+}
+
+.ifIsEmpty {
+    padding-bottom: 100px;
+    padding-top: 100px;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.ri-shopping-cart-line {
+    font-size: 70px;
+    color: rgba(35, 36, 36, 0.447);
+}
+
+.cart-empty-text {
+    font-size: 28px;
+    color: rgba(35, 36, 36, 0.447);
+}
+
+.continiue-shopping {
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.delete-btn {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}
+
+.product-left {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.product-buttons {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+}
+
+.all-products {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px 0;
+    justify-content: center;
+    margin: auto;
+}
+
+.cart-text {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 60px;
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.style, .artist, .size  {
+    color: #c4c4c4;
+    font-size: 16px;
+}
+
+.product-price {
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.artist-name {
+    color:  rgb(64, 50, 164);
+    cursor: pointer;
+}
+
+.title {
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.title:hover {
+    color: rgba(1, 146, 13, 0.805);
+}
+
+.left {
+    display: flex;
+    gap: 24px;
+}
+
+.right-content {
+    display: flex;
+
+    flex-direction: column;
+
+
+    margin-left: 24px;
+}
+
+.products {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+
+    padding: 10px 12px;
+    max-width: 800px;
+    width: 100%;
+    margin: auto;
+}
+
+.product-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-top: 60px;
+}
+
+.price {
+    margin-top: 100px;
+}
+
+
+.product-left img {
+    width: 150px;
+    height: 160px;
+    object-fit: cover;
+
+}

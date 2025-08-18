@@ -726,6 +726,7 @@
     align-items: center;
     justify-content: center;
     gap: 32px;
+  
 
 }
 
@@ -758,7 +759,12 @@
 
 
 
-
+.pageNumbers {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+   
+}
 
 
 
@@ -809,12 +815,41 @@
 
 
 
+@media screen and (max-width: 900px) {
 
+    .pagination {
+   
+    gap: 8px;
+
+}
+
+    .filtering-buttons {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+    
+
+
+    
+}
 
 
 @media screen and (max-width: 630px) {
+    .pageNumbers {
+        gap: 8px;
+    }
 
+    .pagination {
+        gap: 10px;
+    }
 
+ .buttons {
+        display: flex;
+        gap: 10px;
+        margin-top: 10px;
+       
+    }
 
     .accordion-content-colors {
         place-content: center;
@@ -830,11 +865,7 @@
         width: 100%;
     }
 
-    .buttons {
-        display: flex;
-        gap: 10px;
-        margin-top: 10px;
-    }
+   
 
     .up-content {
         display: none;
@@ -857,6 +888,16 @@
 }
 
 @media screen and (max-width: 500px) {
+
+ .pageNumbers {
+        gap: 4px;
+    }
+
+    .pagination {
+        gap: 5px;
+    }
+
+
     .accordion-content-colors {
         place-content: center;
         place-items: center;
@@ -878,6 +919,14 @@
 @media screen and (max-width: 400px) {
     .buttons {
         flex-direction: column;
+    }
+
+    .pageNumbers {
+        gap: 0px;
+    }
+
+    .pagination {
+        gap: 0px;
     }
 
 
@@ -905,6 +954,10 @@
 
 
 @media screen and (max-width: 360px) {
+
+    .pagination {
+        zoom: .85;
+    }
 
     .name {
         font-size: 10px;

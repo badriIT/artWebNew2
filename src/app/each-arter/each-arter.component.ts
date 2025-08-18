@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ServiceService } from '../service.service';
 import { ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-each-arter',
@@ -13,6 +14,7 @@ export class EachArterComponent {
   artistInfo: any;
 
   constructor(
+    private location: Location,
     private route: ActivatedRoute,
     private service: ServiceService
   ) {}
@@ -32,5 +34,10 @@ export class EachArterComponent {
       console.log('Loaded artist info:', data);
     });
   }
+
+   goBack() {
+    this.location.back(); // navigates to the previous page in history
+  }
     
+  
 }

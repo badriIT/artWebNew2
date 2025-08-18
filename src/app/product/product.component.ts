@@ -3,9 +3,11 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ServiceService } from '../service.service';
 import { RouterModule } from '@angular/router';
+import { Location } from '@angular/common';
+import { forkJoin } from 'rxjs';
 
 @Component({
-   selector: 'app-product',
+  selector: 'app-product',
   standalone: true,              // <-- Make it standalone
   imports: [CommonModule, RouterModule],  // <-- Add these imports
   templateUrl: './product.component.html',
@@ -26,11 +28,14 @@ export class ProductComponent implements OnInit {
   artistData: any;
   otherWorks: any[] = [];
 
+  products: any[] = [];
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private service: ServiceService
-  ) {}
+    private service: ServiceService,
+    private location: Location,
+  ) { }
 
   loadProduct(id: string) {
     this.service.getProductById(id).subscribe(product => {
@@ -90,7 +95,55 @@ export class ProductComponent implements OnInit {
       if (this.productId) {
         this.loadProduct(this.productId);
         window.scrollTo({ top: 0, behavior: 'smooth' });
+
+
+
+
+
+
+
+
       }
     });
+
   }
+
+  goBack() {
+    this.location.back(); // navigates to the previous page in history
+  }
+
+
+  addToCart() {
+    const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+
+    const existingProductIndex = cart.findIndex((item: any) => item.id === this.productId);
+
+    if (existingProductIndex > -1) {
+      // Product already in cart → increase quantity
+      cart[existingProductIndex].quantity += 1;
+      alert('პროდუქტის რაოდენობა განახლდა კალათში!');
+    } else {
+      // Product not in cart → add new
+      const newProduct = {
+        id: this.productId,
+        quantity: 1
+      };
+      cart.push(newProduct);
+      alert('პროდუქტი წარმატებით დაემატა კალათში!');
+    }
+
+    // Save updated cart
+    localStorage.setItem('cart', JSON.stringify(cart));
+
+    // Navigate to cart page
+    this.router.navigate(['/cart']);
+  }
+
+  heartBlack() {
+    const heartIcon = document.querySelector('.heart') as HTMLElement;
+    heartIcon.classList.toggle('HeartActive');
+  }
+
 }
+
+

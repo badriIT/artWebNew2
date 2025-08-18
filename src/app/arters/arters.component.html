@@ -95,10 +95,10 @@
 
     </div>
 
-    
-        <div *ngIf="noProdFound" class="no-artists-message">
-            <p class="no-products">არ არის მხატვრები ამ ასოთი!</p>
-        </div>
+
+    <div *ngIf="noProdFound" class="no-artists-message">
+        <p class="no-products">არ არის მხატვრები ამ ასოთი!</p>
+    </div>
 
 
 
@@ -116,12 +116,13 @@
                     stroke-linejoin="round"></path>
             </svg>
         </button>
-
-        <button *ngFor="let page of getDisplayedPages()" class="pageNumber" (click)="handlePageClick(page)"
-            [class.active]="page === currentPage" [disabled]="page === '...'">
-            {{ page }}
-        </button>
-
+        
+        <div class="pageNumbers">
+            <button *ngFor="let page of getDisplayedPages()" class="pageNumber" (click)="handlePageClick(page)"
+                [class.active]="page === currentPage" [disabled]="page === '...'">
+                {{ page }}
+            </button>
+        </div>
 
 
         <button class="nextPage" (click)="nextPage()" [disabled]="currentPage === totalPages">

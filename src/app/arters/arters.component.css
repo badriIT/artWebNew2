@@ -39,7 +39,7 @@
 }
 
 .digit.selected {
-  border-bottom: 2px solid rgb(145, 2, 2) ;
+    border-bottom: 2px solid rgb(145, 2, 2);
 }
 
 
@@ -309,6 +309,14 @@
     color: #a592ff;
 }
 
+.pageNumbers {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+}
+
+
 
 
 
@@ -352,6 +360,64 @@
     .artists {
 
         grid-template-columns: 1fr;
+    }
+
+}
+
+
+
+
+@media screen and (max-width: 630px) {
+    .pageNumbers {
+        gap: 8px;
+    }
+
+    .pagination {
+        gap: 10px;
+    }
+
+}
+
+
+
+
+
+@media screen and (max-width: 500px) {
+
+ .pageNumbers {
+        gap: 4px;
+    }
+
+    .pagination {
+        gap: 5px;
+    }
+
+}
+
+
+
+@media screen and (max-width: 400px) {
+    .buttons {
+        flex-direction: column;
+    }
+
+    .pageNumbers {
+        gap: 0px;
+    }
+
+    .pagination {
+        gap: 0px;
+    }
+
+}
+
+
+
+
+@media screen and (max-width: 360px) {
+
+    .pagination {
+        zoom: .85;
     }
 
 }

@@ -9,6 +9,7 @@ import { ProductComponent } from './product/product.component';
 import { EachArterComponent } from './each-arter/each-arter.component';
 import { ProductFromCatalogComponent } from './product-from-catalog/product-from-catalog.component';
 import { EachArterFromCatalogComponent } from './each-arter-from-catalog/each-arter-from-catalog.component';
+import { CartComponent } from './cart/cart.component';
 
 
 
@@ -17,12 +18,13 @@ const routes: Routes = [
   { path: "arters", component: ArtersComponent },
   { path: "service-communicate", component: ServicesCommunicateComponent },
   { path: "contact", component: ContactComponent },
-// ...existing code...
+  { path: "cart", component: CartComponent },
+
 {
   path: 'product/:id',
   component: ProductComponent,
 },
-// ...existing code...
+
 
   { path: "eachArter/:id", component: EachArterComponent },
   { path: "fromCatalog", component: ProductFromCatalogComponent },

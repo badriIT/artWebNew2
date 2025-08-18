@@ -10,12 +10,15 @@ import { ServiceService } from '../service.service';
 export class NavComponent {
 
 
+  productsInCart!: number;
 
 
 
   constructor(private service: ServiceService,) {
     this.service.getWholeProcucts().subscribe(data => {
       this.WholeProducts = data.items
+      this.productsInCart = this.service.ProductsInCart;
+
     })
   }
 

@@ -454,7 +454,9 @@ nav {
     border-bottom: 2px solid rgb(64, 50, 164)
 }
 
-
+.cart {
+    margin-top: 3px;
+}
 
 .products-popup {
     position: absolute;

@@ -205,9 +205,9 @@
 
                 </div>
             </div>
-            <div class="filtering-buttons" >
-                <button (click)="filter()">გაფილტვრა</button>
-                <button (click)="unfilter()">გასუფთავება</button>
+            <div class="filtering-buttons">
+                <button (click)="filter(); closePanels()">გაფილტვრა</button>
+                <button (click)="unfilter(); closePanels()">გასუფთავება</button>
             </div>
         </div>
 
@@ -267,11 +267,12 @@
             </svg>
         </button>
 
-        <button *ngFor="let page of getDisplayedPages()" class="pageNumber" (click)="handlePageClick(page)"
-            [class.active]="page === currentPage" [disabled]="page === '...'">
-            {{ page }}
-        </button>
-
+        <div class="pageNumbers">
+            <button *ngFor="let page of getDisplayedPages()" class="pageNumber" (click)="handlePageClick(page)"
+                [class.active]="page === currentPage" [disabled]="page === '...'">
+                {{ page }}
+            </button>
+        </div>
 
 
         <button class="nextPage" (click)="nextPage()" [disabled]="currentPage === totalPages">
