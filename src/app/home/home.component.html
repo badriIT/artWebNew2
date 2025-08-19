@@ -206,8 +206,8 @@
                 </div>
             </div>
             <div class="filtering-buttons">
-                <button (click)="filter(); closePanels()">გაფილტვრა</button>
-                <button (click)="unfilter(); closePanels()">გასუფთავება</button>
+                <button (click)=" closePanels(); filter()">გაფილტვრა</button>
+                <button (click)=" closePanels(); unfilter() ">გასუფთავება</button>
             </div>
         </div>
 

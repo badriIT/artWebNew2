@@ -1,0 +1,43 @@
+<section class="likedProductsSection">
+    <p class="choosed">გამორჩეული</p>
+    <div class="likedProduct" *ngFor="let product of likedItems">
+        <img [src]="product.image" alt="">
+
+        <div class="product-info">
+            <div class="title-svg">
+                <p [routerLink]="['/product', product.id]" class="title">{{product.title}}</p>
+                <i (click)="removeFromLiked(product.id)" class="ri-heart-fill"></i>
+            </div>
+
+            <div class="infos">
+                <p>გამოშვების წელი: {{product.year_created}}</p>
+                <p [routerLink]="['/eachArter', product.artist_id]">ავტორი: <span
+                        class="artist-name">{{product.artist_name}}</span></p>
+                <p>სტილი: {{product.style}}</p>
+                <p>ფერი: {{product.colors}}</p>
+                <p>ზომა: {{product.width_cm}} x {{product.height_cm}}cm</p>
+
+            </div>
+
+            <div>
+
+                <p class="size2-text">ზომა:</p>
+
+                <div class="size2">
+                    <p>{{product.width_cm}} x {{product.height_cm}} cm</p>
+                </div>
+
+            </div>
+
+
+
+            <p class="price">{{product.price}} $</p>
+
+            <button class="buy">ყიდვა</button>
+        </div>
+
+        <div>
+            <!-- svg heart -->
+        </div>
+    </div>
+</section>

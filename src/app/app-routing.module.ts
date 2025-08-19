@@ -10,6 +10,7 @@ import { EachArterComponent } from './each-arter/each-arter.component';
 import { ProductFromCatalogComponent } from './product-from-catalog/product-from-catalog.component';
 import { EachArterFromCatalogComponent } from './each-arter-from-catalog/each-arter-from-catalog.component';
 import { CartComponent } from './cart/cart.component';
+import { LikedProductsComponent } from './liked-products/liked-products.component';
 
 
 
@@ -19,24 +20,25 @@ const routes: Routes = [
   { path: "service-communicate", component: ServicesCommunicateComponent },
   { path: "contact", component: ContactComponent },
   { path: "cart", component: CartComponent },
+  { path: "likedProducts", component: LikedProductsComponent },
 
-{
-  path: 'product/:id',
-  component: ProductComponent,
-},
+  {
+    path: 'product/:id',
+    component: ProductComponent,
+  },
 
 
   { path: "eachArter/:id", component: EachArterComponent },
   { path: "fromCatalog", component: ProductFromCatalogComponent },
-  { path: "eachArterFromCatalog", component: EachArterFromCatalogComponent},
+  { path: "eachArterFromCatalog", component: EachArterFromCatalogComponent },
 
 
   { path: "**", component: ErrorInWorkComponent } // Wildcard route for a 404 page,
 ];
 
 @NgModule({
-  imports: [ RouterModule.forRoot(routes, { onSameUrlNavigation: 'reload' }) // ✅ important
-   
+  imports: [RouterModule.forRoot(routes, { onSameUrlNavigation: 'reload' }) // ✅ important
+
   ],
   exports: [RouterModule]
 })

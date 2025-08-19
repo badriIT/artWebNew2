@@ -17,6 +17,7 @@ import { ProductFromCatalogComponent } from './product-from-catalog/product-from
 import { EachArterFromCatalogComponent } from './each-arter-from-catalog/each-arter-from-catalog.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CartComponent } from './cart/cart.component';
+import { LikedProductsComponent } from './liked-products/liked-products.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { CartComponent } from './cart/cart.component';
     EachArterComponent,
     ProductFromCatalogComponent,
     EachArterFromCatalogComponent,
-    CartComponent
+    CartComponent,
+    LikedProductsComponent
   ],
   imports: [
     BrowserModule,

@@ -17,6 +17,18 @@
 
 }
 
+.ri-heart-2-line {
+    font-size: 30px;
+}
+
+.heart.liked {
+  color: red;
+}
+
+.heart.liked svg path {
+  fill: black;
+}
+
 
 .left p {
     font-family: 'Noto Sans Georgian', sans-serif;

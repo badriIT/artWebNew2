@@ -17,6 +17,14 @@ export class ProductComponent implements OnInit {
   transform = 'scale(1)';
   transformOrigin = 'center center';
 
+
+
+
+  likedProductIds: string[] = [];
+  isLiked: boolean = false;
+
+
+
   title!: string;
   artist!: string;
   price!: string;
@@ -94,19 +102,18 @@ export class ProductComponent implements OnInit {
       this.productId = params.get('id')!;
       if (this.productId) {
         this.loadProduct(this.productId);
+        this.loadLikedProducts(); // <-- Load liked IDs on init
         window.scrollTo({ top: 0, behavior: 'smooth' });
-
-
-
-
-
-
-
-
       }
     });
-
   }
+
+  loadLikedProducts() {
+    const likedProducts = JSON.parse(localStorage.getItem('LikedProducts') || '[]');
+    this.likedProductIds = likedProducts.map((item: any) => String(item.id));
+    this.isLiked = this.likedProductIds.includes(String(this.productId));
+  }
+
 
   goBack() {
     this.location.back(); // navigates to the previous page in history
@@ -114,6 +121,11 @@ export class ProductComponent implements OnInit {
 
 
   addToCart() {
+
+    this.service.updateCartCount();
+
+
+
     const cart = JSON.parse(localStorage.getItem('cart') || '[]');
 
     const existingProductIndex = cart.findIndex((item: any) => item.id === this.productId);
@@ -121,7 +133,7 @@ export class ProductComponent implements OnInit {
     if (existingProductIndex > -1) {
       // Product already in cart → increase quantity
       cart[existingProductIndex].quantity += 1;
-      alert('პროდუქტის რაოდენობა განახლდა კალათში!');
+
     } else {
       // Product not in cart → add new
       const newProduct = {
@@ -129,7 +141,7 @@ export class ProductComponent implements OnInit {
         quantity: 1
       };
       cart.push(newProduct);
-      alert('პროდუქტი წარმატებით დაემატა კალათში!');
+
     }
 
     // Save updated cart
@@ -139,10 +151,37 @@ export class ProductComponent implements OnInit {
     this.router.navigate(['/cart']);
   }
 
-  heartBlack() {
-    const heartIcon = document.querySelector('.heart') as HTMLElement;
-    heartIcon.classList.toggle('HeartActive');
+
+
+
+  addToLikedProducts() {
+   
+    const likedProducts = JSON.parse(localStorage.getItem('LikedProducts') || '[]');
+    const existingProductIndex = likedProducts.findIndex((item: any) => item.id === this.productId);
+
+    if (existingProductIndex > -1) {
+      // Product is already liked → remove it
+      likedProducts.splice(existingProductIndex, 1);
+      this.isLiked = false;
+    } else {
+      // Product not liked → add it
+      const newProduct = {
+        id: this.productId,
+      };
+
+
+      likedProducts.push(newProduct);
+      this.isLiked = true;
+    }
+
+    localStorage.setItem('LikedProducts', JSON.stringify(likedProducts));
+
+     this.service.updatelikeProductCount()
   }
+
+
+  
+ 
 
 }
 

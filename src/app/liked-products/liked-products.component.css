@@ -1,0 +1,103 @@
+* {
+    font-family: 'Noto Sans Georgian', sans-serif;
+}
+
+
+.likedProduct {
+    border: solid 1px rgba(108, 108, 108, 0.163);
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    padding: 8px 0px 8px 50px;
+    max-width: 900px;
+    margin: auto;
+}
+
+.product-info {
+    width: 100%;
+}
+
+.choosed {
+    display: flex;
+    justify-content: center;
+    font-size: 28px;
+    font-weight: 600;
+    padding-bottom: 100px;
+}
+
+.likedProductsSection {
+    max-width: 1320px;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+}
+
+.title-svg {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    
+    width: 100%;
+   
+
+}
+
+.ri-heart-fill {
+    margin-top: -16px;
+    cursor: pointer;
+    font-size: 30px;
+    
+}
+
+.likedProduct img {
+    max-width: 150px;
+    max-height: 200px;
+    object-fit: cover;
+}
+
+.title {
+    display: flex;
+    padding-bottom: 20px;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.infos {
+    font-size: 14px;
+    color: #c4c4c4;
+}
+
+.artist-name {
+
+    border-bottom: 1px solid rgb(64, 50, 164);
+    color: rgb(64, 50, 164);
+    cursor: pointer;
+}
+
+.size2 {
+    background-color: rgb(64, 50, 164);
+    color: white;
+    padding: 10px 10px;
+    font-size: 17px;
+    width: fit-content;
+    
+}
+
+.size2-text {
+    margin-top: 10px;
+    margin-bottom: 6px;
+
+}
+
+.price {
+    margin-top: 12px;
+    font-size: 24px;
+}
+
+.buy {
+    background-color: #2d2e2c;
+    color: white;
+    padding: 8px 20px;
+
+}

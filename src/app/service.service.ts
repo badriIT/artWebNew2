@@ -1,11 +1,34 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { forkJoin, Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class ServiceService {
+
+  private cartCountSubject = new BehaviorSubject<number>(0);
+  cartCount$ = this.cartCountSubject.asObservable();
+
+  private likedProductsSubject = new BehaviorSubject<number>(0);
+  likedProductsCount$ = this.likedProductsSubject.asObservable();
+
+  updateCartCount() {
+    const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+    this.cartCountSubject.next(cart.length);
+  }
+
+  updatelikeProductCount() {
+    const liked = JSON.parse(localStorage.getItem('LikedProducts') || '[]');
+    this.likedProductsSubject.next(liked.length);
+  }
+
+
+
+
+
 
   ProductsInCart!: number;
 
@@ -41,7 +64,9 @@ export class ServiceService {
   heightMaxValues!: any
   heightMinValues!: any
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    this.updateCartCount()
+  }
 
 
 
@@ -136,11 +161,11 @@ export class ServiceService {
   }
 
 
-getAllArtists(initial: string = '', page: number = 1, limit: number = 12): Observable<any> {
-  const initialParam = initial ? `initial=${initial}&` : '';
-  const url = `https://artshop-backend-demo.fly.dev/artists?${initialParam}page=${page}&limit=${limit}`;
-  return this.http.get<any>(url);
-}
+  getAllArtists(initial: string = '', page: number = 1, limit: number = 12): Observable<any> {
+    const initialParam = initial ? `initial=${initial}&` : '';
+    const url = `https://artshop-backend-demo.fly.dev/artists?${initialParam}page=${page}&limit=${limit}`;
+    return this.http.get<any>(url);
+  }
 
 
 
@@ -149,6 +174,6 @@ getAllArtists(initial: string = '', page: number = 1, limit: number = 12): Obser
 
 
 
-  
+
 }
 
