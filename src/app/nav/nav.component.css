@@ -17,13 +17,15 @@ nav {
 }
 
 
-
+.slesh {
+    font-size: 20px;
+}
 
 
 
 .productsInCart {
     position: absolute;
-    z-index: 999;
+    z-index: 9;
     margin-left: 8px;
     margin-top: 16px;
     background-color: white;
@@ -642,6 +644,16 @@ nav {
 
 
 
+.languages-changes {
+    display: flex;
+    gap: 30px;
+    margin: auto;
+    justify-content: center;
+    padding-bottom: 20px;
+}
+
+
+
 
 
 
@@ -719,7 +731,7 @@ nav {
 }
 
 
-@media screen and (max-width: 770px) {
+@media screen and (max-width: 800px) {
 
     .catalog-text {
         justify-content: center;

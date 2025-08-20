@@ -31,6 +31,8 @@
     display: flex;
     flex-direction: column;
     margin: auto;
+    gap: 20px;
+    padding: 20px;
 }
 
 .title-svg {
@@ -100,4 +102,34 @@
     color: white;
     padding: 8px 20px;
 
+}
+
+
+@media screen and  (max-width: 500px) {
+    .likedProduct {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+          padding: 10px 0px;
+    }
+
+    .title-svg {
+        justify-content: center;
+        gap: 14px;
+    }
+
+  .infos, .size2-text, .size2, .price, .buy {
+    margin: auto;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    
+  }
+
+  .size2-text, .size2, .price, .buy {
+    margin-top: 6px;
+  }
+
+ 
 }

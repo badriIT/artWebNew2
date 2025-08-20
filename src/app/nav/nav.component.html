@@ -83,6 +83,7 @@
 
 
                 <div (click)="translateToEnglish()" class="language">Eng</div>
+                <p class="slesh">/</p>
                 <div (click)="translateToGeorgian()" class="language">geo</div>
                 <div id="google_translate_element" style="display: none;"></div>
 
@@ -297,15 +298,19 @@
                 </svg>
 
 
-                <svg style="cursor: pointer;" xmlns="http://www.w3.org/2000/svg" width="27" height="25"
-                    viewBox="0 0 27 25" fill="none">
-                    <path fill-rule="evenodd" clip-rule="evenodd"
-                        d="M11.984 3.96232C9.83722 1.96664 6.47837 2.01364 4.38868 4.10333L4.18691 4.3051C1.93769 6.55432 1.9377 10.201 4.18693 12.4502L4.18837 12.4517L12.9543 21.265L21.8748 12.4357C24.1372 10.1964 24.1466 6.54423 21.8957 4.29339C19.653 2.05071 16.0169 2.05071 13.7742 4.29339L8.16013 9.9075L7.09947 8.84684L11.984 3.96232ZM13.0561 2.91139C10.3235 0.319837 6.00709 0.363597 3.32802 3.04267L3.12625 3.24444C0.291534 6.07916 0.291252 10.675 3.1254 13.51C3.12569 13.5103 3.12599 13.5106 3.12628 13.5109L12.4184 22.8532L12.946 23.3837L13.4777 22.8574L22.93 13.5018C25.7833 10.6777 25.7951 6.07149 22.9564 3.23273C20.2394 0.51577 15.9009 0.408654 13.0561 2.91139Z"
-                        fill="black"></path>
-                </svg>
+                <div routerLink="/likedProducts">
+                    <p class="productsInCart">{{productsLiked}}</p>
+                    <svg style="cursor: pointer;" xmlns="http://www.w3.org/2000/svg" width="27" height="25"
+                        viewBox="0 0 27 25" fill="none">
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M11.984 3.96232C9.83722 1.96664 6.47837 2.01364 4.38868 4.10333L4.18691 4.3051C1.93769 6.55432 1.9377 10.201 4.18693 12.4502L4.18837 12.4517L12.9543 21.265L21.8748 12.4357C24.1372 10.1964 24.1466 6.54423 21.8957 4.29339C19.653 2.05071 16.0169 2.05071 13.7742 4.29339L8.16013 9.9075L7.09947 8.84684L11.984 3.96232ZM13.0561 2.91139C10.3235 0.319837 6.00709 0.363597 3.32802 3.04267L3.12625 3.24444C0.291534 6.07916 0.291252 10.675 3.1254 13.51C3.12569 13.5103 3.12599 13.5106 3.12628 13.5109L12.4184 22.8532L12.946 23.3837L13.4777 22.8574L22.93 13.5018C25.7833 10.6777 25.7951 6.07149 22.9564 3.23273C20.2394 0.51577 15.9009 0.408654 13.0561 2.91139Z"
+                            fill="black"></path>
+                    </svg>
+                </div>
 
 
-                <div class="cart" routerLink="/cart">
+                <div routerLink="/cart">
+                    <p class="productsInCart">{{productsInCart}}</p>
                     <svg style="cursor: pointer;" xmlns="http://www.w3.org/2000/svg" width="23" height="25"
                         viewBox="0 0 23 25" fill="none">
                         <rect x="0.75" y="8.75" width="21.5" height="15.5" rx="2.25" stroke="black" stroke-width="1.5">
@@ -315,8 +320,9 @@
                     </svg>
                 </div>
 
-
             </div>
+
+
 
             <div class="line-horizontal-mobile"></div>
 
@@ -377,7 +383,6 @@
 
                 <div class="menu-down-content">
                     <p class="phone-number-mobile">+(995) 555-976-925
-                    <div class="language-mobile">GE</div>
 
 
 
@@ -387,6 +392,16 @@
 
 
 
+
+
+
+                </div>
+
+                <div class="languages-changes">
+
+                    <div (click)="translateToEnglish()" class="language">Eng</div>
+                    <p class="slesh">/</p>
+                    <div (click)="translateToGeorgian()" class="language">geo</div>
 
                 </div>
 
