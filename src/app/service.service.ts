@@ -27,6 +27,9 @@ export class ServiceService {
 
 
 
+  
+
+
 
 
 
@@ -66,8 +69,18 @@ export class ServiceService {
 
   constructor(private http: HttpClient) {
     this.updateCartCount()
+
+
   }
 
+   getGuestToken(): string {
+    let token = localStorage.getItem('guest_token');
+    if (!token) {
+      token = 'guest_' + Math.random().toString(36).substr(2, 10);
+      localStorage.setItem('guest_token', token);
+    }
+    return token;
+  }
 
 
   getArtists() {

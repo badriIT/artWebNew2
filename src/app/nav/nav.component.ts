@@ -1,5 +1,6 @@
 import { AfterViewInit, Component } from '@angular/core';
 import { ServiceService } from '../service.service';
+import { CartService } from '../cart.service';
 
 declare var google: any
 
@@ -11,8 +12,8 @@ declare var google: any
 })
 export class NavComponent implements AfterViewInit {
 
-  
- ngAfterViewInit(): void {
+
+  ngAfterViewInit(): void {
     this.loadGoogleTranslate();
   }
 
@@ -45,11 +46,11 @@ export class NavComponent implements AfterViewInit {
     }
   }
 
-translateToGeorgian() {
-  // Reset Google Translate to original language
-  document.cookie = 'googtrans=/auto/auto;path=/;domain=' + location.hostname;
-  window.location.reload();
-}
+  translateToGeorgian() {
+    // Reset Google Translate to original language
+    document.cookie = 'googtrans=/auto/auto;path=/;domain=' + location.hostname;
+    window.location.reload();
+  }
 
 
   private setGoogleTranslateLang(lang: string) {
@@ -69,7 +70,7 @@ translateToGeorgian() {
 
 
 
-  constructor(private service: ServiceService,) {
+  constructor(private service: ServiceService, private cartService: CartService) {
     this.service.getWholeProcucts().subscribe(data => {
       this.WholeProducts = data.items
 
@@ -78,7 +79,7 @@ translateToGeorgian() {
   }
 
 
-  
+
 
 
 
@@ -92,13 +93,14 @@ translateToGeorgian() {
     this.service.getWholeProcucts().subscribe(data => {
       this.WholeProducts = data.items;
       this.products = [...this.WholeProducts];
-      this.productsInCart = this.service.ProductsInCart;
+     
       this.service.updateCartCount()
       this.service.updatelikeProductCount()
     });
 
-    this.service.cartCount$.subscribe(count => {
+    this.cartService.cartCount$.subscribe(count => {
       this.productsInCart = count;
+      console.log("Cart count updated:", count);
     });
 
     this.service.likedProductsCount$.subscribe(count => {

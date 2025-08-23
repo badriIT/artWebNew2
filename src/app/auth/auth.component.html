@@ -1,0 +1,84 @@
+<section class="auth-section">
+    <div *ngIf="!ifRegistering" class="login">
+        <p class="login-text">შესვლა</p>
+
+        <div class="logining">
+            <p>ლოგინი:</p>
+            <input type="text">
+        </div>
+
+        <div class="logining">
+            <p>პაროლი:</p>
+            <input type="text">
+        </div>
+
+        <div class="checkbox-div">
+            <input type="checkbox">
+            <p>დამიმახსოვრე</p>
+        </div>
+
+        <button class="login-btn">შესვლა</button>
+
+        <div class="other-options">
+            <p>რეგისტრაცია</p>
+            <p>დაგავიწტდათ პაროლი?</p>
+        </div>
+
+
+
+
+    </div>
+
+
+    <div *ngIf="!ifRegistering" class="register">
+        <p class="register-text">რეგისტრაცია</p>
+
+        <div class="register-options">
+            <p>შეკვეთების ისტორიის ნახვა</p>
+            <p>სწრაფი შეძენა</p>
+            <p>შეცვლა და საქონლის დაბრუნება</p>
+        </div>
+
+        <button (click)="toggleRegistering()" class="register-btn">გაგრძელება</button>
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+   <div *ngIf="ifRegistering" class="register-form">
+  <p class="register-text">რეგისტრაცია</p>
+
+  <div class="input-container">
+    <input type="text" placeholder="სახელი*" [(ngModel)]="name">
+    <input type="text" placeholder="ელ. ფოსტა*" [(ngModel)]="email">
+    <input type="text" placeholder="ტელეფონი*" [(ngModel)]="phone">
+    <input type="password" placeholder="პაროლი*" [(ngModel)]="password">
+    <input type="password" placeholder="პაროლის დადასტურება*" [(ngModel)]="confirmPassword">
+
+    <button class="register-btn" (click)="startOtp()">OTP გაგზავნა</button>
+  </div>
+
+  <div *ngIf="otpRequested" class="otp-box">
+    <p>გთხოვთ შეიყვანოთ OTP კოდი</p>
+    <input type="text" placeholder="OTP" [(ngModel)]="otpCode">
+    <button class="register-btn" (click)="verifyOtp()">დადასტურება</button>
+
+    <div *ngIf="devCode">
+      <small>DEV OTP: {{ devCode }}</small>
+    </div>
+  </div>
+
+  <p class="register-agreement">
+    ღილაკზე დაწკაპუნებით, თქვენ ეთანხმებით პერსონალური მონაცემების დამუშავებას
+    <span class="highlight">პერსონალური მონაცემების დამუშავების პოლიტიკის შესაბამისად.</span>
+  </p>
+</div>
+
+</section>

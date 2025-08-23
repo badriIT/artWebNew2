@@ -1,0 +1,175 @@
+* {
+    font-family: 'Noto Sans Georgian', sans-serif;
+}
+
+.auth-section {
+
+    display: flex;
+    justify-content: center;
+    gap: 100px;
+    width: 100%;
+    padding: 100px 0px;
+
+
+}
+
+
+.login {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-width: 400px;
+    width: 100%;
+
+
+
+}
+
+.checkbox-div {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.checkbox-div p {
+    margin-bottom: 5px;
+}
+
+.logining {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.logining p {
+    font-size: 18px;
+}
+
+.logining input {
+    border: solid 1px;
+    font-family: 'Noto Sans Georgian', sans-serif;
+    padding: 8px;
+    font-size: 16px;
+    border-color: rgba(128, 128, 128, 0.438);
+    max-width: 400px;
+    width: 100%;
+    border-radius: 4px;
+}
+
+.login-text {
+    font-size: 20px;
+    margin: auto;
+}
+
+.login-btn {
+    background-color: #2d2e2c;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.login-btn:hover {
+    background-color: black;
+}
+
+.other-options {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.other-options p {
+    font-size: 17px;
+    color: #2d2e2c;
+    cursor: pointer;
+}
+
+.register-text {
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    margin: auto;
+}
+
+.register-options {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    margin-top: 24px;
+    padding: 0px 20px;
+}
+
+.register-btn {
+    background-color: #2d2e2c;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    justify-content: center;
+    display: flex;
+
+    margin: auto;
+    margin-top: 20px;
+    width: 100%;
+
+}
+
+
+
+.register-btn:hover {
+    background-color: black;
+}
+
+
+.register-form {
+    display: flex;
+    flex-direction: column;
+
+    max-width: 400px;
+    width: 100%;
+}
+
+.input-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 16px;
+}
+
+.input-container input {
+    border: solid 1px;
+    font-family: 'Noto Sans Georgian', sans-serif;
+    padding: 20px 10px;
+    font-size: 16px;
+    border-color: rgba(128, 128, 128, 0.438);
+    max-width: 800px;
+    width: 100%;
+    border-radius: 4px;
+}
+
+.register-agreement {
+   
+    font-size: 14px;
+    color: #666;
+    margin-top: 20px;
+    line-height: 2;
+    /* Adds space between lines within the same element */
+  
+
+}
+
+.highlight {
+    font-size: 16px;
+    color: #000000;
+    border-bottom: solid 2px black;
+    line-height: 2;
+    /* Adds space between lines within the same element */
+    margin-bottom: 12px;
+    /* Adds space between multiple .highlight elements */
+}

@@ -665,6 +665,7 @@ unfilter() {
 
 
     ngOnInit() {
+      this.service.getGuestToken();
       this.loadData(this.currentPage);
       const id = this.route.snapshot.paramMap.get('id');
 

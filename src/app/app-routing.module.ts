@@ -11,6 +11,7 @@ import { ProductFromCatalogComponent } from './product-from-catalog/product-from
 import { EachArterFromCatalogComponent } from './each-arter-from-catalog/each-arter-from-catalog.component';
 import { CartComponent } from './cart/cart.component';
 import { LikedProductsComponent } from './liked-products/liked-products.component';
+import { AuthComponent } from './auth/auth.component';
 
 
 
@@ -21,6 +22,7 @@ const routes: Routes = [
   { path: "contact", component: ContactComponent },
   { path: "cart", component: CartComponent },
   { path: "likedProducts", component: LikedProductsComponent },
+  { path: "auth", component: AuthComponent },
 
   {
     path: 'product/:id',

@@ -5,6 +5,9 @@ import { ServiceService } from '../service.service';
 import { RouterModule } from '@angular/router';
 import { Location } from '@angular/common';
 import { forkJoin } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { CartComponent } from '../cart/cart.component';
+import { CartService } from '../cart.service';
 
 @Component({
   selector: 'app-product',
@@ -18,6 +21,7 @@ export class ProductComponent implements OnInit {
   transformOrigin = 'center center';
 
 
+  cartItems: any[] = [];
 
 
   likedProductIds: string[] = [];
@@ -43,6 +47,8 @@ export class ProductComponent implements OnInit {
     private router: Router,
     private service: ServiceService,
     private location: Location,
+    private http: HttpClient, // <-- Add this
+    private cart: CartService,
   ) { }
 
   loadProduct(id: string) {
@@ -120,42 +126,48 @@ export class ProductComponent implements OnInit {
   }
 
 
-  addToCart() {
+  addToCart(item_id: string, quantity: number = 1) {
+    // თუ ჯერ არ გვაქვს cart_token
+    let cartToken = localStorage.getItem('cart_token') || localStorage.getItem('guest_token');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      ...(cartToken ? { 'X-Cart-Token': cartToken } : {})
 
-    this.service.updateCartCount();
+    });
 
-
-
-    const cart = JSON.parse(localStorage.getItem('cart') || '[]');
-
-    const existingProductIndex = cart.findIndex((item: any) => item.id === this.productId);
-
-    if (existingProductIndex > -1) {
-      // Product already in cart → increase quantity
-      cart[existingProductIndex].quantity += 1;
-
-    } else {
-      // Product not in cart → add new
-      const newProduct = {
-        id: this.productId,
-        quantity: 1
-      };
-      cart.push(newProduct);
-
-    }
-
-    // Save updated cart
-    localStorage.setItem('cart', JSON.stringify(cart));
-
-    // Navigate to cart page
     this.router.navigate(['/cart']);
+
+    const payload = { item_id, quantity };
+
+    this.http.post<any>('https://artshop-backend-demo.fly.dev/cart/items', payload, { headers })
+      .subscribe({
+        next: (res) => {
+          console.log('Cart response:', res);
+          this.cartItems = res.items || [];
+          this.service.ProductsInCart = this.cartItems.length;
+
+          // თუ backend აძლევს ახალ cart_token-ს, დავიმახსოვროთ
+          if (res.cart_token) localStorage.setItem('cart_token', res.cart_token);
+
+          // cart count update
+          this.cart.updateCartCount();
+        },
+        error: (err) => {
+          console.error('Add to cart error:', err);
+          alert(`პროდუქტის დამატება ვერ მოხერხდა: ${err.error?.error || 'unknown error'}`);
+        }
+      });
   }
 
 
 
 
+
+
+
+
   addToLikedProducts() {
-   
+
     const likedProducts = JSON.parse(localStorage.getItem('LikedProducts') || '[]');
     const existingProductIndex = likedProducts.findIndex((item: any) => item.id === this.productId);
 
@@ -176,12 +188,12 @@ export class ProductComponent implements OnInit {
 
     localStorage.setItem('LikedProducts', JSON.stringify(likedProducts));
 
-     this.service.updatelikeProductCount()
+    this.service.updatelikeProductCount()
   }
 
 
-  
- 
+
+
 
 }
 
