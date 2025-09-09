@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { CartService } from '../cart.service';
 
 @Component({
   selector: 'app-contact',
@@ -7,5 +8,10 @@ import { Component } from '@angular/core';
   styleUrl: './contact.component.css'
 })
 export class ContactComponent {
+  constructor(private cartService: CartService) { }
+
+  ngOnInit() {
+    this.cartService.updateCartCount();
+  }
 
 }

@@ -1,5 +1,6 @@
 import { AfterViewInit, Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { CartService } from '../cart.service';
 
 @Component({
   selector: 'app-services-communicate',
@@ -10,11 +11,13 @@ import { Router } from '@angular/router';
 export class ServicesCommunicateComponent implements AfterViewInit {
 
 
-  
- 
-constructor(private router: Router) {}
 
- 
+
+  constructor(private router: Router, private cartService: CartService) { }
+
+  ngOnInit() {
+    this.cartService.updateCartCount();
+  }
 
   ngAfterViewInit() {
     const titles = document.querySelectorAll('.accordion-title');

@@ -49,6 +49,7 @@ export class ProductComponent implements OnInit {
     private location: Location,
     private http: HttpClient, // <-- Add this
     private cart: CartService,
+    private cartService: CartService
   ) { }
 
   loadProduct(id: string) {
@@ -104,6 +105,7 @@ export class ProductComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.cartService.updateCartCount();
     this.route.paramMap.subscribe(params => {
       this.productId = params.get('id')!;
       if (this.productId) {

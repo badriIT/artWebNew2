@@ -90,6 +90,7 @@ export class NavComponent implements AfterViewInit {
   isProductsTabOpen: boolean = false; // controls popup visibility
 
   ngOnInit() {
+    this.cartService.getBackEndCarts 
     this.service.getWholeProcucts().subscribe(data => {
       this.WholeProducts = data.items;
       this.products = [...this.WholeProducts];

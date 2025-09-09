@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ServiceService } from '../service.service';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
+import { CartService } from '../cart.service';
 
 @Component({
   selector: 'app-each-arter',
@@ -10,16 +11,21 @@ import { Location } from '@angular/common';
   styleUrl: './each-arter.component.css'
 })
 export class EachArterComponent {
-    artistId!: string;
+  artistId!: string;
   artistInfo: any;
 
   constructor(
     private location: Location,
     private route: ActivatedRoute,
-    private service: ServiceService
-  ) {}
+    private service: ServiceService,
+    private cartService: CartService
+  ) { }
+
+
+
 
   ngOnInit() {
+    this.cartService.updateCartCount()
     this.route.paramMap.subscribe(params => {
       this.artistId = params.get('id')!;
       if (this.artistId) {
@@ -35,9 +41,9 @@ export class EachArterComponent {
     });
   }
 
-   goBack() {
+  goBack() {
     this.location.back(); // navigates to the previous page in history
   }
-    
-  
+
+
 }

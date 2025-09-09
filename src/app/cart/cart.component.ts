@@ -18,7 +18,9 @@ export class CartComponent implements OnInit {
   animatedTotalPrice: number = 0;
   private animationFrame: any;
 
-  constructor(private http: HttpClient, private service: ServiceService, private cartService: CartService,) { }
+  constructor(private http: HttpClient, private service: ServiceService, private cartService: CartService,) { 
+    cartService.getBackEndCarts = this.getBackendCart();
+  }
 
   ngOnInit() {
 
@@ -71,6 +73,8 @@ export class CartComponent implements OnInit {
 
 
 
+
+
   getBackendCart() {
     this.loading = true;
 
@@ -117,6 +121,9 @@ export class CartComponent implements OnInit {
       }
     });
   }
+
+
+    
 
   // Remove item from backend cart
   removeFromBackendCart(cart_item_id: any) {

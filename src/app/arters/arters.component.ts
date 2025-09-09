@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ServiceService } from '../service.service';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { CartService } from '../cart.service';
 
 @Component({
   selector: 'app-arters',
@@ -21,7 +22,7 @@ export class ArtersComponent {
   totalPages: number = 0;
 
 
-  constructor(private service: ServiceService, private route: ActivatedRoute, private http: HttpClient) {
+  constructor(private service: ServiceService, private route: ActivatedRoute, private http: HttpClient, private cartService: CartService) {
     this.service.getAllArtists().subscribe((data: any) => {
       this.artists = data;
       console.log("whole artists", data)
@@ -123,6 +124,9 @@ onDigitFilter(digit: string) {
 
   ngOnInit() {
     this.loadData(this.currentPage);
+     
+      this.cartService.updateCartCount();
+  
   }
 
 loadData(page: number) {
