@@ -3,6 +3,7 @@ import { ServiceService } from '../service.service';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { CartService } from '../cart.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -67,6 +68,9 @@ export class HomeComponent implements AfterViewInit {
   }
 
 
+  
+
+  
 
 
 
@@ -85,7 +89,29 @@ export class HomeComponent implements AfterViewInit {
     this.closePanels();
     this.currentPage = 1;
 
-    // update service filters
+    // Build query params from selected filters
+    const queryParams: any = {};
+
+    if (this.selectedPriceRange) {
+      if (this.selectedPriceRange.min !== undefined) queryParams.minPrice = this.selectedPriceRange.min;
+      if (this.selectedPriceRange.max !== undefined) queryParams.maxPrice = this.selectedPriceRange.max;
+    }
+    if (this.selectedTypes.length) queryParams.types = this.selectedTypes.join(',');
+    if (this.selectedStyles.length) queryParams.styles = this.selectedStyles.join(',');
+    if (this.selectedSizes.length) queryParams.sizes = this.selectedSizes.join(',');
+    if (this.selectedColors.size) queryParams.colors = Array.from(this.selectedColors).join(',');
+    if (this.selectedMaterials.length) queryParams.materials = this.selectedMaterials.join(',');
+    if (this.selectedThemes.length) queryParams.themes = this.selectedThemes.join(',');
+    if (this.selectedFormats.length) queryParams.formats = this.selectedFormats.join(',');
+
+    // Update the URL with query params
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams,
+      queryParamsHandling: 'merge'
+    });
+
+    // Update service filters
     this.service.minPrice = this.selectedPriceRange?.min;
     this.service.maxPrice = this.selectedPriceRange?.max;
     this.service.selectedColorsNames = this.selectedColorNames;
@@ -115,38 +141,68 @@ export class HomeComponent implements AfterViewInit {
     });
   }
 
-  unfilter() {
-    this.closePanels();
-    this.currentPage = 1;
+  isAnyFilterActive(): boolean {
+  return !!(
+    this.selectedPriceRange ||
+    this.selectedTypes.length ||
+    this.selectedStyles.length ||
+    this.selectedSizes.length ||
+    this.selectedColors.size ||
+    this.selectedMaterials.length ||
+    this.selectedThemes.length ||
+    this.selectedFormats.length
+  );
+}
 
-    // clear filters in service
-    this.service.minPrice = undefined;
-    this.service.maxPrice = undefined;
-    this.service.widthMaxValues = undefined;
-    this.service.widthMinValues = undefined;
-    this.service.heightMaxValues = undefined;
-    this.service.heightMinValues = undefined;
+ unfilter() {
+  this.closePanels();
+  this.currentPage = 1;
 
-    this.service.selectedColorsNames = [];
-    this.service.selectedSizesLabels = [];
-    this.service.selectedMaterials = [];
-    this.service.selectedStyles = [];
-    this.service.selectedThemes = [];
-    this.service.selectedFormats = [];
-    this.service.selectedTypes = [];
+  // Clear filters in service
+  this.service.minPrice = undefined;
+  this.service.maxPrice = undefined;
+  this.service.widthMaxValues = undefined;
+  this.service.widthMinValues = undefined;
+  this.service.heightMaxValues = undefined;
+  this.service.heightMinValues = undefined;
 
-    // fetch all products
-    this.service.getProducts(this.currentPage, this.itemsPerPage).subscribe(data => {
-      this.products = data.items;
-      this.totalItems = data.total;
-      this.totalPages = Math.ceil(this.totalItems / this.itemsPerPage);
+  this.service.selectedColorsNames = [];
+  this.service.selectedSizesLabels = [];
+  this.service.selectedMaterials = [];
+  this.service.selectedStyles = [];
+  this.service.selectedThemes = [];
+  this.service.selectedFormats = [];
+  this.service.selectedTypes = [];
 
-      this.noProdFound = this.products.length === 0;
-      this.showPagination = !this.noProdFound;
+  // Clear filters in component
+  this.selectedPriceRange = undefined;
+  this.selectedTypes = [];
+  this.selectedStyles = [];
+  this.selectedSizes = [];
+  this.selectedColors = new Set();
+  this.selectedMaterials = [];
+  this.selectedThemes = [];
+  this.selectedFormats = [];
 
-      console.log("Unfiltered products", this.products);
-    });
-  }
+  // Remove all query params from the URL
+  this.router.navigate([], {
+    relativeTo: this.route,
+    queryParams: {},
+    queryParamsHandling: ''
+  });
+
+  // Fetch all products
+  this.service.getProducts(this.currentPage, this.itemsPerPage).subscribe(data => {
+    this.products = data.items;
+    this.totalItems = data.total;
+    this.totalPages = Math.ceil(this.totalItems / this.itemsPerPage);
+
+    this.noProdFound = this.products.length === 0;
+    this.showPagination = !this.noProdFound;
+
+    console.log("Unfiltered products", this.products);
+  });
+}
 
 
   colorLabels: { [key: number]: string } = {
@@ -652,12 +708,8 @@ export class HomeComponent implements AfterViewInit {
 
 
 
-  constructor(private service: ServiceService, private route: ActivatedRoute, private http: HttpClient, private cartService: CartService) {
-    this.service.getProducts().subscribe(data => {
-      this.products = data.items
-      console.log(this.products)
-
-    })
+  constructor(private service: ServiceService, private route: ActivatedRoute, private http: HttpClient, private cartService: CartService, private router: Router) {
+  
 
 
 
@@ -665,38 +717,50 @@ export class HomeComponent implements AfterViewInit {
   }
 
 
-  ngOnInit() {
-    this.cartService.updateCartCount();
-    this.service.getGuestToken();
-    this.loadData(this.currentPage);
-    const id = this.route.snapshot.paramMap.get('id');
+ ngOnInit() {
+  this.cartService.updateCartCount();
+  this.service.getGuestToken();
 
+  // If there are query params, let the filter logic handle loading products
+  this.route.queryParams.subscribe(params => {
+    const hasAnyFilter = Object.keys(params).length > 0;
+    if (hasAnyFilter) {
+      // Set your filter selections from params
+      this.selectedPriceRange = this.priceRanges.find(
+        p => p.min === (params['minPrice'] ? +params['minPrice'] : undefined) &&
+          p.max === (params['maxPrice'] ? +params['maxPrice'] : undefined)
+      );
+      this.selectedTypes = params['types'] ? params['types'].split(',') : [];
+      this.selectedStyles = params['styles'] ? params['styles'].split(',') : [];
+      this.selectedSizes = params['sizes'] ? params['sizes'].split(',') : [];
+      this.selectedColors = params['colors'] ? new Set(params['colors'].split(',').map(Number)) : new Set();
+      this.selectedMaterials = params['materials'] ? params['materials'].split(',') : [];
+      this.selectedThemes = params['themes'] ? params['themes'].split(',') : [];
+      this.selectedFormats = params['formats'] ? params['formats'].split(',') : [];
 
+      // Call filter logic with params
+      this.filter();
+    } else {
+      // No filters, load all products
+      this.loadData(this.currentPage);
+    }
+  });
 
-    this.service.minPrice = undefined;
-    this.service.maxPrice = undefined;
-
-
-    this.service.widthMaxValues = undefined
-
-    this.service.widthMinValues = undefined
-
-    this.service.heightMaxValues = undefined
-
-    this.service.heightMinValues = undefined
-
-
-    this.service.selectedColorsNames = [] // from your component Set
-    this.service.selectedSizesLabels = []    // from your component selectedSizes array
-    this.service.selectedMaterials = []
-    this.service.selectedStyles = []
-    this.service.selectedThemes = []
-    this.service.selectedFormats = []
-    this.service.selectedTypes = []
-
-
-
-  }
+  // ...rest of your ngOnInit code (clear service filters)...
+  this.service.minPrice = undefined;
+  this.service.maxPrice = undefined;
+  this.service.widthMaxValues = undefined;
+  this.service.widthMinValues = undefined;
+  this.service.heightMaxValues = undefined;
+  this.service.heightMinValues = undefined;
+  this.service.selectedColorsNames = [];
+  this.service.selectedSizesLabels = [];
+  this.service.selectedMaterials = [];
+  this.service.selectedStyles = [];
+  this.service.selectedThemes = [];
+  this.service.selectedFormats = [];
+  this.service.selectedTypes = [];
+}
 
 
 

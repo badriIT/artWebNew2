@@ -90,7 +90,7 @@
                 <div class="accordion-content">
 
                     <div class="price-choose" *ngFor="let material of materials">
-                        <input type="checkbox" [value]="material.value" (change)="onStyleChange($event)"
+                        <input type="checkbox" [value]="material.value" (change)="onMaterialChange($event)"
                             [checked]="selectedStyles.includes(material.value)" id="{{material.value}}" />
                         <label for="{{material.value}}">{{material.label}}</label>
                     </div>
@@ -231,7 +231,7 @@
 
 
 
-    <div class="product-section">
+    <div class="product-section" *ngIf="products.length > 0">
         <div [routerLink]="['/product', art.id]" *ngFor="let art of products" class="product-card">
             <img [src]="art.image" alt="{{art.title}}" />
             <div class="product-info">
@@ -246,11 +246,9 @@
 
 
 
-
-    <div *ngIf="noProdFound" class="noproductsFound">
+    <div *ngIf="products.length === 0 && isAnyFilterActive()" class="noproductsFound">
         <p>No Products Found with such filtering</p>
     </div>
-
 
     <div class="pagination">
         <button *ngIf="currentPage > 1" class="prevPage" (click)="firstPage()" [disabled]="currentPage === 1">

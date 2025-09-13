@@ -13,7 +13,7 @@
                     <div class="left">
                         <img [src]="product.image" alt="">
                         <div class="product-info">
-                            <p [routerLink]="['/product', product.id]" class="title">დასახელება: {{product.title}}</p>
+                            <p [routerLink]="['/product', product.item_id]" class="title">დასახელება: {{product.title}}</p>
                             <p class="style">სტილი: {{product.style}}</p>
                             <p [routerLink]="['/eachArter', product.artist_id]" class="artist">
                                 ავტორი: <span class="artist-name">{{product.artist_name}}</span>
