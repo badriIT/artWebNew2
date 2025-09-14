@@ -1,0 +1,32 @@
+<section class="personal-section">
+
+    <div>
+        <p class="section-title">პირადი ინფორმაცია</p>
+        <div class="section-line"></div>
+    </div>
+
+
+
+    <div class="personal-info">
+        <div class="buttons">
+            <button>პირადი ინფორმაცია</button>
+            <button>თქვენ მოგეწონებათ</button>
+            <button>თქვენი შეკვეთები</button>
+            <button>გამორჩეული</button>
+            <button (click)="logout()">გამოსვლა</button>
+
+
+        </div>
+
+
+        <div class="info">
+            <input type="text" [(ngModel)]="profileName">
+            <input type="text" [(ngModel)]="profileEmail">
+            <input type="text" [(ngModel)]="profilePhone">
+            <input type="text">
+            <input type="text">
+        </div>
+    </div>
+
+
+</section>

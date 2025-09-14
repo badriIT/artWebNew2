@@ -12,6 +12,8 @@ import { EachArterFromCatalogComponent } from './each-arter-from-catalog/each-ar
 import { CartComponent } from './cart/cart.component';
 import { LikedProductsComponent } from './liked-products/liked-products.component';
 import { AuthComponent } from './auth/auth.component';
+import { PersonalComponent } from './personal/personal.component';
+import { AuthGuard } from './auth.guard.service';
 
 
 
@@ -33,6 +35,12 @@ const routes: Routes = [
   { path: "eachArter/:id", component: EachArterComponent },
   { path: "fromCatalog", component: ProductFromCatalogComponent },
   { path: "eachArterFromCatalog", component: EachArterFromCatalogComponent },
+  
+   {
+    path: 'personal',
+    component: PersonalComponent,
+    canActivate: [AuthGuard]
+  },
 
 
   { path: "**", component: ErrorInWorkComponent } // Wildcard route for a 404 page,

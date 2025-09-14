@@ -1,6 +1,8 @@
 import { AfterViewInit, Component } from '@angular/core';
 import { ServiceService } from '../service.service';
 import { CartService } from '../cart.service';
+import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 
 declare var google: any
 
@@ -70,7 +72,7 @@ export class NavComponent implements AfterViewInit {
 
 
 
-  constructor(private service: ServiceService, private cartService: CartService) {
+  constructor(private service: ServiceService, private cartService: CartService, private router: Router, private http: HttpClient) {
     this.service.getWholeProcucts().subscribe(data => {
       this.WholeProducts = data.items
 
@@ -181,4 +183,19 @@ export class NavComponent implements AfterViewInit {
   toggleMenu() {
     this.menuOpen = !this.menuOpen;
   }
+
+
+   goToPersonalOrAuth() {
+    this.http.get('https://artshop-backend-demo.fly.dev/auth/profile', { withCredentials: true }).subscribe({
+      next: (res) => {
+        // If profile loads, navigate to personal
+        this.router.navigate(['/personal']);
+      },
+      error: (err) => {
+        // If error, navigate to auth/login
+        this.router.navigate(['/auth']);
+      }
+    });
+   }
+
 }
