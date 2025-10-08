@@ -1,3 +1,26 @@
+
+
+<!-- alerts -->
+<div class="top-alert" 
+     [class.show]="showAlert" 
+     [ngClass]="{
+       'alert-success': alertType === 'success',
+       'alert-error': alertType === 'error',
+       'alert-warning': alertType === 'warning'
+     }">
+  {{ alertMessage }}
+</div>
+
+
+
+
+
+
+
+
+
+
+
 <section class="auth-section">
     <div *ngIf="!ifRegistering" class="login">
         <p class="login-text">შესვლა</p>
@@ -79,6 +102,8 @@
     ღილაკზე დაწკაპუნებით, თქვენ ეთანხმებით პერსონალური მონაცემების დამუშავებას
     <span class="highlight">პერსონალური მონაცემების დამუშავების პოლიტიკის შესაბამისად.</span>
   </p>
+  
+  
 </div>
 
 

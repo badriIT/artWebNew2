@@ -1,5 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { CartService } from '../cart.service';
 
 @Component({
   selector: 'app-personal',
@@ -18,7 +20,47 @@ export class PersonalComponent {
   profileArray: { key: string, value: any }[] = [];
 
 
-  constructor(private http: HttpClient) { }
+  sideMenuOpen = false;
+
+
+
+
+
+   alertMessage: string = '';
+  alertType: 'success' | 'error' | 'warning' = 'success';
+  showAlert: boolean = false;
+
+  showAnimatedAlert(message: string, type: 'success' | 'error' | 'warning' = 'success', duration: number = 2500) {
+    this.alertMessage = message;
+    this.alertType = type;
+    this.showAlert = true;
+    setTimeout(() => {
+      this.showAlert = false;
+    }, duration);
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+openSideMenu() {
+  this.sideMenuOpen = true;
+}
+
+closeSideMenu() {
+  this.sideMenuOpen = false;
+}
+
+
+  constructor(private http: HttpClient, private router: Router, private cartService: CartService) { }
 
 
    fetchProfile() {
@@ -41,6 +83,14 @@ export class PersonalComponent {
           { key: 'ფავორიტების რაოდენობა', value: res.stats?.favorites_count },
           { key: 'ღია კალათები', value: res.stats?.carts_open_count }
         ];
+
+        const newCartToken = res?.cart_token;
+        if (newCartToken) {
+          localStorage.setItem('cart_token', newCartToken);
+        }
+
+         console.log("token ", res.cart_token)
+        console.log('Full Profile Response:', res);
         console.log('Profile:', this.profileArray);
 
         this.profileName = res.customer?.name;
@@ -49,7 +99,8 @@ export class PersonalComponent {
        
       },
       error: (err) => {
-        alert('პროფილის მიღება ვერ მოხერხდა');
+       
+        this.showAnimatedAlert('პროფილის მიღება ვერ მოხერხდა ❌', 'error');
       }
     });
   }
@@ -57,23 +108,34 @@ export class PersonalComponent {
 
   ngOnInit() {
     this.fetchProfile();
+      this.cartService.updateUnifiedCartCount();
+
 
   }
 
 
   logout() {
     this.http.post<any>(
-      '/auth/logout',
+      'https://artshop-backend-demo.fly.dev/auth/logout',
       {},
+      
       { withCredentials: true } // cookie must be sent
     ).subscribe({
       next: () => {
-        alert('გამოსვლა წარმატებით შესრულდა ✅'); // notification
+        this.showAnimatedAlert('გამოსვლა წარმატებით შესრულდა ✅', 'success');
+        
+
+
+         this.router.navigate(['/auth']);
       },
       error: (err) => {
         console.error('Logout error:', err);
-        alert('გამოსვლა ვერ მოხერხდა ❌');
+        this.showAnimatedAlert('გამოსვლა ვერ მოხერხდა ❌', 'error');
       }
     });
+
+ 
   }
+
+    
 }

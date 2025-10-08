@@ -16,7 +16,7 @@ export class ServicesCommunicateComponent implements AfterViewInit {
   constructor(private router: Router, private cartService: CartService) { }
 
   ngOnInit() {
-    this.cartService.updateCartCount();
+    
   }
 
   ngAfterViewInit() {

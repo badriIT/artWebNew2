@@ -2,11 +2,12 @@
     font-family: 'Noto Sans Georgian', sans-serif;
 }
 
-.buttons > * {
-    text-align: right;     /* Make text grow to the left */
+.buttons>* {
+    text-align: right;
+    /* Make text grow to the left */
     border: none;
     background: none;
-    
+
 }
 
 
@@ -15,7 +16,7 @@
     justify-content: center;
     display: flex;
     flex-direction: column;
-    
+
 }
 
 
@@ -44,10 +45,10 @@
     justify-content: center;
     margin-top: 80px;
     margin-bottom: 80px;
-   
-  
-  
-  
+
+
+
+
 }
 
 .buttons {
@@ -60,11 +61,11 @@
 
 .buttons button {
     font-size: 16px;
-    white-space: nowrap;     
-    width: auto;              
-    max-width: 100%;         
-    text-align: right;      
-        
+    white-space: nowrap;
+    width: auto;
+    max-width: 100%;
+    text-align: right;
+
     box-sizing: border-box;
 }
 
@@ -72,7 +73,8 @@
     display: flex;
     flex-direction: column;
     gap: 24px;
-    min-width: 300px; /* Add this line */
+    min-width: 300px;
+    /* Add this line */
     width: 100%;
     max-width: 100vw;
 }
@@ -84,5 +86,125 @@
     max-width: 300px;
     width: 100%;
     border-radius: 4px;
+
+}
+
+.ri-arrow-left-s-line {
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.update-button {
+    background-color: #2d2e2c;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+
+}
+
+.mobile-private-info {
+    display: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+.side-menu-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background: rgba(0,0,0,0.4);
+    z-index: 1000;
+}
+
+.side-menu {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: #fff;
+    z-index: 1001;
+    transform: translateX(-100%);
+    transition: transform 0.3s cubic-bezier(.4,0,.2,1);
+    box-shadow: 2px 0 16px rgba(0,0,0,0.08);
+    display: flex;
+    flex-direction: column;
+    padding: 32px 24px;
+}
+.side-menu.open {
+    transform: translateX(0);
+}
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 2rem;
+    position: absolute;
+    top: 16px;
+    right: 24px;
+    cursor: pointer;
+}
+.side-menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 60px 0 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.side-menu li {
+    font-size: 1.1rem;
+    margin-bottom: 24px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.side-menu li svg {
+    width: 20px;
+    rotate: -90deg;
+}
+
+@media screen and (max-width: 768px) {
+    .buttons {
+        display: none;
+    }
+
+
+    .private-info {
+        display: none;
+    }
+
+
+    .mobile-private-info {
+        display: block;
+        padding: 20px 10px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        margin-right: 20px;
+        background-color: #2d2e2c;
+        color: white;
+
+
+    }
+
+  .mobile-private-info span {
+    font-size: 16px;
+    margin-left: 10px;
+    text-align: center;
+    align-items: center;
+    display: block;           /* Make span a block to allow centering */
+    margin-top: -24px;
+}
+
 
 }

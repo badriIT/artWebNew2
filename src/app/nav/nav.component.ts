@@ -3,6 +3,7 @@ import { ServiceService } from '../service.service';
 import { CartService } from '../cart.service';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { RefreshService } from '../refresh.service';
 
 declare var google: any
 
@@ -72,7 +73,7 @@ export class NavComponent implements AfterViewInit {
 
 
 
-  constructor(private service: ServiceService, private cartService: CartService, private router: Router, private http: HttpClient) {
+  constructor(private service: ServiceService, private cartService: CartService, private router: Router, private http: HttpClient, private refreshService: RefreshService) {
     this.service.getWholeProcucts().subscribe(data => {
       this.WholeProducts = data.items
 
@@ -80,6 +81,9 @@ export class NavComponent implements AfterViewInit {
     })
   }
 
+  refreshCart() {
+    this.refreshService.refreshAccessToken();
+  }
 
 
 
@@ -88,16 +92,27 @@ export class NavComponent implements AfterViewInit {
   searchTerm: string = '';
   WholeProducts: any[] = [];
   products: any[] = [];
-
+ 
   isProductsTabOpen: boolean = false; // controls popup visibility
 
   ngOnInit() {
+
+    this.cartService.updateUnifiedCartCount();
+  this.cartService.cartCount$.subscribe(count => {
+    this.productsInCart = count;
+    // Now productsInCart will always be correct!
+  });
+
+
+ 
+
+
     this.cartService.getBackEndCarts 
     this.service.getWholeProcucts().subscribe(data => {
       this.WholeProducts = data.items;
       this.products = [...this.WholeProducts];
      
-      this.service.updateCartCount()
+      
       this.service.updatelikeProductCount()
     });
 

@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { CartService } from '../cart.service';
 import { Router } from '@angular/router';
+import { AuthGuard } from '../auth.guard.service';
 
 @Component({
   selector: 'app-home',
@@ -708,7 +709,7 @@ export class HomeComponent implements AfterViewInit {
 
 
 
-  constructor(private service: ServiceService, private route: ActivatedRoute, private http: HttpClient, private cartService: CartService, private router: Router) {
+  constructor(private service: ServiceService, private route: ActivatedRoute, private http: HttpClient, private cartService: CartService, private router: Router, private authService: AuthGuard) {
   
 
 
@@ -718,7 +719,9 @@ export class HomeComponent implements AfterViewInit {
 
 
  ngOnInit() {
-  this.cartService.updateCartCount();
+
+ 
+  this.cartService.updateUnifiedCartCount();
   this.service.getGuestToken();
 
   // If there are query params, let the filter logic handle loading products

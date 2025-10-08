@@ -105,7 +105,7 @@ export class ProductComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.cartService.updateCartCount();
+    this.cartService.updateUnifiedCartCount();
     this.route.paramMap.subscribe(params => {
       this.productId = params.get('id')!;
       if (this.productId) {
@@ -141,7 +141,7 @@ export class ProductComponent implements OnInit {
 
     const payload = { item_id, quantity };
 
-    this.http.post<any>('https://artshop-backend-demo.fly.dev/cart/items', payload, { headers })
+    this.http.post<any>('https://artshop-backend-demo.fly.dev/cart/items', payload, { headers, withCredentials: true })
       .subscribe({
         next: (res) => {
           console.log('Cart response:', res);
@@ -152,7 +152,7 @@ export class ProductComponent implements OnInit {
           if (res.cart_token) localStorage.setItem('cart_token', res.cart_token);
 
           // cart count update
-          this.cart.updateCartCount();
+          this.cart.updateUnifiedCartCount();
         },
         error: (err) => {
           console.error('Add to cart error:', err);

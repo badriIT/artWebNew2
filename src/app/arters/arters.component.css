@@ -314,9 +314,11 @@
     align-items: center;
     gap: 16px;
 
+
+
+
+
 }
-
-
 
 
 
@@ -418,6 +420,8 @@
 
     .pagination {
         zoom: .85;
+        
     }
 
 }
+

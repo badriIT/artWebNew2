@@ -23,11 +23,7 @@ export class ArtersComponent {
 
 
   constructor(private service: ServiceService, private route: ActivatedRoute, private http: HttpClient, private cartService: CartService) {
-    this.service.getAllArtists().subscribe((data: any) => {
-      this.artists = data;
-      console.log("whole artists", data)
-    })
-
+   
   }
 
 
@@ -125,8 +121,7 @@ onDigitFilter(digit: string) {
   ngOnInit() {
     this.loadData(this.currentPage);
      
-      this.cartService.updateCartCount();
-  
+   
   }
 
 loadData(page: number) {
@@ -138,11 +133,11 @@ loadData(page: number) {
     this.totalPages = Math.ceil(this.totalItems / this.itemsPerPage);
 
     this.noProdFound = this.artists.length === 0;
-    this.showPagination = !this.noProdFound;
+    this.showPagination = this.totalPages > 0; // <-- Always show if at least one page
     console.log('Loaded artists:', this.artists);
+    console.log('getDisplayedPages:', this.getDisplayedPages());
   });
 }
-
   goToPage(page: number) {
     if (page >= 1 && page <= this.totalPages && page !== this.currentPage) {
       this.loadData(page);

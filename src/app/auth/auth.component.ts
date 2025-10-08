@@ -26,8 +26,36 @@ export class AuthComponent {
 
   constructor(private http: HttpClient, private cartService: CartService, private router: Router) { }
 
+
+
+
+
+
+
+
+  alertMessage: string = '';
+  alertType: 'success' | 'error' | 'warning' = 'success';
+  showAlert: boolean = false;
+
+  showAnimatedAlert(message: string, type: 'success' | 'error' | 'warning' = 'success', duration: number = 2500) {
+    this.alertMessage = message;
+    this.alertType = type;
+    this.showAlert = true;
+    setTimeout(() => {
+      this.showAlert = false;
+    }, duration);
+  }
+
+
+
+
+
+
+
+
+
   ngOnInit() {
-    this.cartService.updateCartCount();
+    this.cartService.updateUnifiedCartCount();
     this.fetchProfile()
   }
 
@@ -38,15 +66,16 @@ export class AuthComponent {
   /** Step 1: Start registration and request OTP */
   startOtp() {
     if (!this.name || !this.password || (!this.email && !this.phone)) {
-      alert('გთხოვთ შეავსოთ ყველა აუცილებელი ველი');
+      this.showAnimatedAlert(' ⚠️ გთხოვთ შეავსოთ ყველა აუცილებელი ველი', 'warning');
       return;
     }
 
     // Passwords must match
     if (this.password !== this.confirmPassword) {
-      alert('პაროლები არ ემთხვევა');
+    
+
       return;
-    }
+      }
 
     // Password must be at least 8 characters, have 1 number, 1 uppercase letter
     const password = this.password;
@@ -55,7 +84,7 @@ export class AuthComponent {
       !/[A-Z]/.test(password) ||
       !/[0-9]/.test(password)
     ) {
-      alert('პაროლი უნდა იყოს მინიმუმ 8 სიმბოლო, შეიცავდეს ერთ დიდ ასოს და ერთ ციფრს');
+      this.showAnimatedAlert(' ⚠️ პაროლი უნდა იყოს მინიმუმ 8 სიმბოლო, შეიცავდეს ერთ დიდ ასოს და ერთ ციფრს', 'warning');
       return;
     }
 
@@ -81,9 +110,9 @@ export class AuthComponent {
       },
       error: (err) => {
         if (err.status === 403) {
-          alert('ეს მომხმარებელი უკვე არსებობს ან რეგისტრაცია უკვე მიმდინარეობს');
+          this.showAnimatedAlert(' ⚠️ ეს მომხმარებელი უკვე არსებობს ან რეგისტრაცია უკვე მიმდინარეობს', 'warning');
         } else {
-          alert('რეგისტრაცია ვერ მოხერხდა ❌');
+          this.showAnimatedAlert(' რეგისტრაცია ვერ მოხერხდა ❌', 'error');
         }
       }
     });
@@ -101,17 +130,23 @@ export class AuthComponent {
       code: this.otpCode.trim()
     };
 
+    const GuestCartToken = localStorage.getItem("cart_token");
+    const headers: any = GuestCartToken ? { 'X-Cart-Token': GuestCartToken } : {};
+
     this.http.post<any>(
       'https://artshop-backend-demo.fly.dev/auth/otp/verify',
       payload,
-      { withCredentials: true }
+      { headers, withCredentials: true }
     ).subscribe({
       next: (res) => {
         if (res.guest_token) {
           localStorage.setItem('guest_token', res.guest_token);
-          alert('გესტის ტოკენი მიღებულია ✅');
+          this.showAnimatedAlert('  გესტის ტოკენი მიღებულია ✅', 'success');
+
         } else {
           alert('ავტორიზაცია წარმატებით დასრულდა 🎉');
+          this.showAnimatedAlert('  ავტორიზაცია წარმატებით დასრულდა ✅', 'success');
+           
           this.router.navigate(['/personal'])
         }
 
@@ -122,13 +157,13 @@ export class AuthComponent {
       },
       error: (err) => {
         if (err.error?.error === 'already_used') {
-          alert('❌ OTP უკვე გამოყენებულია, გთხოვთ დაიწყოთ თავიდან');
+          this.showAnimatedAlert('❌ OTP უკვე გამოყენებულია, გთხოვთ დაიწყოთ თავიდან', 'error');
         } else if (err.error?.error === 'bad_request') {
-          alert('❌ არასწორი OTP კოდი');
+          this.showAnimatedAlert('❌ არასწორი OTP კოდი', 'error');
         } else if (err.error?.error === 'invalid_challenge') {
-          alert('❌ OTP ვადაგასულია ან არასწორია');
+          this.showAnimatedAlert('❌ OTP ვადაგასულია ან არასწორია', 'error');
         } else {
-          alert('ვერ მოხერხდა OTP დადასტურება');
+          this.showAnimatedAlert('❌ ვერ მოხერხდა OTP დადასტურება', 'error');
         }
       }
     });
@@ -151,6 +186,7 @@ export class AuthComponent {
 
         // Flatten the profile and stats into an array
         this.profileArray = [
+
           { key: 'სახელი', value: res.customer?.name },
           { key: 'ელ.ფოსტა', value: res.customer?.email },
           { key: 'ტელეფონი', value: res.customer?.phone },
@@ -159,18 +195,22 @@ export class AuthComponent {
           { key: 'შეკვეთების რაოდენობა', value: res.stats?.orders_count },
           { key: 'ფავორიტების რაოდენობა', value: res.stats?.favorites_count },
           { key: 'ღია კალათები', value: res.stats?.carts_open_count }
+
+
         ];
+
+
         console.log('Profile:', this.profileArray);
       },
       error: (err) => {
-        alert('პროფილის მიღება ვერ მოხერხდა');
+        
       }
     });
   }
 
   login() {
     if (!this.loginUsername || !this.loginPassword) {
-      alert('გთხოვთ შეავსოთ ელ.ფოსტა/ტელეფონი და პაროლი');
+      this.showAnimatedAlert(' ⚠️ გთხოვთ შეავსოთ ელ.ფოსტა/ტელეფონი და პაროლი', 'warning');
       return;
     }
 
@@ -194,25 +234,28 @@ export class AuthComponent {
         if (res.cart_token) {
           localStorage.setItem('cart_token', res.cart_token);
         }
-        alert('შესვლა წარმატებით შესრულდა!');
+        this.showAnimatedAlert('  შესვლა წარმატებით შესრულდა! ✅', 'success');
         this.fetchProfile();
-        this.router.navigate(['/personal'])
+        setTimeout(() => {
+          this.router.navigate(['/personal']);
+        }, 3000);
         
+
       },
       error: (err) => {
         if (err.error?.error === 'invalid_credentials') {
-          alert('არასწორი მონაცემები');
+          this.showAnimatedAlert('❌ არასწორი მონაცემები', 'error');
         } else if (err.error?.error === 'account_disabled') {
-          alert('ანგარიში დაბლოკილია');
+          this.showAnimatedAlert('❌ ანგარიში დაბლოკილია', 'error');
         } else {
-          alert('შესვლა ვერ მოხერხდა');
+          this.showAnimatedAlert('❌ შესვლა ვერ მოხერხდა', 'error');
         }
       }
     });
   }
 
 
-   
+
 
 
 }

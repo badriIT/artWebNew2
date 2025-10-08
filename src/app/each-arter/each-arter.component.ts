@@ -25,7 +25,7 @@ export class EachArterComponent {
 
 
   ngOnInit() {
-    this.cartService.updateCartCount()
+   
     this.route.paramMap.subscribe(params => {
       this.artistId = params.get('id')!;
       if (this.artistId) {

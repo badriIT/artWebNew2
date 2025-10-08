@@ -18,14 +18,19 @@ export class CartComponent implements OnInit {
   animatedTotalPrice: number = 0;
   private animationFrame: any;
 
-  constructor(private http: HttpClient, private service: ServiceService, private cartService: CartService,) { 
+  constructor(private http: HttpClient, private service: ServiceService, private cartService: CartService,) {
     cartService.getBackEndCarts = this.getBackendCart();
   }
 
+
+
+
+
   ngOnInit() {
 
-    this.cartService.updateCartCount();
+    this.cartService.updateUnifiedCartCount();
     this.getBackendCart();
+
 
 
   }
@@ -35,7 +40,7 @@ export class CartComponent implements OnInit {
     const cartToken = localStorage.getItem('cart_token');
     let headers = new HttpHeaders();
     if (cartToken) {
-      headers = headers.set('Cart-Token', cartToken);
+      headers = headers.set('X-Cart-Token', cartToken);
     }
     return headers;
   }
@@ -43,33 +48,32 @@ export class CartComponent implements OnInit {
   // Get cart and items from backend
 
   // Add item to backend cart
-  addToBackendCart(productId: string, quantity: number = 1) {
-    const headers = this.getCartHeaders();
-    const payload = { product_id: productId, quantity };
+addToBackendCart(productId: string, quantity: number = 1) {
+  const headers = this.getCartHeaders();
+  const payload = { product_id: productId, quantity };
 
-    this.http.post<any>('https://artshop-backend-demo.fly.dev/cart/items', payload, { headers }).subscribe({
-      next: (res) => {
-        // Save cart token if returned
-        if (res.cart_token) localStorage.setItem('cart_token', res.cart_token);
+  this.http.post<any>(
+    'https://artshop-backend-demo.fly.dev/cart/items',
+    payload,
+    { headers, withCredentials: true }
+  ).subscribe({
+    next: (res) => {
+      console.log('Cart response:', res);
+     
+      this.cartItems = res.items || [];
+      this.cartIsEmpty = this.cartItems.length === 0;
+      this.ifIsFull = !this.cartIsEmpty;
+      this.updateLikedStates();
+      this.animateTotalPrice(this.getTotalPrice());
+      this.service.updateCartCount();
+      this.service.ProductsInCart = this.cartItems.length;
+    },
+    error: (err) => {
+      console.error('Add to cart error:', err);
+    }
+  });
+}
 
-        // Immediately update cart items in component
-        this.cartItems = res.items || [];  // <-- IMPORTANT
-        this.cartIsEmpty = this.cartItems.length === 0;
-        this.ifIsFull = !this.cartIsEmpty;
-
-        // Update liked states
-        this.updateLikedStates();
-
-        // Animate total price
-        this.animateTotalPrice(this.getTotalPrice());
-
-        // Update cart count
-        this.service.updateCartCount();
-        this.service.ProductsInCart = this.cartItems.length;
-      },
-      error: (err) => console.error('Add to cart error:', err)
-    });
-  }
 
 
 
@@ -81,7 +85,8 @@ export class CartComponent implements OnInit {
     const cartToken = localStorage.getItem('cart_token') || localStorage.getItem('guest_token');
     const headers = cartToken ? new HttpHeaders({ 'X-Cart-Token': cartToken }) : new HttpHeaders();
 
-    this.http.get<any>('https://artshop-backend-demo.fly.dev/cart', { headers }).subscribe({
+
+    this.http.get<any>('https://artshop-backend-demo.fly.dev/cart', { headers, withCredentials: true }).subscribe({
       next: (res) => {
         console.log('Fetched cart:', res);
 
@@ -118,12 +123,17 @@ export class CartComponent implements OnInit {
         this.service.ProductsInCart = 0;
 
         this.loading = false;
+
       }
+
     });
+
+
+
   }
 
 
-    
+
 
   // Remove item from backend cart
   removeFromBackendCart(cart_item_id: any) {
@@ -132,11 +142,11 @@ export class CartComponent implements OnInit {
     const cartToken = localStorage.getItem('cart_token') || localStorage.getItem('guest_token');
     const headers = cartToken ? new HttpHeaders({ 'X-Cart-Token': cartToken }) : new HttpHeaders();
 
-    this.http.delete<any>(`https://artshop-backend-demo.fly.dev/cart/items/${cart_item_id}`, { headers }).subscribe({
+    this.http.delete<any>(`https://artshop-backend-demo.fly.dev/cart/items/${cart_item_id}`, { headers, withCredentials: true }).subscribe({
       next: (res) => {
         // Refresh cart items after deletion
         this.getBackendCart();
-        this.cartService.updateCartCount();
+       this.cartService.updateUnifiedCartCount();
 
       },
       error: (err) => {
@@ -146,7 +156,7 @@ export class CartComponent implements OnInit {
     });
 
 
-    
+
 
   }
   // Clear the backend cart (if supported)
@@ -212,6 +222,15 @@ export class CartComponent implements OnInit {
       item.isLiked = likedProducts.some((p: any) => p.id === item.id);
     });
   }
+
+
+
+
+
+
+
+
+
 
 
 }

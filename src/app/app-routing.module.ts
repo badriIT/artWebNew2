@@ -35,12 +35,19 @@ const routes: Routes = [
   { path: "eachArter/:id", component: EachArterComponent },
   { path: "fromCatalog", component: ProductFromCatalogComponent },
   { path: "eachArterFromCatalog", component: EachArterFromCatalogComponent },
-  
-   {
+
+  {
     path: 'personal',
     component: PersonalComponent,
     canActivate: [AuthGuard]
   },
+  {
+    path: 'personal/futured_items',
+    component: PersonalComponent,
+    canActivate: [AuthGuard]
+  },
+
+
 
 
   { path: "**", component: ErrorInWorkComponent } // Wildcard route for a 404 page,

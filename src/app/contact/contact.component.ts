@@ -11,7 +11,7 @@ export class ContactComponent {
   constructor(private cartService: CartService) { }
 
   ngOnInit() {
-    this.cartService.updateCartCount();
+    
   }
 
 }

@@ -21,6 +21,7 @@ import { LikedProductsComponent } from './liked-products/liked-products.componen
 import { AuthComponent } from './auth/auth.component';
 import { PersonalComponent } from './personal/personal.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,7 +39,8 @@ import { PersonalComponent } from './personal/personal.component';
     CartComponent,
     LikedProductsComponent,
     AuthComponent,
-    PersonalComponent
+    PersonalComponent,
+ 
   ],
   imports: [
     BrowserModule,

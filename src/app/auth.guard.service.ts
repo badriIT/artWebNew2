@@ -7,6 +7,9 @@ import { catchError, map } from 'rxjs/operators';
 @Injectable({ providedIn: 'root' })
 export class AuthGuard implements CanActivate {
   constructor(private http: HttpClient, private router: Router) {}
+   cartCount: any = 0;
+
+   
 
   canActivate(): Observable<boolean> {
     return this.http.get('https://artshop-backend-demo.fly.dev/auth/profile', { withCredentials: true }).pipe(
@@ -17,4 +20,7 @@ export class AuthGuard implements CanActivate {
       })
     );
   }
+
+  
+
 }

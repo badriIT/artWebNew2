@@ -1,8 +1,87 @@
+<!-- alerts -->
+<div class="top-alert" [class.show]="showAlert" [ngClass]="{
+       'alert-success': alertType === 'success',
+       'alert-error': alertType === 'error',
+       'alert-warning': alertType === 'warning'
+     }">
+    {{ alertMessage }}
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <section class="personal-section">
 
-    <div>
+    <div class="private-info">
         <p class="section-title">პირადი ინფორმაცია</p>
         <div class="section-line"></div>
+    </div>
+
+    <div class="mobile-private-info" (click)="openSideMenu()">
+        <i class="ri-arrow-left-s-line"></i>
+        <span>პირადი ინფორმაცია</span>
+    </div>
+
+
+    <div class="side-menu-overlay" *ngIf="sideMenuOpen" (click)="closeSideMenu()"></div>
+
+    <!-- Side Menu -->
+    <div class="side-menu" [class.open]="sideMenuOpen">
+        <button class="close-btn" (click)="closeSideMenu()">×</button>
+        <!-- Side menu content here -->
+        <ul>
+            <li>
+
+                <a routerLink="/personal"> პირადი ინფორმაცია <svg viewBox="0 0 32 16" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path d="M2 2L16 14L30 2" stroke="currentColor" stroke-linecap="round"></path>
+                    </svg> </a>
+
+            </li>
+
+
+
+
+
+            <li>
+
+                <a routerLink="/personal/futured_items"> თქვენ მოგეწონებათ <svg viewBox="0 0 32 16" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path d="M2 2L16 14L30 2" stroke="currentColor" stroke-linecap="round"></path>
+                    </svg> </a>
+
+            </li>
+
+
+
+
+
+
+
+            <li routerLink=""> <svg viewBox="0 0 32 16" fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path d="M2 2L16 14L30 2" stroke="currentColor" stroke-linecap="round"></path>
+                </svg></li>
+            <li>თქვენი შეკვეთები <svg viewBox="0 0 32 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M2 2L16 14L30 2" stroke="currentColor" stroke-linecap="round"></path>
+                </svg></li>
+            <li>გამორჩეული <svg viewBox="0 0 32 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M2 2L16 14L30 2" stroke="currentColor" stroke-linecap="round"></path>
+                </svg></li>
+            <li (click)="logout()">გამოსვლა <svg viewBox="0 0 32 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M2 2L16 14L30 2" stroke="currentColor" stroke-linecap="round"></path>
+                </svg></li>
+        </ul>
     </div>
 
 
@@ -25,6 +104,7 @@
             <input type="text" [(ngModel)]="profilePhone">
             <input type="text">
             <input type="text">
+            <button class="update-button">განახლება</button>
         </div>
     </div>
 
