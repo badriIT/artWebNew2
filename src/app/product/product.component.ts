@@ -194,6 +194,32 @@ export class ProductComponent implements OnInit {
   }
 
 
+ BuyInOneClick() {
+  const payload = { item_id: this.productId };
+
+  this.http.post<any>(
+    'https://artshop-backend-demo.fly.dev/checkout/quick',
+    payload,
+    { withCredentials: true }
+  ).subscribe({
+    next: (res) => {
+      console.log('Quick buy response:', res);
+      if (res.order?.payment_url) {
+         console.log('Redirecting to payment URL:', res.order.payment_url);
+         window.location.href = res.order.payment_url; // Redirect to payment
+
+      } else {
+        alert('Order created! Order ID: ' + res.order?.order_id);
+      }
+    },
+    error: (err) => {
+      console.error('Quick buy error:', err);
+      alert(`შეკვეთის განხორციელება ვერ მოხერხდა: ${err.error?.error || 'unknown error'}`);
+    }
+  });
+}
+
+
 
 
 

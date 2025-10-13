@@ -20,6 +20,7 @@ import { CartComponent } from './cart/cart.component';
 import { LikedProductsComponent } from './liked-products/liked-products.component';
 import { AuthComponent } from './auth/auth.component';
 import { PersonalComponent } from './personal/personal.component';
+import { OffersComponent } from './offers/offers.component';
 
 
 @NgModule({
@@ -40,6 +41,7 @@ import { PersonalComponent } from './personal/personal.component';
     LikedProductsComponent,
     AuthComponent,
     PersonalComponent,
+    OffersComponent,
  
   ],
   imports: [

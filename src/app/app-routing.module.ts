@@ -14,6 +14,7 @@ import { LikedProductsComponent } from './liked-products/liked-products.componen
 import { AuthComponent } from './auth/auth.component';
 import { PersonalComponent } from './personal/personal.component';
 import { AuthGuard } from './auth.guard.service';
+import { OffersComponent } from './offers/offers.component';
 
 
 
@@ -41,9 +42,10 @@ const routes: Routes = [
     component: PersonalComponent,
     canActivate: [AuthGuard]
   },
+
   {
-    path: 'personal/futured_items',
-    component: PersonalComponent,
+    path: 'personal/offers',
+    component: OffersComponent,
     canActivate: [AuthGuard]
   },
 

@@ -41,7 +41,7 @@
             </div>
             <p class="price"> {{price}} $</p>
             <div class="buttons">
-                <button class="buy">შეკვეთა ერთ დაჭერაში</button>
+                <button (click)="BuyInOneClick()" class="buy">შეკვეთა ერთ დაჭერაში</button>
                 <button (click)="addToCart(productId, 1)" class="toCart">კალათაში დამატება</button>
             </div>
         </div>

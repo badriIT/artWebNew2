@@ -107,15 +107,58 @@
 
 
 
-        <div class="info">
-            <input type="text" [(ngModel)]="profileName">
-            <input type="text" [(ngModel)]="profileEmail">
-            <input type="text" [(ngModel)]="profilePhone">
-            <input type="text">
-            <input type="text">
-            <button class="update-button">განახლება</button>
+
+        <div class="custom-carousel">
+            <button class="carousel-arrow left" (click)="prevProduct()">&#8592;</button>
+
+            <div class="carousel-wrapper">
+                <!-- current slide -->
+                <div class="carousel-slide current-slide" [class.move-left]="isAnimating && direction === 'right'"
+                    [class.move-right]="isAnimating && direction === 'left'">
+                    <a [routerLink]="['/product', currentProduct?.id]" class="product-card" *ngIf="currentProduct">
+                        <img [src]="currentProduct.image" alt="{{ currentProduct.title }}" />
+                        <div class="product-info">
+                            <p class="name">{{ currentProduct.title }}</p>
+                            <p class="arter">{{ currentProduct.artist_name }}</p>
+                            <p class="size">{{ currentProduct.height_cm }} x {{ currentProduct.width_cm }} CM</p>
+                            <p class="theme">{{ currentProduct.material }}</p>
+                            <p class="price">{{ currentProduct.price }} {{ currentProduct.currency }}</p>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- next slide -->
+                <div class="carousel-slide next-slide" *ngIf="nextProductData"
+                    [class.offscreen-right]="!animateIn && direction === 'right'"
+                    [class.offscreen-left]="!animateIn && direction === 'left'" [class.enter]="animateIn">
+                    <a [routerLink]="['/product', nextProductData.id]" class="product-card">
+                        <img [src]="nextProductData.image" alt="{{ nextProductData.title }}" />
+                        <div class="product-info">
+                            <p class="name">{{ nextProductData.title }}</p>
+                            <p class="arter">{{ nextProductData.artist_name }}</p>
+                            <p class="size">{{ nextProductData.height_cm }} x {{ nextProductData.width_cm }} CM</p>
+                            <p class="theme">{{ nextProductData.material }}</p>
+                            <p class="price">{{ nextProductData.price }} {{ nextProductData.currency }}</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <svg  class="arrow" (click)="nextProduct()"   xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                aria-hidden="true" >
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+            </svg>
+
+           
         </div>
+
+
+
+
+
+
     </div>
+
 
 
 </section>

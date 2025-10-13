@@ -72,10 +72,10 @@ export class AuthComponent {
 
     // Passwords must match
     if (this.password !== this.confirmPassword) {
-    
+
 
       return;
-      }
+    }
 
     // Password must be at least 8 characters, have 1 number, 1 uppercase letter
     const password = this.password;
@@ -121,7 +121,8 @@ export class AuthComponent {
   /** Step 2: Verify OTP */
   verifyOtp() {
     if (!this.otpCode || !this.challenge_id) {
-      alert('გთხოვთ შეიყვანოთ OTP კოდი');
+      this.showAnimatedAlert(' გთხოვთ შეიყვანოთ OTP კოდი ❌', 'warning');
+
       return;
     }
 
@@ -144,10 +145,12 @@ export class AuthComponent {
           this.showAnimatedAlert('  გესტის ტოკენი მიღებულია ✅', 'success');
 
         } else {
-          alert('ავტორიზაცია წარმატებით დასრულდა 🎉');
+
           this.showAnimatedAlert('  ავტორიზაცია წარმატებით დასრულდა ✅', 'success');
-           
-          this.router.navigate(['/personal'])
+
+          setTimeout(() => {
+            this.router.navigate(['/personal']);
+          }, 3000);
         }
 
         // prevent re-use
@@ -203,7 +206,7 @@ export class AuthComponent {
         console.log('Profile:', this.profileArray);
       },
       error: (err) => {
-        
+
       }
     });
   }
@@ -239,7 +242,7 @@ export class AuthComponent {
         setTimeout(() => {
           this.router.navigate(['/personal']);
         }, 3000);
-        
+
 
       },
       error: (err) => {

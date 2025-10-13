@@ -48,31 +48,31 @@ export class CartComponent implements OnInit {
   // Get cart and items from backend
 
   // Add item to backend cart
-addToBackendCart(productId: string, quantity: number = 1) {
-  const headers = this.getCartHeaders();
-  const payload = { product_id: productId, quantity };
+  addToBackendCart(productId: string, quantity: number = 1) {
+    const headers = this.getCartHeaders();
+    const payload = { product_id: productId, quantity };
 
-  this.http.post<any>(
-    'https://artshop-backend-demo.fly.dev/cart/items',
-    payload,
-    { headers, withCredentials: true }
-  ).subscribe({
-    next: (res) => {
-      console.log('Cart response:', res);
-     
-      this.cartItems = res.items || [];
-      this.cartIsEmpty = this.cartItems.length === 0;
-      this.ifIsFull = !this.cartIsEmpty;
-      this.updateLikedStates();
-      this.animateTotalPrice(this.getTotalPrice());
-      this.service.updateCartCount();
-      this.service.ProductsInCart = this.cartItems.length;
-    },
-    error: (err) => {
-      console.error('Add to cart error:', err);
-    }
-  });
-}
+    this.http.post<any>(
+      'https://artshop-backend-demo.fly.dev/cart/items',
+      payload,
+      { headers, withCredentials: true }
+    ).subscribe({
+      next: (res) => {
+        console.log('Cart response:', res);
+
+        this.cartItems = res.items || [];
+        this.cartIsEmpty = this.cartItems.length === 0;
+        this.ifIsFull = !this.cartIsEmpty;
+        this.updateLikedStates();
+        this.animateTotalPrice(this.getTotalPrice());
+        this.service.updateCartCount();
+        this.service.ProductsInCart = this.cartItems.length;
+      },
+      error: (err) => {
+        console.error('Add to cart error:', err);
+      }
+    });
+  }
 
 
 
@@ -146,7 +146,7 @@ addToBackendCart(productId: string, quantity: number = 1) {
       next: (res) => {
         // Refresh cart items after deletion
         this.getBackendCart();
-       this.cartService.updateUnifiedCartCount();
+        this.cartService.updateUnifiedCartCount();
 
       },
       error: (err) => {
@@ -224,12 +224,45 @@ addToBackendCart(productId: string, quantity: number = 1) {
   }
 
 
+ createOrder() {
+  const cartToken = localStorage.getItem('cart_token') || localStorage.getItem('guest_token');
+  const guestToken = localStorage.getItem('guest_token');
+  let headers = new HttpHeaders();
 
+  if (cartToken) {
+    headers = headers.set('X-Cart-Token', cartToken);
+  }
+  if (guestToken) {
+    headers = headers.set('X-Guest-Token', guestToken);
+  }
 
-
-
-
-
+  this.http.post<any>(
+    'https://artshop-backend-demo.fly.dev/checkout/create',
+    {},
+    { headers, withCredentials: true }
+  ).subscribe({
+    next: (res) => {
+      console.log('Order created:', res);
+      if (res.order?.payment_url) {
+        window.location.href = res.order.payment_url;
+      } else {
+        alert('Order created! Order ID: ' + res.order?.order_id);
+      }
+    },
+    error: (err) => {
+      if (err.status === 404 && err.error?.error === 'cart_not_found') {
+        alert('Cart not found. Please add items to your cart before checkout.');
+      } else if (err.status === 400) {
+        alert('Missing cart or empty cart');
+      } else if (err.status === 401) {
+        alert('Guest verification required or invalid token');
+      } else {
+        alert('Order creation failed');
+      }
+      console.error('Order error:', err);
+    }
+  });
+}
 
 
 
