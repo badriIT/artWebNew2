@@ -8,6 +8,7 @@ import { forkJoin } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CartComponent } from '../cart/cart.component';
 import { CartService } from '../cart.service';
+import { GetProductInfoService } from '../get-product-info.service';
 
 @Component({
   selector: 'app-product',
@@ -49,7 +50,8 @@ export class ProductComponent implements OnInit {
     private location: Location,
     private http: HttpClient, // <-- Add this
     private cart: CartService,
-    private cartService: CartService
+    private cartService: CartService,
+    private getProductInfoService: GetProductInfoService
   ) { }
 
   loadProduct(id: string) {
@@ -194,35 +196,40 @@ export class ProductComponent implements OnInit {
   }
 
 
- BuyInOneClick() {
-  const payload = { item_id: this.productId };
+  BuyInOneClick() {
+    const payload = { item_id: this.productId };
 
-  this.http.post<any>(
-    'https://artshop-backend-demo.fly.dev/checkout/quick',
-    payload,
-    { withCredentials: true }
-  ).subscribe({
-    next: (res) => {
-      console.log('Quick buy response:', res);
-      if (res.order?.payment_url) {
-         console.log('Redirecting to payment URL:', res.order.payment_url);
-         window.location.href = res.order.payment_url; // Redirect to payment
+    this.http.post<any>(
+      'https://artshop-backend-demo.fly.dev/checkout/quick',
+      payload,
+      { withCredentials: true }
+    ).subscribe({
+      next: (res) => {
+        console.log('Quick buy response:', res);
+        if (res.order?.payment_url) {
+          console.log('Redirecting to payment URL:', res.order.payment_url);
+          window.location.href = res.order.payment_url; // Redirect to payment
 
-      } else {
-        alert('Order created! Order ID: ' + res.order?.order_id);
+        } else {
+          alert('Order created! Order ID: ' + res.order?.order_id);
+        }
+      },
+      error: (err) => {
+        console.error('Quick buy error:', err);
+        alert(`შეკვეთის განხორციელება ვერ მოხერხდა: ${err.error?.error || 'unknown error'}`);
       }
-    },
-    error: (err) => {
-      console.error('Quick buy error:', err);
-      alert(`შეკვეთის განხორციელება ვერ მოხერხდა: ${err.error?.error || 'unknown error'}`);
-    }
-  });
+    });
+  }
+
+
+
+
+  getProductInfo() {
+    this.getProductInfoService.productID = this.productId;
+    console.log("Product ID set in service:", this.getProductInfoService.productID);
+
+
+  }
+
+
 }
-
-
-
-
-
-}
-
-

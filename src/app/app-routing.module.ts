@@ -15,6 +15,7 @@ import { AuthComponent } from './auth/auth.component';
 import { PersonalComponent } from './personal/personal.component';
 import { AuthGuard } from './auth.guard.service';
 import { OffersComponent } from './offers/offers.component';
+import { PreOrderDetailsComponent } from './pre-order-details/pre-order-details.component';
 
 
 
@@ -47,6 +48,11 @@ const routes: Routes = [
     path: 'personal/offers',
     component: OffersComponent,
     canActivate: [AuthGuard]
+  },
+
+  {
+    path: 'checkout/details',
+    component: PreOrderDetailsComponent,
   },
 
 

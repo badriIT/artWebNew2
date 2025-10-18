@@ -21,6 +21,7 @@ import { LikedProductsComponent } from './liked-products/liked-products.componen
 import { AuthComponent } from './auth/auth.component';
 import { PersonalComponent } from './personal/personal.component';
 import { OffersComponent } from './offers/offers.component';
+import { PreOrderDetailsComponent } from './pre-order-details/pre-order-details.component';
 
 
 @NgModule({
@@ -42,6 +43,7 @@ import { OffersComponent } from './offers/offers.component';
     AuthComponent,
     PersonalComponent,
     OffersComponent,
+    PreOrderDetailsComponent,
  
   ],
   imports: [

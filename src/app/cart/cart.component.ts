@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ServiceService } from '../service.service';
 import { CartService } from '../cart.service';
+import { GetProductInfoService } from '../get-product-info.service';
 
 @Component({
   selector: 'app-cart',
@@ -18,14 +19,14 @@ export class CartComponent implements OnInit {
   animatedTotalPrice: number = 0;
   private animationFrame: any;
 
-  constructor(private http: HttpClient, private service: ServiceService, private cartService: CartService,) {
+  constructor(private getProductInfoService: GetProductInfoService, private http: HttpClient, private service: ServiceService, private cartService: CartService,) {
     cartService.getBackEndCarts = this.getBackendCart();
   }
 
 
 
 
-
+  
   ngOnInit() {
 
     this.cartService.updateUnifiedCartCount();
@@ -223,45 +224,56 @@ export class CartComponent implements OnInit {
     });
   }
 
+  
+
 
  createOrder() {
-  const cartToken = localStorage.getItem('cart_token') || localStorage.getItem('guest_token');
-  const guestToken = localStorage.getItem('guest_token');
-  let headers = new HttpHeaders();
 
-  if (cartToken) {
-    headers = headers.set('X-Cart-Token', cartToken);
-  }
-  if (guestToken) {
-    headers = headers.set('X-Guest-Token', guestToken);
-  }
+  
+   
+ this.getProductInfoService.CartToken = localStorage.getItem('cart_token')
+  console.log('Cart token set:', this.getProductInfoService.CartToken);
 
-  this.http.post<any>(
-    'https://artshop-backend-demo.fly.dev/checkout/create',
-    {},
-    { headers, withCredentials: true }
-  ).subscribe({
-    next: (res) => {
-      console.log('Order created:', res);
-      if (res.order?.payment_url) {
-        window.location.href = res.order.payment_url;
-      } else {
-        alert('Order created! Order ID: ' + res.order?.order_id);
-      }
-    },
-    error: (err) => {
-      if (err.status === 404 && err.error?.error === 'cart_not_found') {
-        alert('Cart not found. Please add items to your cart before checkout.');
-      } else if (err.status === 400) {
-        alert('Missing cart or empty cart');
-      } else if (err.status === 401) {
-        alert('Guest verification required or invalid token');
-      } else {
-        alert('Order creation failed');
-      }
-      console.error('Order error:', err);
-    }
-  });
+
+
+
+  // const cartToken = localStorage.getItem('cart_token') || localStorage.getItem('guest_token');
+  // const guestToken = localStorage.getItem('guest_token');
+  // let headers = new HttpHeaders();
+
+  // if (cartToken) {
+  //   headers = headers.set('X-Cart-Token', cartToken);
+  // }
+  // if (guestToken) {
+  //   headers = headers.set('X-Guest-Token', guestToken);
+  // }
+
+  // this.http.post<any>(
+  //   'https://artshop-backend-demo.fly.dev/checkout/create',
+  //   {},
+  //   { headers, withCredentials: true }
+  // ).subscribe({
+  //   next: (res) => {
+  //     console.log('Order created:', res);
+  //     if (res.order?.payment_url) {
+  //       window.location.href = res.order.payment_url;
+  //     } else {
+  //       alert('Order created! Order ID: ' + res.order?.order_id);
+  //     }
+  //   },
+  //   error: (err) => {
+  //     if (err.status === 404 && err.error?.error === 'cart_not_found') {
+  //       alert('Cart not found. Please add items to your cart before checkout.');
+  //     } else if (err.status === 400) {
+  //       alert('Missing cart or empty cart');
+  //     } else if (err.status === 401) {
+  //       alert('Guest verification required or invalid token');
+  //     } else {
+  //       alert('Order creation failed');
+  //     }
+  //     console.error('Order error:', err);
+  //   }
+  // });
 }
 
 

@@ -88,11 +88,16 @@ export class AuthComponent {
       return;
     }
 
+    const language = localStorage.getItem('preferredLanguage') || 'ka';
+
     const payload = {
+      lang: language,
       name: this.name,
       password: this.password,
       username: this.email || this.phone // backend expects "username"
     };
+
+    console.log('Registration payload:', payload);
 
     this.http.post<any>(
       'https://artshop-backend-demo.fly.dev/auth/register',

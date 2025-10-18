@@ -16,6 +16,21 @@ declare var google: any
 export class NavComponent implements AfterViewInit {
 
 
+  selectedLanguage: string = 'ka';
+
+  changeLanguageToGeorgian() {
+ 
+    localStorage.setItem('preferredLanguage', 'ka');
+  }
+
+  changeLanguageToEnglish() {
+
+
+    localStorage.setItem('preferredLanguage', 'en');
+  }
+
+
+
   ngAfterViewInit(): void {
     this.loadGoogleTranslate();
   }
@@ -53,6 +68,8 @@ export class NavComponent implements AfterViewInit {
     // Reset Google Translate to original language
     document.cookie = 'googtrans=/auto/auto;path=/;domain=' + location.hostname;
     window.location.reload();
+
+ 
   }
 
 
@@ -92,27 +109,27 @@ export class NavComponent implements AfterViewInit {
   searchTerm: string = '';
   WholeProducts: any[] = [];
   products: any[] = [];
- 
+
   isProductsTabOpen: boolean = false; // controls popup visibility
 
   ngOnInit() {
 
     this.cartService.updateUnifiedCartCount();
-  this.cartService.cartCount$.subscribe(count => {
-    this.productsInCart = count;
-    // Now productsInCart will always be correct!
-  });
+    this.cartService.cartCount$.subscribe(count => {
+      this.productsInCart = count;
+      // Now productsInCart will always be correct!
+    });
 
 
- 
 
 
-    this.cartService.getBackEndCarts 
+
+    this.cartService.getBackEndCarts
     this.service.getWholeProcucts().subscribe(data => {
       this.WholeProducts = data.items;
       this.products = [...this.WholeProducts];
-     
-      
+
+
       this.service.updatelikeProductCount()
     });
 
@@ -200,7 +217,7 @@ export class NavComponent implements AfterViewInit {
   }
 
 
-   goToPersonalOrAuth() {
+  goToPersonalOrAuth() {
     this.http.get('https://artshop-backend-demo.fly.dev/auth/profile', { withCredentials: true }).subscribe({
       next: (res) => {
         // If profile loads, navigate to personal
@@ -211,6 +228,6 @@ export class NavComponent implements AfterViewInit {
         this.router.navigate(['/auth']);
       }
     });
-   }
+  }
 
 }
