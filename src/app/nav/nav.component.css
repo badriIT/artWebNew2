@@ -94,6 +94,7 @@ nav {
     width: 1px;
     height: 30px;
     background-color: #888888;
+    
 
 }
 
@@ -146,6 +147,7 @@ nav {
     border-bottom: 1px solid #888888;
     /* Long full-width line */
     height: 2px;
+    z-index: -99;
     position: absolute;
     max-width: 1300px;
     width: 100%;

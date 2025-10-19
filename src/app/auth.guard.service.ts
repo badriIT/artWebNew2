@@ -25,12 +25,18 @@ export class AuthGuard implements CanActivate {
     return this.http.get('https://artshop-backend-demo.fly.dev/auth/profile', { withCredentials: true }).pipe(
       map(() => true), // If profile loads, allow access
       catchError(() => {
+
+        
+
+
       
         return of(false);
       })
+
     );
+
   }
 
-  
-
+    
+    
 }
