@@ -21,6 +21,8 @@ export class CartComponent implements OnInit {
 
   constructor(private getProductInfoService: GetProductInfoService, private http: HttpClient, private service: ServiceService, private cartService: CartService,) {
     cartService.getBackEndCarts = this.getBackendCart();
+
+    cartService.getBackEndCarts = this.getBackendCart.bind(this);
   }
 
 
@@ -68,6 +70,8 @@ export class CartComponent implements OnInit {
         this.animateTotalPrice(this.getTotalPrice());
         this.service.updateCartCount();
         this.service.ProductsInCart = this.cartItems.length;
+
+        this.getBackendCart();
       },
       error: (err) => {
         console.error('Add to cart error:', err);
