@@ -286,6 +286,11 @@
         margin: 0;
     }
 
+    .ifIsEmpty, .cart-empty-text, .continiue-shopping {
+        
+        text-align: center;
+    }
+
 }
 
 
