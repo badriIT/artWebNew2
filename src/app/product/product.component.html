@@ -12,7 +12,7 @@
 
 
             <i (click)="addToLikedProducts()" style="cursor: pointer;" class="heart ri-heart-2-line"
-                 [ngClass]="isLiked ? 'ri-heart-fill' : 'ri-heart-2-line'" >
+                [ngClass]="isLiked ? 'ri-heart-fill' : 'ri-heart-2-line'">
             </i>
 
 
@@ -22,31 +22,76 @@
 
     <div class="product-information">
         <div class="zoom-container" (mousemove)="onMouseMove($event)" (mouseleave)="onMouseLeave()">
+
+
             <img [src]="img" alt="Zoom" [ngStyle]="{
       'transform': transform,
       'transform-origin': transformOrigin
     }" />
+            <div *ngIf="whileGettingInfoFromBack" class="skeleton-wrap">
+                <div class="skeleton-img"></div>
+
+            </div>
         </div>
+
 
         <div class="right-part">
             <p class="name">{{title}}</p>
             <div class="information">
-                <p class="arter">ავტორი: <span [routerLink]="['/eachArter', artistData.artist_id
-]" class="arter-names"> {{artist}} </span></p>
-                <p class="matherial">მატერიალი: {{matherial}}</p>
-                <p class="style">სტილი: {{style}}</p>
-                <p class="year">წელი: {{year}}</p>
+
+
+
+                <div *ngIf="whileGettingInfoFromBack" class="skeleton-wrap info-skeleton">
+                    <div class="skeleton-line short"></div>
+                    <div class="skeleton-line"></div>
+                    <div class="skeleton-line medium"></div>
+                    <div class="skeleton-line"></div>
+
+                </div>
+
+
+
+
+
+                <p class="arter" *ngIf="artist">
+                    ავტორი:
+                    <span [routerLink]="['/eachArter', artistData?.artist_id]" class="arter-names">{{ artist }}</span>
+                </p>
+
+
+
+
+
+
+
+
+
+
+
+                <p *ngIf="artist" class="matherial">მატერიალი: {{matherial}}</p>
+
+                <p *ngIf="artist" class="style">სტილი: {{style}}</p>
+
+                <p *ngIf="artist" class="year">წელი: {{year}}</p>
+
 
 
             </div>
-            <p class="price"> {{price}} $</p>
+            <div *ngIf="whileGettingInfoFromBack" class="skeleton-wrap info-skeleton">
+                <div class="skeleton-line short"></div>
+               
+
+            </div>
+
+            <p *ngIf="artist" class="price"> {{price}} $</p>
             <div class="buttons">
-                <button (click)="getProductInfo()" routerLink="/checkout/details"  class="buy">შეკვეთა ერთ დაჭერაში</button>
+                <button (click)="getProductInfo()" routerLink="/checkout/details" class="buy">შეკვეთა ერთ
+                    დაჭერაში</button>
                 <button (click)="addToCart(productId, 1)" class="toCart">კალათაში დამატება</button>
             </div>
         </div>
     </div>
-    
+
     <div class="horizontal-line"></div>
 
     <p class="title">ასევე ამ ავტორის მიერ </p>

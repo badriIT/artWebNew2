@@ -17,6 +17,8 @@ export class HomeComponent implements AfterViewInit {
 
 
 
+  productsLoading: boolean = false;
+
 
 
 
@@ -69,9 +71,9 @@ export class HomeComponent implements AfterViewInit {
   }
 
 
-  
 
-  
+
+
 
 
 
@@ -129,8 +131,9 @@ export class HomeComponent implements AfterViewInit {
     this.service.heightMaxValues = selectedObjects.map(s => s.heightMax);
     this.service.heightMinValues = selectedObjects.map(s => s.heightMin);
 
+    this.productsLoading = true;
     // fetch filtered products
-    this.service.getProducts(this.currentPage, this.itemsPerPage).subscribe(data => {
+    this.service.getProducts(this.currentPage, this.itemsPerPage).subscribe(data => { // 2
       this.products = data.items;
       this.totalItems = data.total;
       this.totalPages = Math.ceil(this.totalItems / this.itemsPerPage);
@@ -139,71 +142,80 @@ export class HomeComponent implements AfterViewInit {
       this.showPagination = !this.noProdFound;
 
       console.log("Filtered products", this.products);
+      this.productsLoading = false;
     });
   }
 
   isAnyFilterActive(): boolean {
-  return !!(
-    this.selectedPriceRange ||
-    this.selectedTypes.length ||
-    this.selectedStyles.length ||
-    this.selectedSizes.length ||
-    this.selectedColors.size ||
-    this.selectedMaterials.length ||
-    this.selectedThemes.length ||
-    this.selectedFormats.length
-  );
-}
+    return !!(
+      this.selectedPriceRange ||
+      this.selectedTypes.length ||
+      this.selectedStyles.length ||
+      this.selectedSizes.length ||
+      this.selectedColors.size ||
+      this.selectedMaterials.length ||
+      this.selectedThemes.length ||
+      this.selectedFormats.length
+    );
+  }
 
- unfilter() {
-  this.closePanels();
-  this.currentPage = 1;
+  unfilter() {
+    this.closePanels();
+    this.currentPage = 1;
 
-  // Clear filters in service
-  this.service.minPrice = undefined;
-  this.service.maxPrice = undefined;
-  this.service.widthMaxValues = undefined;
-  this.service.widthMinValues = undefined;
-  this.service.heightMaxValues = undefined;
-  this.service.heightMinValues = undefined;
+    // Clear filters in service
+    this.service.minPrice = undefined;
+    this.service.maxPrice = undefined;
+    this.service.widthMaxValues = undefined;
+    this.service.widthMinValues = undefined;
+    this.service.heightMaxValues = undefined;
+    this.service.heightMinValues = undefined;
 
-  this.service.selectedColorsNames = [];
-  this.service.selectedSizesLabels = [];
-  this.service.selectedMaterials = [];
-  this.service.selectedStyles = [];
-  this.service.selectedThemes = [];
-  this.service.selectedFormats = [];
-  this.service.selectedTypes = [];
+    this.service.selectedColorsNames = [];
+    this.service.selectedSizesLabels = [];
+    this.service.selectedMaterials = [];
+    this.service.selectedStyles = [];
+    this.service.selectedThemes = [];
+    this.service.selectedFormats = [];
+    this.service.selectedTypes = [];
 
-  // Clear filters in component
-  this.selectedPriceRange = undefined;
-  this.selectedTypes = [];
-  this.selectedStyles = [];
-  this.selectedSizes = [];
-  this.selectedColors = new Set();
-  this.selectedMaterials = [];
-  this.selectedThemes = [];
-  this.selectedFormats = [];
+    // Clear filters in component
+    this.selectedPriceRange = undefined;
+    this.selectedTypes = [];
+    this.selectedStyles = [];
+    this.selectedSizes = [];
+    this.selectedColors = new Set();
+    this.selectedMaterials = [];
+    this.selectedThemes = [];
+    this.selectedFormats = [];
 
-  // Remove all query params from the URL
-  this.router.navigate([], {
-    relativeTo: this.route,
-    queryParams: {},
-    queryParamsHandling: ''
-  });
+    // Remove all query params from the URL
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: {},
+      queryParamsHandling: ''
+    });
 
-  // Fetch all products
-  this.service.getProducts(this.currentPage, this.itemsPerPage).subscribe(data => {
-    this.products = data.items;
-    this.totalItems = data.total;
-    this.totalPages = Math.ceil(this.totalItems / this.itemsPerPage);
+    // Fetch all products
+    this.productsLoading = true;
+    this.service.getProducts(this.currentPage, this.itemsPerPage).subscribe({
+      next: (data) => {
+        this.products = data.items;
+        this.totalItems = data.total;
+        this.totalPages = Math.ceil(this.totalItems / this.itemsPerPage);
 
-    this.noProdFound = this.products.length === 0;
-    this.showPagination = !this.noProdFound;
-
-    console.log("Unfiltered products", this.products);
-  });
-}
+        this.noProdFound = this.products.length === 0;
+        this.showPagination = !this.noProdFound;
+        console.log("Unfiltered products", this.products);
+        this.productsLoading = false;
+      },
+      error: (err) => {
+        console.error('Failed to load unfiltered products', err);
+        this.products = [];
+        this.productsLoading = false;
+      }
+    });
+  }
 
 
   colorLabels: { [key: number]: string } = {
@@ -660,14 +672,15 @@ export class HomeComponent implements AfterViewInit {
 
 
   loadData(page: number) {
+    this.productsLoading = true;
     this.service.getProducts(page, this.itemsPerPage).subscribe(response => {
       this.products = response.items;
       this.currentPage = response.page;
       this.itemsPerPage = response.limit;
       this.totalItems = response.total;
       this.totalPages = Math.ceil(this.totalItems / this.itemsPerPage);
-
-      console.log(this.products)
+      this.productsLoading = false;
+      console.log("products", this.products);
     });
   }
 
@@ -678,10 +691,12 @@ export class HomeComponent implements AfterViewInit {
   goToPage(page: number) {
     if (page >= 1 && page <= this.totalPages) {
       this.currentPage = page;
+      this.productsLoading = true;
       this.service.getProducts(this.currentPage, this.itemsPerPage).subscribe(data => {
         this.products = data.items;
         this.noProdFound = this.products.length === 0;
         this.showPagination = !this.noProdFound;
+        this.productsLoading = false;
       });
     }
     if (page >= 1 && page <= this.totalPages) {
@@ -710,7 +725,7 @@ export class HomeComponent implements AfterViewInit {
 
 
   constructor(private service: ServiceService, private route: ActivatedRoute, private http: HttpClient, private cartService: CartService, private router: Router, private authService: AuthGuard) {
-  
+
 
 
 
@@ -718,52 +733,54 @@ export class HomeComponent implements AfterViewInit {
   }
 
 
- ngOnInit() {
+  ngOnInit() {
 
- 
-  this.cartService.updateUnifiedCartCount();
-  this.service.getGuestToken();
 
-  // If there are query params, let the filter logic handle loading products
-  this.route.queryParams.subscribe(params => {
-    const hasAnyFilter = Object.keys(params).length > 0;
-    if (hasAnyFilter) {
-      // Set your filter selections from params
-      this.selectedPriceRange = this.priceRanges.find(
-        p => p.min === (params['minPrice'] ? +params['minPrice'] : undefined) &&
-          p.max === (params['maxPrice'] ? +params['maxPrice'] : undefined)
-      );
-      this.selectedTypes = params['types'] ? params['types'].split(',') : [];
-      this.selectedStyles = params['styles'] ? params['styles'].split(',') : [];
-      this.selectedSizes = params['sizes'] ? params['sizes'].split(',') : [];
-      this.selectedColors = params['colors'] ? new Set(params['colors'].split(',').map(Number)) : new Set();
-      this.selectedMaterials = params['materials'] ? params['materials'].split(',') : [];
-      this.selectedThemes = params['themes'] ? params['themes'].split(',') : [];
-      this.selectedFormats = params['formats'] ? params['formats'].split(',') : [];
+    this.cartService.updateUnifiedCartCount();
+    this.service.getGuestToken();
 
-      // Call filter logic with params
-      this.filter();
-    } else {
-      // No filters, load all products
-      this.loadData(this.currentPage);
-    }
-  });
+    // If there are query params, let the filter logic handle loading products
+    this.route.queryParams.subscribe(params => {
+      const hasAnyFilter = Object.keys(params).length > 0;
+      if (hasAnyFilter) {
+        // Set your filter selections from params
+        this.selectedPriceRange = this.priceRanges.find(
+          p => p.min === (params['minPrice'] ? +params['minPrice'] : undefined) &&
+            p.max === (params['maxPrice'] ? +params['maxPrice'] : undefined)
+        );
+        this.selectedTypes = params['types'] ? params['types'].split(',') : [];
+        this.selectedStyles = params['styles'] ? params['styles'].split(',') : [];
+        this.selectedSizes = params['sizes'] ? params['sizes'].split(',') : [];
+        this.selectedColors = params['colors'] ? new Set(params['colors'].split(',').map(Number)) : new Set();
+        this.selectedMaterials = params['materials'] ? params['materials'].split(',') : [];
+        this.selectedThemes = params['themes'] ? params['themes'].split(',') : [];
+        this.selectedFormats = params['formats'] ? params['formats'].split(',') : [];
 
-  // ...rest of your ngOnInit code (clear service filters)...
-  this.service.minPrice = undefined;
-  this.service.maxPrice = undefined;
-  this.service.widthMaxValues = undefined;
-  this.service.widthMinValues = undefined;
-  this.service.heightMaxValues = undefined;
-  this.service.heightMinValues = undefined;
-  this.service.selectedColorsNames = [];
-  this.service.selectedSizesLabels = [];
-  this.service.selectedMaterials = [];
-  this.service.selectedStyles = [];
-  this.service.selectedThemes = [];
-  this.service.selectedFormats = [];
-  this.service.selectedTypes = [];
-}
+        // Call filter logic with params
+        this.filter();
+      } else {
+        // No filters, load all products
+        this.loadData(this.currentPage);
+
+    
+      }
+    });
+
+    // ...rest of your ngOnInit code (clear service filters)...
+    this.service.minPrice = undefined;
+    this.service.maxPrice = undefined;
+    this.service.widthMaxValues = undefined;
+    this.service.widthMinValues = undefined;
+    this.service.heightMaxValues = undefined;
+    this.service.heightMinValues = undefined;
+    this.service.selectedColorsNames = [];
+    this.service.selectedSizesLabels = [];
+    this.service.selectedMaterials = [];
+    this.service.selectedStyles = [];
+    this.service.selectedThemes = [];
+    this.service.selectedFormats = [];
+    this.service.selectedTypes = [];
+  }
 
 
 
@@ -838,12 +855,22 @@ export class HomeComponent implements AfterViewInit {
 
 
   originalProducts() {
-    this.service.getProducts().subscribe(data => {
-      this.products = data.items;
-      console.log("original products", this.products);
-      this.noProdFound = false;
+    this.productsLoading = true;
+    this.service.getProducts().subscribe({ // 1
+      next: (data) => {
+        this.products = data.items;
+        console.log("original products", this.products);
+        this.noProdFound = false;
+        this.productsLoading = false;
+      },
+      error: (err) => {
+        console.error('Failed to load original products', err);
+        this.products = [];
+        this.productsLoading = false;
+      }
     });
   }
+
 
   priceUp() {
     this.products.sort((b, a) => a.price - b.price);

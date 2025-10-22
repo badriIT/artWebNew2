@@ -21,6 +21,8 @@ export class ArtersComponent {
   totalItems: number = 0;
   totalPages: number = 0;
 
+  productsLoading: boolean = false;
+
 
   constructor(private service: ServiceService, private route: ActivatedRoute, private http: HttpClient, private cartService: CartService) {
    
@@ -125,6 +127,8 @@ onDigitFilter(digit: string) {
   }
 
 loadData(page: number) {
+    this.productsLoading = true;
+
   this.service.getAllArtists(this.selectedDigit, page, this.itemsPerPage).subscribe(response => {
     this.artists = response.artists || [];
     this.currentPage = response.page || page;
@@ -136,6 +140,8 @@ loadData(page: number) {
     this.showPagination = this.totalPages > 0; // <-- Always show if at least one page
     console.log('Loaded artists:', this.artists);
     console.log('getDisplayedPages:', this.getDisplayedPages());
+
+      this.productsLoading = false;
   });
 }
   goToPage(page: number) {

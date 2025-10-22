@@ -88,7 +88,7 @@ export class PreOrderDetailsComponent implements OnInit {
 
   byId: boolean = false; // for template use
 
-  // Constructor with dependencies
+  // Constructor 
   constructor(
     private CheckAuthService: AuthGuard,
     private router: Router,

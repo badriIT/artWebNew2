@@ -1,7 +1,15 @@
 
+* {
+    font-family: 'Noto Sans Georgian', sans-serif;
+}
+
+
+
+
 section {
   padding: 16px;
 }
+
 
 .accordion-title {
 

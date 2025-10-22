@@ -16,6 +16,7 @@ export class PersonalComponent {
   profilePhone = '';
 
 
+
   profile: any = null;
   profileArray: { key: string, value: any }[] = [];
 
@@ -26,7 +27,7 @@ export class PersonalComponent {
 
 
 
-   alertMessage: string = '';
+  alertMessage: string = '';
   alertType: 'success' | 'error' | 'warning' = 'success';
   showAlert: boolean = false;
 
@@ -51,19 +52,22 @@ export class PersonalComponent {
 
 
 
-openSideMenu() {
-  this.sideMenuOpen = true;
-}
+  openSideMenu() {
+    this.sideMenuOpen = true;
+  }
 
-closeSideMenu() {
-  this.sideMenuOpen = false;
-}
+  closeSideMenu() {
+    this.sideMenuOpen = false;
+  }
 
 
   constructor(private http: HttpClient, private router: Router, private cartService: CartService) { }
 
 
-   fetchProfile() {
+  fetchProfile() {
+    // show skeleton
+ 
+
     // No need to send access token manually, just use withCredentials
     this.http.get<any>(
       'https://artshop-backend-demo.fly.dev/auth/profile',
@@ -77,30 +81,31 @@ closeSideMenu() {
           { key: 'სახელი', value: res.customer?.name },
           { key: 'ელ.ფოსტა', value: res.customer?.email },
           { key: 'ტელეფონი', value: res.customer?.phone },
-          { key: 'აქტიურია', value: res.customer?.is_active ? 'დიახ' : 'არა' },
+          { key: 'აქტიურია', value: res.customer?.is_active ? 'დიახ' : 'კი' },
           { key: 'ბოლო ავტორიზაცია', value: res.customer?.last_login_at },
           { key: 'შეკვეთების რაოდენობა', value: res.stats?.orders_count },
           { key: 'ფავორიტების რაოდენობა', value: res.stats?.favorites_count },
           { key: 'ღია კალათები', value: res.stats?.carts_open_count }
         ];
 
+        
         const newCartToken = res?.cart_token;
         if (newCartToken) {
           localStorage.setItem('cart_token', newCartToken);
         }
 
-         console.log("token ", res.cart_token)
+        console.log("token ", res.cart_token)
         console.log('Full Profile Response:', res);
         console.log('Profile:', this.profileArray);
 
         this.profileName = res.customer?.name;
         this.profileEmail = res.customer?.email;
-        this.profilePhone = res.customer?.phone; // no info for now
-       
+        this.profilePhone = res.customer?.phone;
       },
       error: (err) => {
-       
+    
         this.showAnimatedAlert('პროფილის მიღება ვერ მოხერხდა ❌', 'error');
+        console.error('Profile fetch error', err);
       }
     });
   }
@@ -108,7 +113,7 @@ closeSideMenu() {
 
   ngOnInit() {
     this.fetchProfile();
-      this.cartService.updateUnifiedCartCount();
+    this.cartService.updateUnifiedCartCount();
 
 
   }
@@ -118,15 +123,15 @@ closeSideMenu() {
     this.http.post<any>(
       'https://artshop-backend-demo.fly.dev/auth/logout',
       {},
-      
+
       { withCredentials: true } // cookie must be sent
     ).subscribe({
       next: () => {
         this.showAnimatedAlert('გამოსვლა წარმატებით შესრულდა ✅', 'success');
-        
 
 
-         this.router.navigate(['/auth']);
+
+        this.router.navigate(['/auth']);
       },
       error: (err) => {
         console.error('Logout error:', err);
@@ -134,8 +139,8 @@ closeSideMenu() {
       }
     });
 
- 
+
   }
 
-    
+
 }

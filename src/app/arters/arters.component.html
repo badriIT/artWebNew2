@@ -24,9 +24,113 @@
 
     </div>
 
+    <div class="wholeSkeleton" *ngIf="productsLoading">
+
+
+             <div *ngIf="productsLoading" class="skeleton-wrap">
+
+            <div>
+                <div class="skeleton-photo"></div>
+                <div class="small-images">
+                    <div class="skeleton-photo-small"></div>
+                    <div class="skeleton-photo-small"></div>
+                    <div class="skeleton-photo-small"></div>
+
+                </div>
+            </div>
+        </div>
+
+
+             <div *ngIf="productsLoading" class="skeleton-wrap">
+
+            <div>
+                <div class="skeleton-photo"></div>
+                <div class="small-images">
+                    <div class="skeleton-photo-small"></div>
+                    <div class="skeleton-photo-small"></div>
+                    <div class="skeleton-photo-small"></div>
+
+                </div>
+            </div>
+        </div>
+
+
+             <div *ngIf="productsLoading" class="skeleton-wrap">
+
+            <div>
+                <div class="skeleton-photo"></div>
+                <div class="small-images">
+                    <div class="skeleton-photo-small"></div>
+                    <div class="skeleton-photo-small"></div>
+                    <div class="skeleton-photo-small"></div>
+
+                </div>
+            </div>
+        </div>
+
+
+             <div *ngIf="productsLoading" class="skeleton-wrap">
+
+            <div>
+                <div class="skeleton-photo"></div>
+                <div class="small-images">
+                    <div class="skeleton-photo-small"></div>
+                    <div class="skeleton-photo-small"></div>
+                    <div class="skeleton-photo-small"></div>
+
+                </div>
+            </div>
+        </div>
+
+
+             <div *ngIf="productsLoading" class="skeleton-wrap">
+
+            <div>
+                <div class="skeleton-photo"></div>
+                <div class="small-images">
+                    <div class="skeleton-photo-small"></div>
+                    <div class="skeleton-photo-small"></div>
+                    <div class="skeleton-photo-small"></div>
+
+                </div>
+            </div>
+        </div>
+
+
+             <div *ngIf="productsLoading" class="skeleton-wrap">
+
+            <div>
+                <div class="skeleton-photo"></div>
+                <div class="small-images">
+                    <div class="skeleton-photo-small"></div>
+                    <div class="skeleton-photo-small"></div>
+                    <div class="skeleton-photo-small"></div>
+
+                </div>
+            </div>
+        </div>
+   
+
+
+
+
+
+    </div>
+
+
     <div class="artists">
+
+
+
+
+
+
         <div *ngFor="let artist of artists" class="each-card">
+
+
             <p class="arter-name" [routerLink]="['/eachArter', artist.artist_id]">{{ artist.artist_name }}</p>
+
+
 
             <!-- Big image and main_item -->
             <div [routerLink]="['/product', artist.main_item.id]" class="big-image">
@@ -146,10 +250,10 @@
 
 
 
-  
 
 
 
- 
+
+
 
 </section>

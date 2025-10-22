@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';1
 import { forkJoin, Observable } from 'rxjs';
 import { BehaviorSubject } from 'rxjs';
 
@@ -86,7 +86,7 @@ export class ServiceService {
   getArtists() {
     return this.http.get('https://artshop-backend-demo.fly.dev/artists?page=1&limit=12');
   }
-
+    
 
   getWholeProcucts(): Observable<any> {
     return this.http.get<any>(`https://artshop-backend-demo.fly.dev/items?`);

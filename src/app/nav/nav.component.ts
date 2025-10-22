@@ -91,11 +91,7 @@ export class NavComponent implements AfterViewInit {
 
 
   constructor(private service: ServiceService, private cartService: CartService, private router: Router, private http: HttpClient, private refreshService: RefreshService) {
-    this.service.getWholeProcucts().subscribe(data => {
-      this.WholeProducts = data.items
-
-
-    })
+   
   }
 
   refreshCart() {
@@ -114,7 +110,7 @@ export class NavComponent implements AfterViewInit {
 
   ngOnInit() {
 
-    this.cartService.updateUnifiedCartCount();
+    
     this.cartService.cartCount$.subscribe(count => {
       this.productsInCart = count;
       // Now productsInCart will always be correct!
@@ -125,13 +121,10 @@ export class NavComponent implements AfterViewInit {
 
 
     this.cartService.getBackEndCarts
-    this.service.getWholeProcucts().subscribe(data => {
-      this.WholeProducts = data.items;
-      this.products = [...this.WholeProducts];
+  
 
 
-      this.service.updatelikeProductCount()
-    });
+      this.service.updatelikeProductCount();
 
     this.cartService.cartCount$.subscribe(count => {
       this.productsInCart = count;

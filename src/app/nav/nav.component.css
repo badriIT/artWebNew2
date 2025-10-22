@@ -1,6 +1,10 @@
 body .goog-te-banner-frame.skiptranslate { display: none !important; }
 body { top: 0 !important; }
 
+* {
+    font-family: 'Noto Sans Georgian', sans-serif;
+}
+
 
 
 nav {

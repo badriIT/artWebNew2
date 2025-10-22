@@ -43,6 +43,10 @@ export class ProductComponent implements OnInit {
 
   products: any[] = [];
 
+
+
+  whileGettingInfoFromBack: boolean = false;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -55,8 +59,15 @@ export class ProductComponent implements OnInit {
   ) { }
 
   loadProduct(id: string) {
+
+    this.whileGettingInfoFromBack = true;
     this.service.getProductById(id).subscribe(product => {
-      if (!product) return;
+      if (!product) {
+
+        this.whileGettingInfoFromBack = false;
+        return
+
+      };
 
       this.title = product.title;
       this.artist = product.artist_name;
@@ -68,6 +79,9 @@ export class ProductComponent implements OnInit {
 
       // Load artist's other works
       this.loadArtistData(product.artist_name);
+    }, err => {
+      console.error('Failed to load product', err);
+      this.whileGettingInfoFromBack = false;
     });
   }
 
@@ -85,7 +99,15 @@ export class ProductComponent implements OnInit {
           (item: any) => item.id !== this.productId
         );
       }
+
+
+      this.whileGettingInfoFromBack = false;
+    }, err => {
+      console.error('Failed to load artist data', err);
+      this.whileGettingInfoFromBack = false;
     });
+
+
   }
 
   changeProduct(art: any) {
@@ -111,6 +133,7 @@ export class ProductComponent implements OnInit {
     this.route.paramMap.subscribe(params => {
       this.productId = params.get('id')!;
       if (this.productId) {
+        this.whileGettingInfoFromBack = true;
         this.loadProduct(this.productId);
         this.loadLikedProducts(); // <-- Load liked IDs on init
         window.scrollTo({ top: 0, behavior: 'smooth' });
