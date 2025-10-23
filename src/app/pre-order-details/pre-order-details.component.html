@@ -70,7 +70,7 @@
   </div>
 
   <!-- authenticated form -->
-  <div *ngIf="!isCheckingAuth && authenticated" class="input-container">
+  <div *ngIf="!isCheckingAuth && authenticated && isPhone" class="input-container">
     <input type="text" placeholder="მიმღების სახელი და გვარი*" [(ngModel)]="recipientName">
 
     <input type="text" placeholder="ქალაქი*" [(ngModel)]="city">
@@ -97,7 +97,7 @@
   </div>
 
   <!-- guest / not authenticated form -->
-  <div *ngIf="!isCheckingAuth && !authenticated && !showCodeInput" class="input-container">
+  <div *ngIf="!isCheckingAuth && !authenticated && !showCodeInput && !isPhone " class="input-container">
     <input type="tel" placeholder="ტელეფონი*" [(ngModel)]="phone" inputmode="numeric" pattern="[1-9]*"
       (keypress)="allowDigits($event)" (paste)="onPaste($event)" />
 
@@ -128,7 +128,7 @@
   </div>
 
   <!-- authenticated form -->
-  <div *ngIf="!isCheckingAuth && authenticated" class="input-container">
+  <div *ngIf="!isCheckingAuth && authenticated && isPhone" class="input-container">
 
 
     <input type="text" placeholder="მიმღების სახელი და გვარი*" [(ngModel)]="recipientName">

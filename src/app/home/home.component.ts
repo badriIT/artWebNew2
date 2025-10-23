@@ -737,7 +737,7 @@ export class HomeComponent implements AfterViewInit {
 
 
     this.cartService.updateUnifiedCartCount();
-    this.service.getGuestToken();
+    
 
     // If there are query params, let the filter logic handle loading products
     this.route.queryParams.subscribe(params => {

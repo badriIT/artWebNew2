@@ -55,8 +55,8 @@ export class AuthComponent {
 
 
   ngOnInit() {
-    this.cartService.updateUnifiedCartCount();
-    this.fetchProfile()
+   
+   
   }
 
   toggleRegistering() {
@@ -106,6 +106,8 @@ export class AuthComponent {
     ).subscribe({
       next: (res) => {
         this.challenge_id = res.challenge_id;
+
+        console.log('OTP requested, res', res);
 
         if (res.dev_code) {
           this.devCode = res.dev_code;

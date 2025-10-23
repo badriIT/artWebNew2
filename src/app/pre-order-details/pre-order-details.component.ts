@@ -20,16 +20,16 @@ export class PreOrderDetailsComponent implements OnInit {
     const key = event.key;
     const controlKeys = ['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 'Tab', 'Enter'];
     if (controlKeys.includes(key)) return;
-    // block if not single digit 1-9
-    if (!/^[1-9]$/.test(key)) {
+    // block if not single digit 0-9
+    if (!/^[0-9]$/.test(key)) {
       event.preventDefault();
     }
   }
 
-  // sanitize pasted content to digits 1-9 only
+  // sanitize pasted content to digits 0-9 only
   onPaste(e: ClipboardEvent) {
     const pasted = e.clipboardData?.getData('text') ?? '';
-    const filtered = pasted.replace(/[^1-9]/g, '');
+    const filtered = pasted.replace(/[^0-9]/g, '');
     if (filtered !== pasted) {
       // prevent default paste and insert filtered text manually
       e.preventDefault();
@@ -47,6 +47,12 @@ export class PreOrderDetailsComponent implements OnInit {
 
 
   ///////////////
+
+  //
+  phoneToCheck: string = '';
+  isPhone: boolean = false;
+
+  //
 
 
 
@@ -99,59 +105,52 @@ export class PreOrderDetailsComponent implements OnInit {
 
 
   // On component init
-  ngOnInit(): void {
-    // read product id from service first, then route params / query
-    const fromService = this.getProductInfoService.productID || '';
-    const fromRoute = this.route.snapshot.paramMap.get('id') ?? this.route.snapshot.queryParamMap.get('productId') ?? '';
-    this.productId = fromService || fromRoute;
-    console.log('Pre-order: productId resolved ->', { fromService, fromRoute, final: this.productId });
+ ngOnInit(): void {
+  const fromService = this.getProductInfoService.productID || '';
+  const fromRoute = this.route.snapshot.paramMap.get('id') ?? this.route.snapshot.queryParamMap.get('productId') ?? '';
+  this.productId = fromService || fromRoute;
+  console.log('Pre-order: productId resolved ->', { fromService, fromRoute, final: this.productId });
 
-    this.CartToken = this.getProductInfoService.CartToken;
+  this.CartToken = this.getProductInfoService.CartToken;
+  this.existCartToken = !!this.CartToken;
+  this.byId = !!this.productId;
 
-    if (this.CartToken) {
-      this.existCartToken = true;
-    }
-
-    if (this.productId) {
-      this.byId = true;
-    }
-
-    if (!this.productId && !this.CartToken) {
-      this.router.navigate(['/']);
-    }
-
-    // check auth status
-
-    this.CheckAuthService.canActivate2().subscribe({
-      next: (res) => {
-        console.log('Auth check response:', res);
-        this.authenticated = !!res;
-        this.authResponse = res;
-        this.isCheckingAuth = false;
-
-      },
-      error: (err) => {
-        console.error('Auth check error:', err);
-        this.authenticated = false;
-        this.isCheckingAuth = false;
-      }
-    });
-
-    this.http.get('https://artshop-backend-demo.fly.dev/auth/profile', { withCredentials: true }).subscribe({
-      next: (res: any) => {
-        
-        this.userName = res?.customer?.name ?? res?.name ?? res?.username ?? '';
-     
-
-     
-        this.recipientName = this.userName || '';
-      },
-      error: (err) => {
-        console.error('User profile fetch error:', err);
-      }
-    });
-
+  if (!this.productId && !this.CartToken) {
+    this.router.navigate(['/']);
+    return;
   }
+
+  // Start checking auth status
+  this.isCheckingAuth = true;
+
+  // First, check /auth/profile directly
+  this.http.get('https://artshop-backend-demo.fly.dev/auth/profile', { withCredentials: true }).subscribe({
+    next: (res: any) => {
+      console.log('Profile response:', res);
+      this.userName = res?.customer?.name ?? res?.name ?? res?.username ?? '';
+      this.phoneToCheck = res?.customer?.phone || res?.phone || '';
+      this.recipientName = this.userName || '';
+
+      if (this.phoneToCheck) {
+        this.isPhone = true;            // user has a phone
+        this.authenticated = true;      // treat as authenticated
+      } else {
+        this.isPhone = false;           // user has no phone
+        this.authenticated = false;     // treat as guest
+      }
+
+      this.isCheckingAuth = false;
+      console.log('Auth resolved:', { authenticated: this.authenticated, isPhone: this.isPhone });
+    },
+    error: (err) => {
+      console.error('Profile fetch error:', err);
+      this.authenticated = false;
+      this.isPhone = false;
+      this.isCheckingAuth = false;
+    }
+  });
+}
+
 
   // Clean up on destroy
   ngOnDestroy(): void {

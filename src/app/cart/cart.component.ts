@@ -20,7 +20,7 @@ export class CartComponent implements OnInit {
   private animationFrame: any;
 
   constructor(private getProductInfoService: GetProductInfoService, private http: HttpClient, private service: ServiceService, private cartService: CartService,) {
-    cartService.getBackEndCarts = this.getBackendCart();
+
 
     cartService.getBackEndCarts = this.getBackendCart.bind(this);
   }
@@ -51,33 +51,38 @@ export class CartComponent implements OnInit {
   // Get cart and items from backend
 
   // Add item to backend cart
-  addToBackendCart(productId: string, quantity: number = 1) {
-    const headers = this.getCartHeaders();
-    const payload = { product_id: productId, quantity };
 
-    this.http.post<any>(
-      'https://artshop-backend-demo.fly.dev/cart/items',
-      payload,
-      { headers, withCredentials: true }
-    ).subscribe({
-      next: (res) => {
-        console.log('Cart response:', res);
 
-        this.cartItems = res.items || [];
-        this.cartIsEmpty = this.cartItems.length === 0;
-        this.ifIsFull = !this.cartIsEmpty;
-        this.updateLikedStates();
-        this.animateTotalPrice(this.getTotalPrice());
-        this.service.updateCartCount();
-        this.service.ProductsInCart = this.cartItems.length;
 
-        this.getBackendCart();
-      },
-      error: (err) => {
-        console.error('Add to cart error:', err);
-      }
-    });
-  }
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  // addToBackendCart(productId: string, quantity: number = 1) {                                  /
+  //   const headers = this.getCartHeaders();                                                     /
+  //                                                                                              /
+  //   const payload = { product_id: productId, quantity };                                           
+
+  //   this.http.post<any>( 
+  //     'https://artshop-backend-demo.fly.dev/cart/items',
+  //     payload,
+  //     { headers, withCredentials: true }
+  //   ).subscribe({
+  //     next: (res) => {
+  //       console.log('Cart response:', res);
+
+  //       this.cartItems = res.items || [];
+  //       this.cartIsEmpty = this.cartItems.length === 0;
+  //       this.ifIsFull = !this.cartIsEmpty;
+  //       this.updateLikedStates();
+  //       this.animateTotalPrice(this.getTotalPrice());
+  //       this.service.updateCartCount();
+  //       this.service.ProductsInCart = this.cartItems.length;
+
+  //       this.getBackendCart();
+  //     },
+  //     error: (err) => {
+  //       console.error('Add to cart error:', err);
+  //     }
+  //   });
+  // }
 
 
 
@@ -90,50 +95,52 @@ export class CartComponent implements OnInit {
     const cartToken = localStorage.getItem('cart_token') || localStorage.getItem('guest_token');
     const headers = cartToken ? new HttpHeaders({ 'X-Cart-Token': cartToken }) : new HttpHeaders();
 
+    setTimeout(() => {
 
-    this.http.get<any>('https://artshop-backend-demo.fly.dev/cart', { headers, withCredentials: true }).subscribe({
-      next: (res) => {
-        console.log('Fetched cart:', res);
 
-        if (res.cart_token) {
-          localStorage.setItem('cart_token', res.cart_token);
+      this.http.get<any>('https://artshop-backend-demo.fly.dev/cart', { headers, withCredentials: true }).subscribe({
+        next: (res) => {
+          console.log('Fetched cart:', res);
+
+          if (res.cart_token) {
+            localStorage.setItem('cart_token', res.cart_token);
+          }
+
+          // Update cart items
+          this.cartItems = res.items || [];
+          this.cartIsEmpty = this.cartItems.length === 0;
+          this.ifIsFull = !this.cartIsEmpty;
+
+          // Update liked states
+          this.updateLikedStates();
+
+          // Animate total price
+          const total = this.getTotalPrice();
+          this.animateTotalPrice(total);
+
+          // Update global cart count
+          this.service.updateCartCount();
+          this.service.ProductsInCart = this.cartItems.length;
+
+          this.loading = false;
+        },
+        error: (err) => {
+          console.error('Fetch cart error:', err);
+          this.cartItems = [];
+          this.cartIsEmpty = true;
+          this.ifIsFull = false;
+
+          // Ensure cart count is reset
+          this.service.updateCartCount();
+          this.service.ProductsInCart = 0;
+
+          this.loading = false;
+
         }
 
-        // Update cart items
-        this.cartItems = res.items || [];
-        this.cartIsEmpty = this.cartItems.length === 0;
-        this.ifIsFull = !this.cartIsEmpty;
+      });
 
-        // Update liked states
-        this.updateLikedStates();
-
-        // Animate total price
-        const total = this.getTotalPrice();
-        this.animateTotalPrice(total);
-
-        // Update global cart count
-        this.service.updateCartCount();
-        this.service.ProductsInCart = this.cartItems.length;
-
-        this.loading = false;
-      },
-      error: (err) => {
-        console.error('Fetch cart error:', err);
-        this.cartItems = [];
-        this.cartIsEmpty = true;
-        this.ifIsFull = false;
-
-        // Ensure cart count is reset
-        this.service.updateCartCount();
-        this.service.ProductsInCart = 0;
-
-        this.loading = false;
-
-      }
-
-    });
-
-
+    }, 00);
 
   }
 

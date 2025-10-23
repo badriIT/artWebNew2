@@ -195,14 +195,14 @@ input[type="checkbox"]:checked::after {
 }
 
 
-@media screen and (max-width: 950px) {
+@media screen and (max-width: 1080px) {
     .text {
         font-size: 20px;
     }
 }
 
 
-@media screen and (max-width: 770px) {
+@media screen and (max-width: 880px) {
     .footer-up {
         display: flex;
         flex-direction: column;
@@ -217,6 +217,10 @@ input[type="checkbox"]:checked::after {
 
     .subscribe {
         gap: 10px;
+    }
+
+    .text {
+        text-align: center;
     }
 }
 
@@ -241,4 +245,6 @@ input[type="checkbox"]:checked::after {
     .ul {
         flex-wrap: wrap;
     }
+
+    
 }

@@ -23,6 +23,7 @@ nav {
 
 .slesh {
     font-size: 20px;
+    margin-top: 20px;
 }
 
 
@@ -54,7 +55,9 @@ nav {
     font-weight: 500;
     line-height: normal;
     letter-spacing: 0.44px;
-    text-transform: uppercase
+    text-transform: uppercase;
+    margin-top: 20px;
+    
 }
 
 .telegram {

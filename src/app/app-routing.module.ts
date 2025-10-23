@@ -16,6 +16,7 @@ import { PersonalComponent } from './personal/personal.component';
 import { AuthGuard } from './auth.guard.service';
 import { OffersComponent } from './offers/offers.component';
 import { PreOrderDetailsComponent } from './pre-order-details/pre-order-details.component';
+import { OrderHistoryComponent } from './order-history/order-history.component';
 
 
 
@@ -53,6 +54,12 @@ const routes: Routes = [
   {
     path: 'checkout/details',
     component: PreOrderDetailsComponent,
+  },
+
+  {
+    path: 'personal/orders',
+    component: OrderHistoryComponent,
+    canActivate: [AuthGuard]
   },
 
 
