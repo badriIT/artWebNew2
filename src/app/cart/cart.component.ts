@@ -140,7 +140,7 @@ export class CartComponent implements OnInit {
 
       });
 
-    }, 00);
+    }, 200);
 
   }
 
