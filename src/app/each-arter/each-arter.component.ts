@@ -14,6 +14,14 @@ export class EachArterComponent {
   artistId!: string;
   artistInfo: any;
 
+   formatPrice(value: number | string | null | undefined): string {
+    if (value === null || value === undefined || value === '') return '';
+    const s = String(value);
+    const [intPart, decPart] = s.split('.');
+    const withCommas = intPart.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    return decPart ? `${withCommas}.${decPart}` : withCommas;
+  }
+
   constructor(
     private location: Location,
     private route: ActivatedRoute,

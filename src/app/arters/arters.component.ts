@@ -24,6 +24,16 @@ export class ArtersComponent {
   productsLoading: boolean = false;
 
 
+    formatPrice(value: number | string | null | undefined): string {
+    if (value === null || value === undefined || value === '') return '';
+    const s = String(value);
+    const [intPart, decPart] = s.split('.');
+    const withCommas = intPart.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    return decPart ? `${withCommas}.${decPart}` : withCommas;
+  }
+
+
+
   constructor(private service: ServiceService, private route: ActivatedRoute, private http: HttpClient, private cartService: CartService) {
    
   }

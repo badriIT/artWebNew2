@@ -141,7 +141,7 @@
                         <p class="size">{{artist.main_item.width_cm}} X {{artist.main_item.height_cm}} cm</p>
                         <p class="made-with">{{artist.main_item.material}}</p>
                     </div>
-                    <p class="price">{{artist.main_item.price}}$</p>
+                    <p class="price">{{ formatPrice(artist.main_item.price) }}$</p>
                 </div>
             </div>
 
@@ -152,7 +152,7 @@
                     <img [src]="underImg.image" alt="{{underImg.title}}">
                     <div class="product-text">
                         <p class="art-name">{{underImg.title}}</p>
-                        <p class="priceSmall">{{underImg.price}}$</p>
+                        <p class="priceSmall">{{ formatPrice(underImg.price) }}$</p>
                     </div>
                 </div>
             </div>

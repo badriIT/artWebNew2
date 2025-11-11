@@ -15,6 +15,29 @@ import { AuthGuard } from '../auth.guard.service';
 export class HomeComponent implements AfterViewInit {
 
 
+  filtersActive: boolean = false;
+
+  updateFiltersActive() {
+    this.filtersActive = this.isAnyFilterActive();
+
+    console.log("Filters active:", this.filtersActive);
+  }
+
+
+
+  formatPrice(value: number | string | null | undefined): string {
+    if (value === null || value === undefined || value === '') return '';
+    const s = String(value);
+    const [intPart, decPart] = s.split('.');
+    const withCommas = intPart.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    return decPart ? `${withCommas}.${decPart}` : withCommas;
+  }
+
+
+
+
+
+
 
 
   productsLoading: boolean = false;
@@ -63,6 +86,8 @@ export class HomeComponent implements AfterViewInit {
 
     const selectedObjects = this.getSelectedSizeObjects();
     console.log('Selected size objects:', selectedObjects);
+
+    
   }
 
 
@@ -143,8 +168,13 @@ export class HomeComponent implements AfterViewInit {
 
       console.log("Filtered products", this.products);
       this.productsLoading = false;
+
+
+      this.updateFiltersActive();
     });
   }
+
+
 
   isAnyFilterActive(): boolean {
     return !!(
@@ -158,6 +188,8 @@ export class HomeComponent implements AfterViewInit {
       this.selectedFormats.length
     );
   }
+
+
 
   unfilter() {
     this.closePanels();
@@ -215,6 +247,8 @@ export class HomeComponent implements AfterViewInit {
         this.productsLoading = false;
       }
     });
+
+    this.updateFiltersActive();
   }
 
 
@@ -241,6 +275,8 @@ export class HomeComponent implements AfterViewInit {
     } else {
       this.selectedColors.add(colorId);
     }
+
+   
   }
 
   getColorIds(): number[] {
@@ -421,6 +457,7 @@ export class HomeComponent implements AfterViewInit {
     }
 
     console.log('Selected types:', this.selectedMaterials);
+
   }
 
 
@@ -461,6 +498,8 @@ export class HomeComponent implements AfterViewInit {
     }
 
     console.log('Selected types:', this.selectedStyles);
+
+    
   }
 
   themes = [
@@ -507,6 +546,9 @@ export class HomeComponent implements AfterViewInit {
     }
 
     console.log('Selected types:', this.selectedThemes);
+
+
+
   }
 
   formats = [
@@ -538,6 +580,8 @@ export class HomeComponent implements AfterViewInit {
     }
 
     console.log('Selected types:', this.selectedFormats);
+
+    
   }
 
 
@@ -570,6 +614,9 @@ export class HomeComponent implements AfterViewInit {
     }
 
     console.log('Selected types:', this.selectedTypes);
+
+
+    
   }
 
 
@@ -736,8 +783,10 @@ export class HomeComponent implements AfterViewInit {
   ngOnInit() {
 
 
+
+
     this.cartService.updateUnifiedCartCount();
-    
+
 
     // If there are query params, let the filter logic handle loading products
     this.route.queryParams.subscribe(params => {
@@ -762,7 +811,7 @@ export class HomeComponent implements AfterViewInit {
         // No filters, load all products
         this.loadData(this.currentPage);
 
-    
+
       }
     });
 
@@ -780,6 +829,9 @@ export class HomeComponent implements AfterViewInit {
     this.service.selectedThemes = [];
     this.service.selectedFormats = [];
     this.service.selectedTypes = [];
+
+
+    this.updateFiltersActive();
   }
 
 

@@ -83,7 +83,7 @@
 
             </div>
 
-            <p *ngIf="artist" class="price"> {{price}} $</p>
+            <p *ngIf="artist" class="price">{{ formatPrice(price) }} $</p>
             <div class="buttons">
                 <button (click)="getProductInfo()" routerLink="/checkout/details" class="buy">შეკვეთა ერთ
                     დაჭერაში</button>
@@ -119,7 +119,7 @@ featured_items
                     <p class="author">{{artOfEach.artist_name
                         }}</p>
                     <p class="theme">{{artOfEach.material}}</p>
-                    <p class="priceSmall">{{artOfEach.price}}$</p>
+                    <p class="priceSmall">{{ formatPrice(artOfEach.price) }}$</p>
                 </div>
             </div>
 

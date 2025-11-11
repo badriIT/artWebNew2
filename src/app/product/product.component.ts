@@ -18,6 +18,21 @@ import { GetProductInfoService } from '../get-product-info.service';
   styleUrls: ['./product.component.css']
 })
 export class ProductComponent implements OnInit {
+
+
+    formatPrice(value: number | string | null | undefined): string {
+    if (value === null || value === undefined || value === '') return '';
+    const s = String(value);
+    const [intPart, decPart] = s.split('.');
+    const withCommas = intPart.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    return decPart ? `${withCommas}.${decPart}` : withCommas;
+  }
+
+
+
+
+
+
   transform = 'scale(1)';
   transformOrigin = 'center center';
 

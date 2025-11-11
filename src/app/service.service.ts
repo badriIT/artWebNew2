@@ -15,10 +15,6 @@ export class ServiceService {
   private likedProductsSubject = new BehaviorSubject<number>(0);
   likedProductsCount$ = this.likedProductsSubject.asObservable();
 
-  updateCartCount() {
-    const cart = JSON.parse(localStorage.getItem('cart') || '[]');
-    this.cartCountSubject.next(cart.length);
-  }
 
   updatelikeProductCount() {
     const liked = JSON.parse(localStorage.getItem('LikedProducts') || '[]');
@@ -68,7 +64,7 @@ export class ServiceService {
   heightMinValues!: any
 
   constructor(private http: HttpClient) {
-    this.updateCartCount()
+    
 
 
   }

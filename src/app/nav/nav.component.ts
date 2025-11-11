@@ -16,6 +16,7 @@ declare var google: any
 export class NavComponent implements AfterViewInit {
 
 
+  noResults: boolean = false; 
   selectedLanguage: string = 'ka';
 
   changeLanguageToGeorgian() {
@@ -108,23 +109,28 @@ export class NavComponent implements AfterViewInit {
 
   isProductsTabOpen: boolean = false; // controls popup visibility
 
-  ngOnInit() {
+ngOnInit() {
+    // load a reasonable amount of products into WholeProducts so search can work by name
+    // adjust page/limit as needed; keep small for performance
+    this.service.getProducts(1, 1000).subscribe({
+      next: (resp: any) => {
+        this.WholeProducts = resp?.items ?? [];
+        this.products = [...this.WholeProducts];
+      },
+      error: (err) => {
+        console.error('Failed to preload products for search', err);
+        this.WholeProducts = [];
+        this.products = [];
+      }
+    });
 
-    
+    // existing subscriptions
     this.cartService.cartCount$.subscribe(count => {
       this.productsInCart = count;
       // Now productsInCart will always be correct!
     });
 
-
-
-
-
-    this.cartService.getBackEndCarts
-  
-
-
-      this.service.updatelikeProductCount();
+    this.service.updatelikeProductCount();
 
     this.cartService.cartCount$.subscribe(count => {
       this.productsInCart = count;
@@ -134,36 +140,47 @@ export class NavComponent implements AfterViewInit {
     this.service.likedProductsCount$.subscribe(count => {
       this.productsLiked = count;
     });
-
   }
 
-  onSearch() {
-
-
-
-
-    setTimeout(() => {
-
+    onSearch() {
+    clearTimeout((<any>this)._searchTimer);
+    (<any>this)._searchTimer = setTimeout(() => {
       const term = this.searchTerm.trim().toLowerCase();
 
-      if (term) {
-        // Filter products
-        this.products = this.WholeProducts.filter(p =>
-          p.title.toLowerCase().includes(term)
-        );
-
-        // Show products popup
-        this.isProductsTabOpen = true;
-      } else {
-        // Reset if search is empty
-        this.products = [...this.WholeProducts];
+      if (!term) {
+        this.products = [];
         this.isProductsTabOpen = false;
+        this.noResults = false;
+        return;
       }
 
-    }, 1200);
+      // open popup
+      this.isProductsTabOpen = true;
 
+      // filter by common name/title fields
+      this.products = this.WholeProducts.filter(p => {
+        const candidates: string[] = [
+          p?.title,
+          p?.name,
+          p?.artist_name,
+          p?.artist?.name,
+          p?.customer?.name,
+          p?.customer_name
+        ].filter(Boolean) as string[];
+        return candidates.some(field => field.toLowerCase().includes(term));
+      });
+
+      this.noResults = this.products.length === 0;
+    }, 300);
   }
 
+
+
+  closeSearchPopup() {
+    this.isProductsTabOpen = false;
+    this.noResults = false;
+    this.products = [];
+  }
 
 
 
