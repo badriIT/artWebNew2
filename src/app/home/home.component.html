@@ -1,3 +1,14 @@
+<!-- <div *ngIf="showOrderSuccess" class="order-success-popup">
+  <div class="order-success-content">
+    <strong>შეკვეთა წარმატებით შესრულდა</strong>
+    <p>Order ID: {{ orderSuccessId }}</p>
+  </div>
+  <button class="order-success-close" (click)="showOrderSuccess = false">×</button>
+</div> -->
+
+
+
+
 <section class="catalog">
 
     <div class="overlay" [class.active]="isFilterOpen || isSortOpen" (click)="closePanels()"></div>
@@ -14,10 +25,18 @@
 
     <div class="up-content-mobile">
         <p class="catalog-title">კატალოგი</p>
-        <div class="buttons">
-            <button class="filter" (click)="openFilter()">გაფილტვრა</button>
+        <div class="buttons-mobile">
 
-            <button class="sort" (click)="openSort()">დასორტირება</button>
+            <div>
+                <button class="filter" (click)="openFilter()">გაფილტვრა</button>
+                <button class="sort" (click)="openSort()">დასორტირება</button>
+            </div>
+
+
+
+
+
+            <button *ngIf="filtersActive" class="filter" (click)="unfilter()">ფილტრის მოხსნა</button>
         </div>
     </div>
 
@@ -300,7 +319,7 @@
                 <p class="arter">{{ art.artist_name }}</p>
                 <p class="size">{{ art.height_cm }} x {{ art.width_cm }} CM</p>
                 <p class="theme">{{ art.material }}</p>
-                <p class="price">{{ formatPrice(art.price) }} {{ art.currency }}</p>
+                <p class="price">{{ formatPrice(art.price) }} ₾ </p>
             </div>
         </div>
     </div>

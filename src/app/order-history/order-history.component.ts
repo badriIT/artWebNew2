@@ -67,7 +67,7 @@ export class OrderHistoryComponent {
 
   fetchProfile() {
     // show skeleton
- 
+
 
     // No need to send access token manually, just use withCredentials
     this.http.get<any>(
@@ -89,7 +89,7 @@ export class OrderHistoryComponent {
           { key: 'ღია კალათები', value: res.stats?.carts_open_count }
         ];
 
-        
+
         const newCartToken = res?.cart_token;
         if (newCartToken) {
           localStorage.setItem('cart_token', newCartToken);
@@ -104,24 +104,42 @@ export class OrderHistoryComponent {
         this.profilePhone = res.customer?.phone;
       },
       error: (err) => {
-    
+
         this.showAnimatedAlert('პროფილის მიღება ვერ მოხერხდა ❌', 'error');
         console.error('Profile fetch error', err);
       }
     });
   }
 
+  orders: any[] = [];
+
+  getOrders() {
+    this.http.get<any>(
+      'https://artshop-backend-demo.fly.dev/orders',
+      { withCredentials: true }
+    ).subscribe({
+      next: (res) => {
+       
+        this.orders = res.orders || [];
+         console.log('Orders: ', this.orders);
+      },
+      error: (err) => {
+        console.error('Orders fetch error', err);
+      }
+    });
+
+    console.log('Fetching orders...');
+  }
+
 
   ngOnInit() {
     this.fetchProfile();
     this.cartService.updateUnifiedCartCount();
-
+    this.getOrders();
 
   }
 
-  getOrders() {
-    
-  }
+
 
 
   logout() {
@@ -146,5 +164,15 @@ export class OrderHistoryComponent {
 
 
   }
+
+
+
+
+  
+
+
+
+
+
 
 }

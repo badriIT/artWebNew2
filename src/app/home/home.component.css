@@ -921,9 +921,13 @@
 }
 
 
-@media screen and (max-width: 630px) {
+@media screen and (max-width: 680px) {
     .pageNumbers {
         gap: 8px;
+    }
+
+    .noproductsFound {
+        text-align: center;
     }
 
     .pagination {
@@ -935,6 +939,18 @@
         gap: 10px;
         margin-top: 10px;
        
+    }
+
+    .buttons-mobile {
+        display: flex;
+        gap: 10px;
+        margin-top: 10px;
+        flex-direction: column;
+    }
+
+    .buttons-mobile div {
+        display: flex;
+        gap: 10px;
     }
 
     .accordion-content-colors {
@@ -1003,7 +1019,11 @@
 
 
 @media screen and (max-width: 400px) {
-    .buttons {
+    .buttons-mobile {
+        flex-direction: column;
+    }
+
+    .buttons-mobile div {
         flex-direction: column;
     }
 

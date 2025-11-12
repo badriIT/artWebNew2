@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { CartService } from '../cart.service';
 import { Router } from '@angular/router';
 import { AuthGuard } from '../auth.guard.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-home',
@@ -13,6 +14,9 @@ import { AuthGuard } from '../auth.guard.service';
   styleUrl: './home.component.css'
 })
 export class HomeComponent implements AfterViewInit {
+
+  showOrderSuccess: boolean = false;
+  orderSuccessId: string = '';
 
 
   filtersActive: boolean = false;
@@ -87,7 +91,7 @@ export class HomeComponent implements AfterViewInit {
     const selectedObjects = this.getSelectedSizeObjects();
     console.log('Selected size objects:', selectedObjects);
 
-    
+
   }
 
 
@@ -276,7 +280,7 @@ export class HomeComponent implements AfterViewInit {
       this.selectedColors.add(colorId);
     }
 
-   
+
   }
 
   getColorIds(): number[] {
@@ -499,7 +503,7 @@ export class HomeComponent implements AfterViewInit {
 
     console.log('Selected types:', this.selectedStyles);
 
-    
+
   }
 
   themes = [
@@ -581,7 +585,7 @@ export class HomeComponent implements AfterViewInit {
 
     console.log('Selected types:', this.selectedFormats);
 
-    
+
   }
 
 
@@ -616,7 +620,7 @@ export class HomeComponent implements AfterViewInit {
     console.log('Selected types:', this.selectedTypes);
 
 
-    
+
   }
 
 
@@ -771,7 +775,7 @@ export class HomeComponent implements AfterViewInit {
 
 
 
-  constructor(private service: ServiceService, private route: ActivatedRoute, private http: HttpClient, private cartService: CartService, private router: Router, private authService: AuthGuard) {
+  constructor(private location: Location, private service: ServiceService, private route: ActivatedRoute, private http: HttpClient, private cartService: CartService, private router: Router, private authService: AuthGuard) {
 
 
 
@@ -832,6 +836,24 @@ export class HomeComponent implements AfterViewInit {
 
 
     this.updateFiltersActive();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   }
 
 
