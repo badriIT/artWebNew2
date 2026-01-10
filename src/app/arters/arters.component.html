@@ -3,7 +3,7 @@
         <p class="title">მხატვრები</p>
         <div class="digits">
 
-            <div class="digits">
+            <!-- <div class="digits">
                 <p class="digit" *ngFor="let d of georgianDigits" (click)="onDigitFilter(d.value)"
                     [class.selected]="selectedDigit === d.value" style="cursor:pointer; user-select:none;">
                     {{ d.label }}
@@ -16,7 +16,59 @@
                     [class.selected]="selectedDigit === d.value" style="cursor:pointer; user-select:none;">
                     {{ d.label }}
                 </p>
+            </div> -->
+
+
+            <p class="search" (click)="toogleSearch()">
+                <span class="search-text">ძიება</span>
+                <svg class="find1" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18"
+                    fill="none">
+                    <circle cx="7.5" cy="7.5" r="6.25" stroke="#333333" stroke-width="1.5"></circle>
+                    <path d="M12 12L17 17" stroke="#333333" stroke-width="1.5"></path>
+                </svg>
+            </p>
+
+
+
+            <div *ngIf="searchActive" class="search-bar-wrapper">
+                <div class="search-input-container">
+                    <svg class="find-in-input" xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                        viewBox="0 0 18 18" fill="none">
+                        <circle cx="7.5" cy="7.5" r="6.25" stroke="#333333" stroke-width="1.5"></circle>
+                        <path d="M12 12L17 17" stroke="#333333" stroke-width="1.5"></path>
+                    </svg>
+                    <input class="search-bar" type="text" [(ngModel)]="searchTerm" (input)="onSearch()"
+                        placeholder="Search..." />
+                    <button class="close-search" (click)="searchActive = false; isProductsTabOpen = false">✕</button>
+                </div>
             </div>
+
+
+
+
+            <div class="products-popup" *ngIf="isProductsTabOpen">
+                <p class="catalog-text">კატალოგი:</p>
+
+
+                <div *ngIf="products.length > 0; else noResults" class="product-section">
+                    <div class="product-wrapper" *ngFor="let product of products">
+                        <p class="arterTitle">{{ product.artist_name }}</p>
+                        <div  (click)="isProductsTabOpen = false" [routerLink]="['/product', product.id]" class="product-card">
+                            <img [src]="'data:image/jpeg;base64,' + product.image" alt="{{product.title}}" />
+                            <div class="product-info">
+                                <p class="name">{{ product.title }}</p>
+                                <p class="price">{{ product.price }} {{ product.currency }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <ng-template #noResults>
+                    <p class="noProducts">No products found.</p>
+                </ng-template>
+            </div>
+
+
 
 
 
@@ -27,7 +79,7 @@
     <div class="wholeSkeleton" *ngIf="productsLoading">
 
 
-             <div *ngIf="productsLoading" class="skeleton-wrap">
+        <div *ngIf="productsLoading" class="skeleton-wrap">
 
             <div>
                 <div class="skeleton-photo"></div>
@@ -41,7 +93,7 @@
         </div>
 
 
-             <div *ngIf="productsLoading" class="skeleton-wrap">
+        <div *ngIf="productsLoading" class="skeleton-wrap">
 
             <div>
                 <div class="skeleton-photo"></div>
@@ -55,7 +107,7 @@
         </div>
 
 
-             <div *ngIf="productsLoading" class="skeleton-wrap">
+        <div *ngIf="productsLoading" class="skeleton-wrap">
 
             <div>
                 <div class="skeleton-photo"></div>
@@ -69,7 +121,7 @@
         </div>
 
 
-             <div *ngIf="productsLoading" class="skeleton-wrap">
+        <div *ngIf="productsLoading" class="skeleton-wrap">
 
             <div>
                 <div class="skeleton-photo"></div>
@@ -83,7 +135,7 @@
         </div>
 
 
-             <div *ngIf="productsLoading" class="skeleton-wrap">
+        <div *ngIf="productsLoading" class="skeleton-wrap">
 
             <div>
                 <div class="skeleton-photo"></div>
@@ -97,7 +149,7 @@
         </div>
 
 
-             <div *ngIf="productsLoading" class="skeleton-wrap">
+        <div *ngIf="productsLoading" class="skeleton-wrap">
 
             <div>
                 <div class="skeleton-photo"></div>
@@ -109,7 +161,7 @@
                 </div>
             </div>
         </div>
-   
+
 
 
 
@@ -128,13 +180,13 @@
         <div *ngFor="let artist of artists" class="each-card">
 
 
-            <p class="arter-name" [routerLink]="['/eachArter', artist.artist_id]">{{ artist.artist_name }}</p>
+            <p class="arter-name" [routerLink]="['/eachArter', artist.main_item.artist_id]">{{ artist.artist_name }}</p>
 
 
 
             <!-- Big image and main_item -->
             <div [routerLink]="['/product', artist.main_item.id]" class="big-image">
-                <img [src]="artist.main_item.image" alt="{{artist.main_item.title}}">
+                <img [src]="'data:image/jpeg;base64,' +artist.main_item.image" alt="{{artist.main_item.title}}">
                 <div class="product-text">
                     <div class="texts">
                         <p class="art-name">{{artist.main_item.title}}</p>
@@ -149,7 +201,7 @@
             <div class="small-images">
                 <div *ngFor="let underImg of artist.featured_items" class="smallImage1"
                     [routerLink]="['/product', underImg.id]">
-                    <img [src]="underImg.image" alt="{{underImg.title}}">
+                    <img [src]="'data:image/jpeg;base64,' +underImg.image" alt="{{underImg.title}}">
                     <div class="product-text">
                         <p class="art-name">{{underImg.title}}</p>
                         <p class="priceSmall">{{ formatPrice(underImg.price) }}$</p>

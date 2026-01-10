@@ -51,7 +51,7 @@ export class CartService {
   }
 
   // Try to get cart count for logged-in user
-  this.http.get<ProfileResponse>('https://artshop-backend-demo.fly.dev/auth/profile', { withCredentials: true }).subscribe({
+  this.http.get<ProfileResponse>('', { withCredentials: true }).subscribe({ // stop for time auth get prof
     next: (res) => {
       // Authenticated: use cart_item_count
       this.cartCountAuthorized = res.stats.cart_item_count;
@@ -65,7 +65,7 @@ export class CartService {
         ? new HttpHeaders({ 'X-Cart-Token': cartToken })
         : new HttpHeaders();
 
-      this.http.get<any>('https://artshop-backend-demo.fly.dev/cart', { headers }).subscribe({
+      this.http.get<any>('', { headers }).subscribe({ // stp for time cart
         next: (res) => {
           this.cartCount.next(res.items?.length || 0);
           console.log('Guest cart count is', res.items?.length || 0);

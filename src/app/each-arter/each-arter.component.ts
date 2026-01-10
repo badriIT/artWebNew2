@@ -33,6 +33,8 @@ export class EachArterComponent {
 
 
   ngOnInit() {
+
+    
    
     this.route.paramMap.subscribe(params => {
       this.artistId = params.get('id')!;

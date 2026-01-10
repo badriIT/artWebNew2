@@ -310,10 +310,9 @@
     </div>
 
 
-
     <div class="product-section" *ngIf="products.length > 0">
         <div [routerLink]="['/product', art.id]" *ngFor="let art of products" class="product-card">
-            <img [src]="art.image" alt="{{art.title}}" />
+            <img [src]="'data:image/jpeg;base64,' + art.image" alt="{{art.title}}" />
             <div class="product-info">
                 <p class="name">{{ art.title }}</p>
                 <p class="arter">{{ art.artist_name }}</p>
@@ -322,6 +321,9 @@
                 <p class="price">{{ formatPrice(art.price) }} ₾ </p>
             </div>
         </div>
+
+
+
     </div>
 
 

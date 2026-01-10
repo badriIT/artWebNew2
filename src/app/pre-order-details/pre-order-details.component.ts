@@ -124,7 +124,7 @@ export class PreOrderDetailsComponent implements OnInit {
   this.isCheckingAuth = true;
 
   // First, check /auth/profile directly
-  this.http.get('https://artshop-backend-demo.fly.dev/auth/profile', { withCredentials: true }).subscribe({
+  this.http.get('', { withCredentials: true }).subscribe({ /// stop for time auth get prof
     next: (res: any) => {
       console.log('Profile response:', res);
       this.userName = res?.customer?.name ?? res?.name ?? res?.username ?? '';

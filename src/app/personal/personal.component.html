@@ -1,14 +1,13 @@
 <!-- alerts -->
-<div class="top-alert" [class.show]="showAlert" [ngClass]="{
+<div class="top-alert" 
+     [class.show]="showAlert" 
+     [ngClass]="{
        'alert-success': alertType === 'success',
        'alert-error': alertType === 'error',
        'alert-warning': alertType === 'warning'
      }">
-    {{ alertMessage }}
+  {{ alertMessage }}
 </div>
-
-
-
 
 
 
@@ -33,7 +32,7 @@
     </div>
 
 
-    
+
 
     <div class="side-menu-overlay" *ngIf="sideMenuOpen" (click)="closeSideMenu()"></div>
 
@@ -77,8 +76,8 @@
                     </svg>
                 </a>
             </li>
-            <li (click)="logout()">
-                <a> გამოსვლა
+            <li >
+                <a style="cursor: pointer;" (click)="logout()"> გამოსვლა
 
                     <svg viewBox="0 0 32 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M2 2L16 14L30 2" stroke="currentColor" stroke-linecap="round"></path>
@@ -110,12 +109,13 @@
 
 
         <div class="info">
-            <input type="text" [(ngModel)]="profileName">
+            <input type="text" [(ngModel)]="profilePersonalNumber">
             <input type="text" [(ngModel)]="profileEmail">
+            <input type="text" [(ngModel)]="profileName">
             <input type="text" [(ngModel)]="profilePhone">
-            <input type="text">
-            <input type="text">
-            <button class="update-button">განახლება</button>
+            <input type="text" [(ngModel)]="profileLastName">
+            <input type="text" [(ngModel)]="profileUserName">
+            <button (click)="updateInfo()" class="update-button">განახლება</button>
         </div>
     </div>
 

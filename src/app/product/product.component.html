@@ -1,4 +1,8 @@
 <section class="product-section">
+
+
+     <div class="copied-message" *ngIf="copied">Copied!</div>
+
     <div class="navigation">
         <div (click)="goBack()" class="left">
             <div class="arrow"> <svg xmlns="http://www.w3.org/2000/svg" width="8" height="16" viewBox="0 0 8 16"
@@ -24,7 +28,7 @@
         <div class="zoom-container" (mousemove)="onMouseMove($event)" (mouseleave)="onMouseLeave()">
 
 
-            <img [src]="img" alt="Zoom" [ngStyle]="{
+            <img [src]="'data:image/jpeg;base64,' + img" alt="Zoom" [ngStyle]="{
       'transform': transform,
       'transform-origin': transformOrigin
     }" />
@@ -36,7 +40,7 @@
 
 
         <div class="right-part">
-            <p class="name">{{title}}</p>
+            <p *ngIf="!whileGettingInfoFromBack" class="name">{{title}}</p>
             <div class="information">
 
 
@@ -53,9 +57,10 @@
 
 
 
-                <p class="arter" *ngIf="artist">
+                <p *ngIf="!whileGettingInfoFromBack" class="arter">
                     ავტორი:
-                    <span [routerLink]="['/eachArter', artistData?.artist_id]" class="arter-names">{{ artist }}</span>
+                    <span [routerLink]="['/eachArter', artistData?.main_item.artist_id]" class="arter-names">{{ artist
+                        }}</span>
                 </p>
 
 
@@ -68,18 +73,18 @@
 
 
 
-                <p *ngIf="artist" class="matherial">მატერიალი: {{matherial}}</p>
+                <p *ngIf="!whileGettingInfoFromBack" class="matherial">მატერიალი: {{matherial}}</p>
 
-                <p *ngIf="artist" class="style">სტილი: {{style}}</p>
+                <p *ngIf="!whileGettingInfoFromBack" class="style">სტილი: {{style}}</p>
+                <!-- need to be added from back -->
 
-                <p *ngIf="artist" class="year">წელი: {{year}}</p>
-
+                <p *ngIf="!whileGettingInfoFromBack" class="year">წელი: {{year}}</p> <!-- need to be added from back -->
 
 
             </div>
             <div *ngIf="whileGettingInfoFromBack" class="skeleton-wrap info-skeleton">
                 <div class="skeleton-line short"></div>
-               
+
 
             </div>
 
@@ -100,6 +105,13 @@
 
 
 
+    <div *ngIf="whileGettingInfoFromBack" class="skeleton-wrap-flex">
+        <div class="skeleton-img-all"></div>
+        <div class="skeleton-img-all"></div>
+        <div class="skeleton-img-all"></div>
+
+    </div>
+
 
 
 
@@ -110,10 +122,9 @@
 
         <div class="small-images">
 
-            <div [routerLink]="['/product', artOfEach.id]" *ngFor="let artOfEach of artistData.
-featured_items
-" class="smallImage1">
-                <img [src]="artOfEach.image" alt="">
+            <div [routerLink]="['/product', artOfEach.id]" *ngFor="let artOfEach of artistData.featured_items"
+                class="smallImage1">
+                <img [src]=" 'data:image/jpeg;base64,' + artOfEach.image" alt="">
                 <div class="product-text">
                     <p class="art-name">{{artOfEach.title}}</p>
                     <p class="author">{{artOfEach.artist_name
@@ -131,7 +142,7 @@ featured_items
 
 
     <div class="right-content">
-        <p class="phone-number"> დახმარება გჭირდებათ შეკვეთასთან დაკავშირებით? +(995) 555-976-925
+        <p class="phone-number" > დახმარება გჭირდებათ შეკვეთასთან დაკავშირებით? <span (click)="copyPhone()" style="cursor: pointer;"> +(995) 555-976-925</span>
         </p>
 
         <div class="socMedias">

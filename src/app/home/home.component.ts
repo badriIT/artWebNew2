@@ -40,6 +40,9 @@ export class HomeComponent implements AfterViewInit {
 
 
 
+  
+
+
 
 
 
@@ -163,8 +166,9 @@ export class HomeComponent implements AfterViewInit {
     this.productsLoading = true;
     // fetch filtered products
     this.service.getProducts(this.currentPage, this.itemsPerPage).subscribe(data => { // 2
-      this.products = data.items;
-      this.totalItems = data.total;
+      // Backend returns array directly
+      this.products = Array.isArray(data) ? data : [];
+      this.totalItems = this.products.length;
       this.totalPages = Math.ceil(this.totalItems / this.itemsPerPage);
 
       this.noProdFound = this.products.length === 0;
@@ -236,8 +240,9 @@ export class HomeComponent implements AfterViewInit {
     this.productsLoading = true;
     this.service.getProducts(this.currentPage, this.itemsPerPage).subscribe({
       next: (data) => {
-        this.products = data.items;
-        this.totalItems = data.total;
+        // Backend returns array directly
+        this.products = Array.isArray(data) ? data : [];
+        this.totalItems = this.products.length;
         this.totalPages = Math.ceil(this.totalItems / this.itemsPerPage);
 
         this.noProdFound = this.products.length === 0;
@@ -725,13 +730,14 @@ export class HomeComponent implements AfterViewInit {
   loadData(page: number) {
     this.productsLoading = true;
     this.service.getProducts(page, this.itemsPerPage).subscribe(response => {
-      this.products = response.items;
-      this.currentPage = response.page;
-      this.itemsPerPage = response.limit;
-      this.totalItems = response.total;
+      // Backend returns array directly
+      this.products = Array.isArray(response) ? response : [];
+      this.currentPage = page;
+      this.totalItems = this.products.length;
       this.totalPages = Math.ceil(this.totalItems / this.itemsPerPage);
       this.productsLoading = false;
       console.log("products", this.products);
+      console.log("whole", response);
     });
   }
 
@@ -744,7 +750,8 @@ export class HomeComponent implements AfterViewInit {
       this.currentPage = page;
       this.productsLoading = true;
       this.service.getProducts(this.currentPage, this.itemsPerPage).subscribe(data => {
-        this.products = data.items;
+        // Backend returns array directly
+        this.products = Array.isArray(data) ? data : [];
         this.noProdFound = this.products.length === 0;
         this.showPagination = !this.noProdFound;
         this.productsLoading = false;
@@ -788,7 +795,6 @@ export class HomeComponent implements AfterViewInit {
 
 
 
-
     this.cartService.updateUnifiedCartCount();
 
 
@@ -817,6 +823,11 @@ export class HomeComponent implements AfterViewInit {
 
 
       }
+
+      
+
+
+  
     });
 
     // ...rest of your ngOnInit code (clear service filters)...
@@ -846,7 +857,7 @@ export class HomeComponent implements AfterViewInit {
 
 
 
-
+ 
 
 
 
@@ -932,8 +943,9 @@ export class HomeComponent implements AfterViewInit {
     this.productsLoading = true;
     this.service.getProducts().subscribe({ // 1
       next: (data) => {
-        this.products = data.items;
-        console.log("original products", this.products);
+        // Backend returns array directly
+        this.products = Array.isArray(data) ? data : [];
+        console.log("original products",data);
         this.noProdFound = false;
         this.productsLoading = false;
       },
@@ -957,8 +969,8 @@ export class HomeComponent implements AfterViewInit {
   }
 
   News() {
-    this.products.sort((a, b) => b.year_created - a.year_created);
-    console.log("products sorted by price descending", this.products);
+    this.products.sort((a, b) => b.year - a.year);   /// neds adding year_created to backend
+    console.log("products sorted by year descending", this.products);
   }
 
 

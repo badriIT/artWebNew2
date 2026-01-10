@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { CartService } from '../cart.service';
@@ -11,9 +11,12 @@ import { CartService } from '../cart.service';
 })
 export class PersonalComponent {
 
+  profilePersonalNumber = ''
   profileName = '';
   profileEmail = '';
   profilePhone = '';
+  profileLastName = '';
+  profileUserName = '';
 
 
 
@@ -66,44 +69,47 @@ export class PersonalComponent {
 
   fetchProfile() {
     // show skeleton
- 
+
+    const savedToken = localStorage.getItem('token'); // Adjust based on actual response structure
+    const headers = savedToken ? new HttpHeaders({ 'Authorization': `Bearer ${savedToken}` }) : undefined;
+    const options: any = headers ? { headers } : { withCredentials: true };
+
+    const userId = localStorage.getItem('user_id');
+    if (!userId) {
+      console.error('No user_id found in localStorage');
+      this.router.navigate(['/auth']);
+      return;
+
+    }
+
 
     // No need to send access token manually, just use withCredentials
     this.http.get<any>(
-      'https://artshop-backend-demo.fly.dev/auth/profile',
-      { withCredentials: true }
+      `https://plangton-production.up.railway.app/api/User/${userId}`,
+      options
     ).subscribe({
-      next: (res) => {
+      next: (res: any) => {
         this.profile = res;
+        console.log('Fetched profile:', this.profile);
+
+
+        this.profilePersonalNumber = res.personalNumber
+        this.profileName = res.firstName
+        this.profileEmail = res.email
+        this.profilePhone = res.mobileNumber
+        this.profileLastName = res.lastName
+        this.profileUserName = res.username
 
         // Flatten the profile and stats into an array
-        this.profileArray = [
-          { key: 'სახელი', value: res.customer?.name },
-          { key: 'ელ.ფოსტა', value: res.customer?.email },
-          { key: 'ტელეფონი', value: res.customer?.phone },
-          { key: 'აქტიურია', value: res.customer?.is_active ? 'დიახ' : 'კი' },
-          { key: 'ბოლო ავტორიზაცია', value: res.customer?.last_login_at },
-          { key: 'შეკვეთების რაოდენობა', value: res.stats?.orders_count },
-          { key: 'ფავორიტების რაოდენობა', value: res.stats?.favorites_count },
-          { key: 'ღია კალათები', value: res.stats?.carts_open_count }
-        ];
 
-        
-        const newCartToken = res?.cart_token;
-        if (newCartToken) {
-          localStorage.setItem('cart_token', newCartToken);
-        }
 
-        console.log("token ", res.cart_token)
-        console.log('Full Profile Response:', res);
-        console.log('Profile:', this.profileArray);
 
-        this.profileName = res.customer?.name;
-        this.profileEmail = res.customer?.email;
-        this.profilePhone = res.customer?.phone;
+
+
+
       },
       error: (err) => {
-    
+
         this.showAnimatedAlert('პროფილის მიღება ვერ მოხერხდა ❌', 'error');
         console.error('Profile fetch error', err);
       }
@@ -119,28 +125,76 @@ export class PersonalComponent {
   }
 
 
+
   logout() {
-    this.http.post<any>(
-      'https://artshop-backend-demo.fly.dev/auth/logout',
-      {},
-
-      { withCredentials: true } // cookie must be sent
-    ).subscribe({
-      next: () => {
-        this.showAnimatedAlert('გამოსვლა წარმატებით შესრულდა ✅', 'success');
-
-
-
-        this.router.navigate(['/auth']);
-      },
-      error: (err) => {
-        console.error('Logout error:', err);
-        this.showAnimatedAlert('გამოსვლა ვერ მოხერხდა ❌', 'error');
-      }
-    });
-
+    localStorage.removeItem('user_id');
+    localStorage.removeItem('token');
+    this.router.navigate(['/auth']);
 
   }
 
+  // logout() {
+  //   this.http.post<any>(
+  //     'https://artshop-backend-demo.fly.dev/auth/logout',
+  //     {},
+
+  //     { withCredentials: true } // cookie must be sent
+  //   ).subscribe({
+  //     next: () => {
+  //       this.showAnimatedAlert('გამოსვლა წარმატებით შესრულდა ✅', 'success');
+
+
+
+  //       this.router.navigate(['/auth']);
+  //     },
+  //     error: (err) => {
+  //       console.error('Logout error:', err);
+  //       this.showAnimatedAlert('გამოსვლა ვერ მოხერხდა ❌', 'error');
+  //     }
+  //   });
+
+
+  // }
+
+
+
+  updateInfo() {
+    const savedToken = localStorage.getItem('token');
+    const headers = savedToken ? new HttpHeaders({ 'Authorization': `Bearer ${savedToken}` }) : undefined;
+    const options: any = headers ? { headers } : { withCredentials: true };
+
+    const userId = localStorage.getItem('user_id');
+    if (!userId) {
+      console.error('No user_id found in localStorage');
+      this.router.navigate(['/auth']);
+      return;
+    }
+
+    const updatedProfile = {
+      personalNumber: this.profilePersonalNumber,
+      firstName: this.profileName,
+      email: this.profileEmail,
+      mobileNumber: this.profilePhone,
+      lastName: this.profileLastName,
+      username: this.profileUserName
+    };
+
+    this.http.put<any>(
+      `https://plangton-production.up.railway.app/api/User`,
+      updatedProfile,
+      options
+    ).subscribe({
+      next: (res) => {
+        console.log('Profile updated successfully:', res);
+        this.showAnimatedAlert('პროფილი წარმატებით განახლდა ✅', 'success');
+        // Optionally refresh the profile data
+        this.fetchProfile();
+      },
+      error: (err) => {
+        console.error('Update profile error:', err);
+        this.showAnimatedAlert('პროფილის განახლება ვერ მოხერხდა ❌', 'error');
+      }
+    });
+  }
 
 }

@@ -11,9 +11,9 @@
 
 
     <div class="arterContent">
-        <img [src]="artistInfo.profile_image" alt="">
+        <img [src]=" 'data:image/jpeg;base64,' + artistInfo.picture" alt="">
         <div>
-            <p class="name">{{artistInfo.name}}</p>
+            <p class="name">{{artistInfo.artist_name}}</p>
             <p class="descritpion">{{artistInfo.bio}}</p>
         </div>
     </div>
@@ -29,9 +29,9 @@
 
         <div class="small-images">
 
-            <div [routerLink]="['/product', artistsWokrs.id]"  *ngFor="let artistsWokrs of artistInfo.works" class="smallImage1">
-                <img [src]="artistsWokrs.image"
-                    alt="">
+            <div [routerLink]="['/product', artistsWokrs.id]" *ngFor="let artistsWokrs of artistInfo.works"
+                class="smallImage1">
+                <img [src]="'data:image/jpeg;base64,' +artistsWokrs.image" alt="">
                 <div class="product-text">
                     <p class="art-name">{{artistsWokrs.title}}</p>
                     <p class="author">{{artistInfo.name}}</p>

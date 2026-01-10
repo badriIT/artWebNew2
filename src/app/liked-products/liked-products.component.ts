@@ -28,7 +28,7 @@ export class LikedProductsComponent {
   async loadLikedItems() {
 
 
-   
+
     this.service.updatelikeProductCount()
 
 
@@ -40,7 +40,7 @@ export class LikedProductsComponent {
     // Fetch each product detail from backend
     for (const item of cart) {
       try {
-        const product = await this.http.get(`https://artshop-backend-demo.fly.dev/items/${item.id}`).toPromise();
+        const product = await this.http.get(`https://plangton-production.up.railway.app/api/ArtWork/${item.id}`).toPromise();
         // Merge quantity or other cart info if needed
         this.likedItems.push({ ...product, quantity: item.quantity || 1 });
       } catch (e) {
@@ -70,15 +70,17 @@ export class LikedProductsComponent {
   removeFromLiked(id: any) {
 
     const likedProduct = JSON.parse(localStorage.getItem('LikedProducts') || '[]')
-      .filter((cartItem: any) => String(cartItem.id) !== id);
+      .filter((cartItem: any) => String(cartItem.id) !== String(id));
+
+    console.log('Removed item with id:', id);
 
     localStorage.setItem('LikedProducts', JSON.stringify(likedProduct));
 
-    this.loadLikedItems(); 
+    this.loadLikedItems();
 
     this.service.updatelikeProductCount()
 
-  
+
 
   }
 

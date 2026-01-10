@@ -1,7 +1,15 @@
-import { platformBrowser } from '@angular/platform-browser';
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { AppModule } from './app/app.module';
+import { enableDebugTools } from '@angular/platform-browser';
+import { ApplicationRef } from '@angular/core';
 
-platformBrowser().bootstrapModule(AppModule, {
-  ngZoneEventCoalescing: true,
-})
+platformBrowserDynamic()
+  .bootstrapModule(AppModule, {
+    ngZoneEventCoalescing: true
+  })
+  .then((moduleRef) => {
+    const applicationRef = moduleRef.injector.get(ApplicationRef);
+    const componentRef = applicationRef.components[0];
+    enableDebugTools(componentRef);
+  })
   .catch(err => console.error(err));

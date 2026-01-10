@@ -2,6 +2,61 @@
     font-family: 'Noto Sans Georgian', sans-serif;
 }
 
+
+
+/* Replace your input-container and input-wrapper styles */
+
+.input-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 16px;
+}
+
+.input-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.input-wrapper input {
+    border: solid 1px;
+    font-family: 'Noto Sans Georgian', sans-serif;
+    padding: 22px 10px 8px 10px;
+    font-size: 16px;
+    border-color: rgba(128, 128, 128, 0.438);
+    width: 100%;
+    border-radius: 4px;
+    background: white;
+}
+
+.input-wrapper .floating-label {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 16px;
+    color: #666;
+    pointer-events: none;
+    transition: all 0.3s ease;
+    font-family: 'Noto Sans Georgian', sans-serif;
+
+    padding: 0 2px;
+}
+
+.input-wrapper input:focus + .floating-label,
+.input-wrapper input.has-value + .floating-label {
+    top: 6px;
+    transform: translateY(0);
+    font-size: 11px;
+    color: #2d2e2c;
+}
+
+.input-wrapper input:focus {
+    outline: none;
+    border-color: #2d2e2c;
+}
+
+
 .auth-section {
 
     display: flex;
@@ -82,6 +137,18 @@
     margin-top: 12px;
 }
 
+
+.alreadyHaveAcc {
+    
+    font-family: 'Noto Sans Georgian', sans-serif;
+    cursor: pointer;
+    font-size: 16px;
+    border-color: rgba(128, 128, 128, 0.438);
+    max-width: 400px;
+    width: 100%;
+    border-radius: 4px;
+}
+
 .other-options p {
     font-size: 17px;
     color: #2d2e2c;
@@ -154,13 +221,13 @@
 }
 
 .register-agreement {
-   
+
     font-size: 14px;
     color: #666;
     margin-top: 20px;
     line-height: 2;
     /* Adds space between lines within the same element */
-  
+
 
 }
 
@@ -175,8 +242,8 @@
 }
 
 .otp-box {
- 
-    
+
+
     gap: 16px;
     margin-top: 20px;
     max-width: 400px;
@@ -203,40 +270,44 @@
 
 
 .top-alert {
-  position: fixed;
-  top: -60px;
-  left: 50%;
-  transform: translateX(-50%);
-  min-width: 280px;
-  max-width: 90vw;
-  padding: 16px 32px;
-  border-radius: 8px;
-  font-size: 18px;
-  font-weight: 500;
-  z-index: 2000;
-  opacity: 0;
-  transition: top 0.4s cubic-bezier(.4,0,.2,1), opacity 0.3s;
-  pointer-events: none;
+    position: fixed;
+    top: -60px;
+    left: 50%;
+    transform: translateX(-50%);
+    min-width: 280px;
+    max-width: 90vw;
+    padding: 16px 32px;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: 500;
+    z-index: 2000;
+    opacity: 0;
+    transition: top 0.4s cubic-bezier(.4, 0, .2, 1), opacity 0.3s;
+    pointer-events: none;
 }
+
 .top-alert.show {
-  top: 24px;
-  opacity: 1;
-  pointer-events: auto;
+    top: 24px;
+    opacity: 1;
+    pointer-events: auto;
 }
+
 .top-alert.alert-success {
-  background: #e6ffe6;
-  color: #1a7f37;
-  border: 1px solid #1a7f37;
+    background: #e6ffe6;
+    color: #1a7f37;
+    border: 1px solid #1a7f37;
 }
+
 .top-alert.alert-error {
-  background: #ffe6e6;
-  color: #c00;
-  border: 1px solid #c00;
+    background: #ffe6e6;
+    color: #c00;
+    border: 1px solid #c00;
 }
+
 .top-alert.alert-warning {
-  background: #fffbe6;
-  color: #b59f00;
-  border: 1px solid #b59f00;
+    background: #fffbe6;
+    color: #b59f00;
+    border: 1px solid #b59f00;
 }
 
 
@@ -268,7 +339,7 @@
 
 
 
-@media  screen and (max-width: 900px) {
+@media screen and (max-width: 900px) {
     .auth-section {
         flex-direction: column;
         align-items: center;
@@ -278,24 +349,26 @@
         text-align: center;
     }
 
-  
 
-    .logining input, .input-container input {
+
+    .logining input,
+    .input-container input {
         max-width: 100%;
     }
-    
+
 }
 
 @media screen and (max-width: 650px) {
 
     .top-alert {
-  text-align: center;
-}
+        text-align: center;
+    }
 
 
 
 
-    .login-text, .register-text {
+    .login-text,
+    .register-text {
         font-size: 18px;
     }
 
@@ -306,5 +379,5 @@
     .other-options p {
         font-size: 15px;
     }
-    
+
 }

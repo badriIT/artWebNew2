@@ -1,8 +1,10 @@
-import { AfterViewInit, Component } from '@angular/core';
+import { AfterViewInit, Component, OnInit, OnDestroy } from '@angular/core';
 import { ServiceService } from '../service.service';
 import { CartService } from '../cart.service';
-import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { Router, NavigationStart, NavigationEnd, Event as RouterEvent } from '@angular/router';
+import { ChangeDetectorRef } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { RefreshService } from '../refresh.service';
 
 declare var google: any
@@ -13,14 +15,27 @@ declare var google: any
   templateUrl: './nav.component.html',
   styleUrl: './nav.component.css'
 })
-export class NavComponent implements AfterViewInit {
+export class NavComponent implements AfterViewInit, OnInit, OnDestroy {
 
 
-  noResults: boolean = false; 
+ copied = false;
+
+// Add this method to your component
+copyPhone() {
+  const phone = '555-976-925';
+  navigator.clipboard.writeText(phone);
+  
+  this.copied = true;
+  setTimeout(() => {
+    this.copied = false;
+  }, 2000);
+}
+
+  noResults: boolean = false;
   selectedLanguage: string = 'ka';
 
   changeLanguageToGeorgian() {
- 
+
     localStorage.setItem('preferredLanguage', 'ka');
   }
 
@@ -70,7 +85,7 @@ export class NavComponent implements AfterViewInit {
     document.cookie = 'googtrans=/auto/auto;path=/;domain=' + location.hostname;
     window.location.reload();
 
- 
+
   }
 
 
@@ -91,8 +106,8 @@ export class NavComponent implements AfterViewInit {
 
 
 
-  constructor(private service: ServiceService, private cartService: CartService, private router: Router, private http: HttpClient, private refreshService: RefreshService) {
-   
+  constructor(private service: ServiceService, private cartService: CartService, private router: Router, private http: HttpClient, private refreshService: RefreshService, private cd: ChangeDetectorRef) {
+
   }
 
   refreshCart() {
@@ -109,12 +124,13 @@ export class NavComponent implements AfterViewInit {
 
   isProductsTabOpen: boolean = false; // controls popup visibility
 
-ngOnInit() {
-    // load a reasonable amount of products into WholeProducts so search can work by name
-    // adjust page/limit as needed; keep small for performance
-    this.service.getProducts(1, 1000).subscribe({
+  private routerEventsSub?: Subscription;
+
+  ngOnInit() {
+    // load all products for comprehensive search
+    this.service.getWholeProcucts().subscribe({
       next: (resp: any) => {
-        this.WholeProducts = resp?.items ?? [];
+        this.WholeProducts = resp ?? [];
         this.products = [...this.WholeProducts];
       },
       error: (err) => {
@@ -125,24 +141,44 @@ ngOnInit() {
     });
 
     // existing subscriptions
-    this.cartService.cartCount$.subscribe(count => {
-      this.productsInCart = count;
-      // Now productsInCart will always be correct!
-    });
+
 
     this.service.updatelikeProductCount();
 
-    this.cartService.cartCount$.subscribe(count => {
+    this.service.updateCartProductCount();
+
+    this.service.cartCount$.subscribe(count => {
       this.productsInCart = count;
-      console.log("Cart count updated:", count);
     });
+
+
 
     this.service.likedProductsCount$.subscribe(count => {
       this.productsLiked = count;
     });
+
+    // Close menus/search when the route changes (e.g., when clicking product links)
+    // Also clear search input/results so search is effectively disabled until user opens it again
+    this.routerEventsSub = this.router.events.subscribe((evt: RouterEvent) => {
+
+      if (evt instanceof NavigationStart || evt instanceof NavigationEnd) {
+
+        this.menuOpen = false;
+        this.searchActive = false;
+        this.searchActive2 = false;
+        this.searchActive3 = false;
+        this.isProductsTabOpen = false;
+        this.searchTerm = '';
+        this.products = [];
+        this.noResults = false;
+        try { clearTimeout((<any>this)._searchTimer); } catch (e) { }
+        // ensure template updates immediately
+        try { this.cd.detectChanges(); } catch (e) { }
+      }
+    });
   }
 
-    onSearch() {
+  onSearch() {
     clearTimeout((<any>this)._searchTimer);
     (<any>this)._searchTimer = setTimeout(() => {
       const term = this.searchTerm.trim().toLowerCase();
@@ -158,15 +194,21 @@ ngOnInit() {
       this.isProductsTabOpen = true;
 
       // filter by common name/title fields
-      this.products = this.WholeProducts.filter(p => {
+      this.products = this.WholeProducts.filter((p: any) => {
         const candidates: string[] = [
           p?.title,
           p?.name,
           p?.artist_name,
           p?.artist?.name,
           p?.customer?.name,
-          p?.customer_name
-        ].filter(Boolean) as string[];
+          p?.customer_name,
+          p?.material,
+          p?.style
+        ]
+          .filter(Boolean)
+          .map(val => typeof val === 'string' ? val : String(val))
+          .filter(val => val && val !== 'undefined' && val !== 'null');
+
         return candidates.some(field => field.toLowerCase().includes(term));
       });
 
@@ -227,8 +269,19 @@ ngOnInit() {
   }
 
 
+
   goToPersonalOrAuth() {
-    this.http.get('https://artshop-backend-demo.fly.dev/auth/profile', { withCredentials: true }).subscribe({
+    const token = localStorage.getItem('token');
+    const userId = localStorage.getItem('user_id');
+
+    const savedToken = token; // Adjust based on actual response structure
+    const headers = savedToken ? new HttpHeaders({ 'Authorization': `Bearer ${savedToken}` }) : undefined;
+    const options: any = headers ? { headers } : { withCredentials: true };
+
+
+
+
+    this.http.get(`https://plangton-production.up.railway.app/api/User/${userId}`, options).subscribe({ // for time auth check
       next: (res) => {
         // If profile loads, navigate to personal
         this.router.navigate(['/personal']);
@@ -238,6 +291,14 @@ ngOnInit() {
         this.router.navigate(['/auth']);
       }
     });
+  }
+
+
+
+  ngOnDestroy(): void {
+    if (this.routerEventsSub) {
+      this.routerEventsSub.unsubscribe();
+    }
   }
 
 }

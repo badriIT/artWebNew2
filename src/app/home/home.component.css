@@ -9,55 +9,64 @@
 /*  skeleton form  */
 
 .skeleton-photo {
-  width: 100%;
-  height: 300px;
-  background: linear-gradient(90deg, #e9e9e9 25%, #f5f5f5 50%, #e9e9e9 75%);
-  background-size: 200% 100%;
-  border-radius: 6px;
-  animation: shimmer 1.2s linear infinite;
-  margin-bottom: 12px;
+    width: 100%;
+    height: 300px;
+    background: linear-gradient(90deg, #e9e9e9 25%, #f5f5f5 50%, #e9e9e9 75%);
+    background-size: 200% 100%;
+    border-radius: 6px;
+    animation: shimmer 1.2s linear infinite;
+    margin-bottom: 12px;
 }
 
 .skeleton-photo-high {
-  width: 100%;
-  height: 400px;
-  background: linear-gradient(90deg, #e9e9e9 25%, #f5f5f5 50%, #e9e9e9 75%);
-  background-size: 200% 100%;
-  border-radius: 6px;
-  animation: shimmer 1.2s linear infinite;
-  margin-bottom: 12px;
+    width: 100%;
+    height: 400px;
+    background: linear-gradient(90deg, #e9e9e9 25%, #f5f5f5 50%, #e9e9e9 75%);
+    background-size: 200% 100%;
+    border-radius: 6px;
+    animation: shimmer 1.2s linear infinite;
+    margin-bottom: 12px;
 }
 
 .skeleton-photo-medium {
-  width: 100%;
-  height: 350px;
-  background: linear-gradient(90deg, #e9e9e9 25%, #f5f5f5 50%, #e9e9e9 75%);
-  background-size: 200% 100%;
-  border-radius: 6px;
-  animation: shimmer 1.2s linear infinite;
-  margin-bottom: 12px;
+    width: 100%;
+    height: 350px;
+    background: linear-gradient(90deg, #e9e9e9 25%, #f5f5f5 50%, #e9e9e9 75%);
+    background-size: 200% 100%;
+    border-radius: 6px;
+    animation: shimmer 1.2s linear infinite;
+    margin-bottom: 12px;
 }
 
 .skeleton-wrap {
-  width: 100%;
-  max-width: 380px;
-  margin: 16px auto;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+    width: 100%;
+    max-width: 380px;
+    margin: 16px auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
 }
+
 .skeleton-line {
-  height: 48px;
-  background: linear-gradient(90deg, #e9e9e9 25%, #f5f5f5 50%, #e9e9e9 75%);
-  background-size: 200% 100%;
-  border-radius: 6px;
-  animation: shimmer 1.2s linear infinite;
+    height: 48px;
+    background: linear-gradient(90deg, #e9e9e9 25%, #f5f5f5 50%, #e9e9e9 75%);
+    background-size: 200% 100%;
+    border-radius: 6px;
+    animation: shimmer 1.2s linear infinite;
 }
-.skeleton-line.short { width: 60%; }
+
+.skeleton-line.short {
+    width: 60%;
+}
 
 @keyframes shimmer {
-  0% { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
+    0% {
+        background-position: 200% 0;
+    }
+
+    100% {
+        background-position: -200% 0;
+    }
 }
 
 .wholeSkeleton {
@@ -76,9 +85,9 @@
 
 
 .buttons-left-side {
-        display: flex;
-        flex-direction: column;
-        gap: 10px   ;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 
 }
 
@@ -637,6 +646,7 @@
     cursor: pointer;
     overflow: hidden;
     padding: 0px 20px;
+    height: auto;
 
 
 }
@@ -662,6 +672,7 @@
     box-sizing: border-box;
     background-color: rgba(47, 47, 47, 0.785);
     /* dark overlay */
+
     color: white;
     opacity: 0;
     transition: opacity 0.3s ease;
@@ -682,17 +693,21 @@
     font-family: 'Noto Sans Georgian', sans-serif;
 }
 
-
+.size,
+.theme,
+.arter {
+    font-size: 20px;
+}
 
 .name {
     font-family: 'Noto Sans Georgian', sans-serif;
-    font-size: 20px;
+    font-size: 24px;
     font-weight: 600;
 }
 
 .price {
     color: rgb(94, 73, 255);
-    font-size: 24px;
+    font-size: 32px;
 
 }
 
@@ -812,7 +827,7 @@
     align-items: center;
     justify-content: center;
     gap: 32px;
-  
+
 
 }
 
@@ -849,7 +864,7 @@
     display: flex;
     align-items: center;
     gap: 16px;
-   
+
 }
 
 
@@ -904,20 +919,39 @@
 @media screen and (max-width: 900px) {
 
     .pagination {
-   
-    gap: 8px;
 
-}
+        gap: 8px;
+
+    }
 
     .filtering-buttons {
         flex-direction: column;
         align-items: center;
         gap: 10px;
     }
-    
 
 
-    
+
+
+    .size,
+    .theme,
+    .arter {
+        font-size: 18px;
+    }
+
+    .name {
+        font-family: 'Noto Sans Georgian', sans-serif;
+        font-size: 20px;
+        font-weight: 600;
+    }
+
+    .price {
+        color: rgb(94, 73, 255);
+        font-size: 28px;
+
+    }
+
+
 }
 
 
@@ -934,11 +968,11 @@
         gap: 10px;
     }
 
- .buttons {
+    .buttons {
         display: flex;
         gap: 10px;
         margin-top: 10px;
-       
+
     }
 
     .buttons-mobile {
@@ -967,7 +1001,7 @@
         width: 100%;
     }
 
-   
+
 
     .up-content {
         display: none;
@@ -987,11 +1021,30 @@
         place-items: center;
         grid-template-columns: 1fr;
     }
+
+
+
+    .size, .theme, .arter {
+    font-size: 16px;
+}
+
+.name {
+    font-family: 'Noto Sans Georgian', sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.price {
+    color: rgb(94, 73, 255);
+    font-size: 24px;
+
+}
+
 }
 
 @media screen and (max-width: 500px) {
 
- .pageNumbers {
+    .pageNumbers {
         gap: 4px;
     }
 
@@ -1046,9 +1099,7 @@
 
     }
 
-    .name {
-        font-size: 12px;
-    }
+   
 
     .product-info {
         font-size: 10px;
@@ -1065,9 +1116,7 @@
         zoom: .85;
     }
 
-    .name {
-        font-size: 10px;
-    }
+  
 
     .product-info {
         font-size: 8px;

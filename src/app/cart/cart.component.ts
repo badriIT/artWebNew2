@@ -4,7 +4,8 @@ import { ServiceService } from '../service.service';
 import { CartService } from '../cart.service';
 import { GetProductInfoService } from '../get-product-info.service';
 import { Router } from '@angular/router';
-import { cwd } from 'process';
+ import { firstValueFrom } from 'rxjs';
+
 
 
 
@@ -39,22 +40,28 @@ export class CartComponent implements OnInit {
 
 
 
-    cartService.getBackEndCarts = this.getBackendCart.bind(this);
+    // cartService.getBackEndCarts = this.getBackendCart.bind(this);
   }
 
   productsInCart: number = 0;
+
+
+ 
 
 
 
   ngOnInit() {
 
 
+    this.LoadItems();
 
 
 
 
-    this.cartService.updateUnifiedCartCount();
-    this.getBackendCart();
+
+
+    // this.cartService.updateUnifiedCartCount();
+    // this.getBackendCart();
 
 
 
@@ -95,156 +102,160 @@ export class CartComponent implements OnInit {
 
 
 
-  getBackendCart() {
-    this.loading = true;
-    // console.log(this.loading);
+  // getBackendCart() {
+  //   this.loading = true;
+  //   // console.log(this.loading);
 
-    const cartToken = localStorage.getItem('cart_token') || localStorage.getItem('guest_token');
-    const headers = cartToken ? new HttpHeaders({ 'X-Cart-Token': cartToken }) : new HttpHeaders();
-    
-    setTimeout(() => {
+  //   const cartToken = localStorage.getItem('cart_token') || localStorage.getItem('guest_token');
+  //   const headers = cartToken ? new HttpHeaders({ 'X-Cart-Token': cartToken }) : new HttpHeaders();
 
-
-      this.http.get<any>('https://artshop-backend-demo.fly.dev/cart', { headers, withCredentials: true }).subscribe({
-        next: (res) => {
-          console.log('Fetched cart:', res);
-
-          if (res.cart_token) {
-            localStorage.setItem('cart_token', res.cart_token);
-          }
-
-          // Update cart items
-          this.cartItems = res.items || [];
-          this.cartIsEmpty = this.cartItems.length === 0;
-          this.ifIsFull = !this.cartIsEmpty;
-
-          // Update liked states
-          this.updateLikedStates();
-
-          // Animate total price
-          const total = this.getTotalPrice();
-          this.animateTotalPrice(total);
-
-          // Update global cart count
-
-          this.service.ProductsInCart = this.cartItems.length;
-
-          this.loading = false;
-        },
-        error: (err) => {
-          console.error('Fetch cart error:', err);
-          this.cartItems = [];
-          this.cartIsEmpty = true;
-          this.ifIsFull = false;
-
-          // Ensure cart count is reset
-          this.service.ProductsInCart = 0;
-
-          this.loading = false;
-
-        }
-
-      });
-
-    }, 200);
-
-  }
+  //   setTimeout(() => {
 
 
+  //     this.http.get<any>('https://artshop-backend-demo.fly.dev/cart', { headers, withCredentials: true }).subscribe({
+  //       next: (res) => {
+  //         console.log('Fetched cart:', res);
 
-  getBackendCartHelper() {
-  
-    // console.log(this.loading);
+  //         if (res.cart_token) {
+  //           localStorage.setItem('cart_token', res.cart_token);
+  //         }
 
-    const cartToken = localStorage.getItem('cart_token') || localStorage.getItem('guest_token');
-    const headers = cartToken ? new HttpHeaders({ 'X-Cart-Token': cartToken }) : new HttpHeaders();
-    
-    setTimeout(() => {
+  //         // Update cart items
+  //         this.cartItems = res.items || [];
+  //         this.cartIsEmpty = this.cartItems.length === 0;
+  //         this.ifIsFull = !this.cartIsEmpty;
+
+  //         // Update liked states
+  //         this.updateLikedStates();
+
+  //         // Animate total price
+  //         const total = this.getTotalPrice();
+  //         this.animateTotalPrice(total);
+
+  //         // Update global cart count
+
+  //         this.service.ProductsInCart = this.cartItems.length;
+
+  //         this.loading = false;
+  //       },
+  //       error: (err) => {
+  //         console.error('Fetch cart error:', err);
+  //         this.cartItems = [];
+  //         this.cartIsEmpty = true;
+  //         this.ifIsFull = false;
+
+  //         // Ensure cart count is reset
+  //         this.service.ProductsInCart = 0;
+
+  //         this.loading = false;
+
+  //       }
+
+  //     });
+
+  //   }, 200);
+
+  // }
 
 
-      this.http.get<any>('https://artshop-backend-demo.fly.dev/cart', { headers, withCredentials: true }).subscribe({
-        next: (res) => {
-          console.log('Fetched cart:', res);
 
-          if (res.cart_token) {
-            localStorage.setItem('cart_token', res.cart_token);
-          }
+  // getBackendCartHelper() {
 
-          // Update cart items
-          this.cartItems = res.items || [];
-          this.cartIsEmpty = this.cartItems.length === 0;
-          this.ifIsFull = !this.cartIsEmpty;
+  //   // console.log(this.loading);
 
-          // Update liked states
-          this.updateLikedStates();
+  //   const cartToken = localStorage.getItem('cart_token') || localStorage.getItem('guest_token');
+  //   const headers = cartToken ? new HttpHeaders({ 'X-Cart-Token': cartToken }) : new HttpHeaders();
 
-          // Animate total price
-          const total = this.getTotalPrice();
-          this.animateTotalPrice(total);
+  //   setTimeout(() => {
 
-          // Update global cart count
 
-          this.service.ProductsInCart = this.cartItems.length;
+  //     this.http.get<any>('https://artshop-backend-demo.fly.dev/cart', { headers, withCredentials: true }).subscribe({
+  //       next: (res) => {
+  //         console.log('Fetched cart:', res);
 
-         
-        },
-        error: (err) => {
-          console.error('Fetch cart error:', err);
-          this.cartItems = [];
-          this.cartIsEmpty = true;
-          this.ifIsFull = false;
+  //         if (res.cart_token) {
+  //           localStorage.setItem('cart_token', res.cart_token);
+  //         }
 
-          // Ensure cart count is reset
-          this.service.ProductsInCart = 0;
+  //         // Update cart items
+  //         this.cartItems = res.items || [];
+  //         this.cartIsEmpty = this.cartItems.length === 0;
+  //         this.ifIsFull = !this.cartIsEmpty;
 
-          
+  //         // Update liked states
+  //         this.updateLikedStates();
 
-        }
+  //         // Animate total price
+  //         const total = this.getTotalPrice();
+  //         this.animateTotalPrice(total);
 
-      });
+  //         // Update global cart count
 
-    }, 200);
+  //         this.service.ProductsInCart = this.cartItems.length;
 
-  }
+
+  //       },
+  //       error: (err) => {
+  //         console.error('Fetch cart error:', err);
+  //         this.cartItems = [];
+  //         this.cartIsEmpty = true;
+  //         this.ifIsFull = false;
+
+  //         // Ensure cart count is reset
+  //         this.service.ProductsInCart = 0;
+
+
+
+  //       }
+
+  //     });
+
+  //   }, 200);
+
+  // }
 
 
 
   // Remove item from backend cart
-  removeFromBackendCart(cart_item_id: any) {
-    console.log('Removing item from cart:', cart_item_id);
+  // removeFromBackendCart(cart_item_id: any) {
+  //   console.log('Removing item from cart:', cart_item_id);
 
-    const cartToken = localStorage.getItem('cart_token') || localStorage.getItem('guest_token');
-    const headers = cartToken ? new HttpHeaders({ 'X-Cart-Token': cartToken }) : new HttpHeaders();
-
-    
-
-    this.http.delete<any>(`https://artshop-backend-demo.fly.dev/cart/items/${cart_item_id}`, { headers, withCredentials: true }).subscribe({
-      next: (res) => {
-        // Refresh cart items after deletion
-        this.getBackendCartHelper();
-        this.cartService.updateUnifiedCartCount();
-
-      },
-      error: (err) => {
-        console.error('Remove from cart error:', err);
-      }
-
-    });
+  //   const cartToken = localStorage.getItem('cart_token') || localStorage.getItem('guest_token');
+  //   const headers = cartToken ? new HttpHeaders({ 'X-Cart-Token': cartToken }) : new HttpHeaders();
 
 
 
+  //   this.http.delete<any>(`https://artshop-backend-demo.fly.dev/cart/items/${cart_item_id}`, { headers, withCredentials: true }).subscribe({
+  //     next: (res) => {
+  //       // Refresh cart items after deletion
+  //       this.getBackendCartHelper();
+  //       this.cartService.updateUnifiedCartCount();
 
-  }
+  //     },
+  //     error: (err) => {
+  //       console.error('Remove from cart error:', err);
+  //     }
+
+  //   });
+
+
+
+
+  // }
   // Clear the backend cart (if supported)
-  clearBackendCart() {
-    for (const item of this.cartItems) {
-      this.removeFromBackendCart(item.id);
-    }
-  }
+  // clearBackendCart() {
+  //   for (const item of this.cartItems) {
+  //     this.removeFromBackendCart(item.id);
+  //   }
+  // }
 
   // Total price calculation
   getTotalPrice(): number {
-    return this.cartItems.reduce((sum, item) => sum + (Number(item.line_total) || 0), 0);
+    return this.cartItems.reduce((sum, item) => {
+      const unit = Number(item.unit_price) || Number(item.price) || 0;
+      const qty = Number(item.quantity) || 1;
+      return sum + unit * qty;
+    }, 0);
   }
 
 
@@ -272,21 +283,23 @@ export class CartComponent implements OnInit {
   }
 
   // Liked products logic
-  addToLikedProducts(productId: string) {
+  addToLikedProducts(productId: any) {
+    const idStr = String(productId);
     const likedProducts = JSON.parse(localStorage.getItem('LikedProducts') || '[]');
-    const index = likedProducts.findIndex((item: any) => item.id === productId);
+
+    const index = likedProducts.findIndex((item: any) => String(item.id) === idStr);
 
     if (index > -1) {
       likedProducts.splice(index, 1);
     } else {
-      likedProducts.push({ id: productId });
+      likedProducts.push({ id: idStr });
     }
 
     localStorage.setItem('LikedProducts', JSON.stringify(likedProducts));
 
-    // Update the product's isLiked in cartItems
+    // Update the product's isLiked in cartItems using string comparison
     this.cartItems.forEach(item => {
-      item.isLiked = likedProducts.some((p: any) => p.id === item.id);
+      item.isLiked = likedProducts.some((p: any) => String(p.id) === String(item.id));
     });
 
     this.service.updatelikeProductCount();
@@ -295,28 +308,83 @@ export class CartComponent implements OnInit {
   updateLikedStates() {
     const likedProducts = JSON.parse(localStorage.getItem('LikedProducts') || '[]');
     this.cartItems.forEach(item => {
-      item.isLiked = likedProducts.some((p: any) => p.id === item.id);
+      item.isLiked = likedProducts.some((p: any) => String(p.id) === String(item.id));
     });
   }
 
 
 
 
-  createOrder() {
+  // createOrder() {
 
 
-    this.getProductInfoService.CartToken = localStorage.getItem('cart_token')
-    console.log('Cart token set:', this.getProductInfoService.CartToken);
-
-
-
+  //   this.getProductInfoService.CartToken = localStorage.getItem('cart_token')
+  //   console.log('Cart token set:', this.getProductInfoService.CartToken);
 
 
 
+
+
+
+  // }
+
+
+
+
+  async LoadItems() {
+    this.loading = true;
+    const cart = JSON.parse(localStorage.getItem('CartProducts') || '[]');
+    this.cartItems = [];
+
+    for (const item of cart) {
+      try {
+        const product: any = await firstValueFrom(this.http.get<any>(`https://plangton-production.up.railway.app/api/ArtWork/${item.id}`));
+
+        // Normalize fields expected by the template
+        const unitPrice = Number(product.unit_price ?? product.price ?? product.price_amount ?? 0);
+        const qty = Number(item.quantity ?? 1);
+
+        const cartEntry = {
+          ...product,
+          unit_price: unitPrice,
+          quantity: qty,
+          // keep a local cart_item_id so delete UI can reference it
+          cart_item_id: item.cart_item_id ?? item.id ?? product.id,
+        };
+
+        this.cartItems.push(cartEntry);
+      } catch (e) {
+        console.warn('Failed to load product for cart id', item.id, e);
+      }
+    }
+
+    // Update flags and totals
+    this.cartIsEmpty = this.cartItems.length === 0;
+    this.ifIsFull = !this.cartIsEmpty;
+    this.service.ProductsInCart = this.cartItems.length;
+    this.service.updateCartProductCount();
+
+    // Ensure liked state is set for each loaded item
+    this.updateLikedStates();
+
+    const total = this.getTotalPrice();
+    this.animateTotalPrice(total);
+    this.loading = false;
   }
 
 
+  removeFromLCart(id: any) {
 
+    const cartItems = JSON.parse(localStorage.getItem('CartProducts') || '[]')
+      .filter((cartItem: any) => String(cartItem.id) !== String(id));
+
+    localStorage.setItem('CartProducts', JSON.stringify(cartItems));
+
+    // reload and update counts
+    this.LoadItems();
+    this.service.updateCartProductCount();
+
+  }
 
 
 }

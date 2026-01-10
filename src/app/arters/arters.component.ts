@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ServiceService } from '../service.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router, NavigationStart } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { CartService } from '../cart.service';
 
@@ -10,7 +11,7 @@ import { CartService } from '../cart.service';
   templateUrl: './arters.component.html',
   styleUrl: './arters.component.css'
 })
-export class ArtersComponent {
+export class ArtersComponent implements OnInit, OnDestroy {
   artists: any
   showPagination: boolean = true;
   noProdFound: boolean = false;
@@ -34,82 +35,159 @@ export class ArtersComponent {
 
 
 
-  constructor(private service: ServiceService, private route: ActivatedRoute, private http: HttpClient, private cartService: CartService) {
+  constructor(private service: ServiceService, private route: ActivatedRoute, private http: HttpClient, private cartService: CartService, private router: Router) {
    
+  }
+
+  private routerEventsSub?: Subscription;
+
+
+
+  searchActive: boolean = false;
+
+  searchTerm: string = '';
+    noResults: boolean = false; 
+  menuOpen = false;
+    isProductsTabOpen: boolean = false; // controls popup visibility
+
+  toogleSearch() {
+    this.searchActive = !this.searchActive
   }
 
 
 
 
 
+   onSearch() {
+    clearTimeout((<any>this)._searchTimer);
+    (<any>this)._searchTimer = setTimeout(() => {
+      const term = this.searchTerm.trim().toLowerCase();
 
-  georgianDigits: { label: string; value: string }[] = [
-  { label: 'ა', value: 'ა' },
-  { label: 'ბ', value: 'ბ' },
-  { label: 'გ', value: 'გ' },
-  { label: 'დ', value: 'დ' },
-  { label: 'ე', value: 'ე' },
-  { label: 'ვ', value: 'ვ' },
-  { label: 'ზ', value: 'ზ' },
-  { label: 'თ', value: 'თ' },
-  { label: 'ი', value: 'ი' },
-  { label: 'კ', value: 'კ' },
-  { label: 'ლ', value: 'ლ' },
-  { label: 'მ', value: 'მ' },
-  { label: 'ნ', value: 'ნ' },
-  { label: 'ო', value: 'ო' },
-  { label: 'პ', value: 'პ' },
-  { label: 'ჟ', value: 'ჟ' },
-  { label: 'რ', value: 'რ' },
-  { label: 'ს', value: 'ს' },
-  { label: 'ტ', value: 'ტ' },
-  { label: 'უ', value: 'უ' },
-  { label: 'ფ', value: 'ფ' },
-  { label: 'ქ', value: 'ქ' },
-  { label: 'ღ', value: 'ღ' },
-  { label: 'ყ', value: 'ყ' },
-  { label: 'შ', value: 'შ' },
-  { label: 'ჩ', value: 'ჩ' },
-  { label: 'ც', value: 'ც' },
-  { label: 'ძ', value: 'ძ' },
-  { label: 'წ', value: 'წ' },
-  { label: 'ჭ', value: 'ჭ' },
-  { label: 'ხ', value: 'ხ' },
-  { label: 'ჯ', value: 'ჯ' },
-  { label: 'ჰ', value: 'ჰ' }
-];
+      if (!term) {
+        this.products = [];
+        this.isProductsTabOpen = false;
+        this.noResults = false;
+        return;
+      }
+
+      // open popup
+      this.isProductsTabOpen = true;
+
+      // Flatten all products from artists data structure
+      const allProducts: any[] = [];
+      
+      if (this.artists && Array.isArray(this.artists)) {
+        this.artists.forEach((artist: any) => {
+          // Add main_item
+          if (artist.main_item) {
+            allProducts.push({
+              ...artist.main_item,
+              artist_name: artist.artist_name || artist.main_item.artist_name
+            });
+          }
+          
+          // Add featured_items
+          if (artist.featured_items && Array.isArray(artist.featured_items)) {
+            artist.featured_items.forEach((item: any) => {
+              allProducts.push({
+                ...item,
+                artist_name: artist.artist_name || item.artist_name
+              });
+            });
+          }
+        });
+      }
+
+      // filter by title, artist name, material, style
+      this.products = allProducts.filter((p: any) => {
+        const candidates: string[] = [
+          p?.title,
+          p?.artist_name,
+          p?.material,
+          p?.style
+        ]
+        .filter(Boolean)
+        .map(val => typeof val === 'string' ? val : String(val))
+        .filter(val => val && val !== 'undefined' && val !== 'null');
+        
+        return candidates.some(field => field.toLowerCase().includes(term));
+      });
+
+      this.noResults = this.products.length === 0;
+    }, 300);
+  }
 
 
 
-  EnglishDigits: { label: string; value: string }[] = [
-  { label: 'a', value: 'a' },
-  { label: 'b', value: 'b' },
-  { label: 'c', value: 'c' },
-  { label: 'd', value: 'd' },
-  { label: 'e', value: 'e' },
-  { label: 'f', value: 'f' },
-  { label: 'g', value: 'g' },
-  { label: 'h', value: 'h' },
-  { label: 'i', value: 'i' },
-  { label: 'j', value: 'j' },
-  { label: 'k', value: 'k' },
-  { label: 'l', value: 'l' },
-  { label: 'm', value: 'm' },
-  { label: 'n', value: 'n' },
-  { label: 'o', value: 'o' },
-  { label: 'p', value: 'p' },
-  { label: 'q', value: 'q' },
-  { label: 'r', value: 'r' },
-  { label: 's', value: 's' },
-  { label: 't', value: 't' },
-  { label: 'u', value: 'u' },
-  { label: 'v', value: 'v' },
-  { label: 'w', value: 'w' },
-  { label: 'x', value: 'x' },
-  { label: 'y', value: 'y' },
-  { label: 'z', value: 'z' },
+//   georgianDigits: { label: string; value: string }[] = [
+//   { label: 'ა', value: 'ა' },
+//   { label: 'ბ', value: 'ბ' },
+//   { label: 'გ', value: 'გ' },
+//   { label: 'დ', value: 'დ' },
+//   { label: 'ე', value: 'ე' },
+//   { label: 'ვ', value: 'ვ' },
+//   { label: 'ზ', value: 'ზ' },
+//   { label: 'თ', value: 'თ' },
+//   { label: 'ი', value: 'ი' },
+//   { label: 'კ', value: 'კ' },
+//   { label: 'ლ', value: 'ლ' },
+//   { label: 'მ', value: 'მ' },
+//   { label: 'ნ', value: 'ნ' },
+//   { label: 'ო', value: 'ო' },
+//   { label: 'პ', value: 'პ' },
+//   { label: 'ჟ', value: 'ჟ' },
+//   { label: 'რ', value: 'რ' },
+//   { label: 'ს', value: 'ს' },
+//   { label: 'ტ', value: 'ტ' },
+//   { label: 'უ', value: 'უ' },
+//   { label: 'ფ', value: 'ფ' },
+//   { label: 'ქ', value: 'ქ' },
+//   { label: 'ღ', value: 'ღ' },
+//   { label: 'ყ', value: 'ყ' },
+//   { label: 'შ', value: 'შ' },
+//   { label: 'ჩ', value: 'ჩ' },
+//   { label: 'ც', value: 'ც' },
+//   { label: 'ძ', value: 'ძ' },
+//   { label: 'წ', value: 'წ' },
+//   { label: 'ჭ', value: 'ჭ' },
+//   { label: 'ხ', value: 'ხ' },
+//   { label: 'ჯ', value: 'ჯ' },
+//   { label: 'ჰ', value: 'ჰ' }
+// ];
+
+
+
+//   EnglishDigits: { label: string; value: string }[] = [
+//   { label: 'a', value: 'a' },
+//   { label: 'b', value: 'b' },
+//   { label: 'c', value: 'c' },
+//   { label: 'd', value: 'd' },
+//   { label: 'e', value: 'e' },
+//   { label: 'f', value: 'f' },
+//   { label: 'g', value: 'g' },
+//   { label: 'h', value: 'h' },
+//   { label: 'i', value: 'i' },
+//   { label: 'j', value: 'j' },
+//   { label: 'k', value: 'k' },
+//   { label: 'l', value: 'l' },
+//   { label: 'm', value: 'm' },
+//   { label: 'n', value: 'n' },
+//   { label: 'o', value: 'o' },
+//   { label: 'p', value: 'p' },
+//   { label: 'q', value: 'q' },
+//   { label: 'r', value: 'r' },
+//   { label: 's', value: 's' },
+//   { label: 't', value: 't' },
+//   { label: 'u', value: 'u' },
+//   { label: 'v', value: 'v' },
+//   { label: 'w', value: 'w' },
+//   { label: 'x', value: 'x' },
+//   { label: 'y', value: 'y' },
+//   { label: 'z', value: 'z' },
  
-];
+// ];
+
+
 
 selectedDigit!: string 
 
@@ -132,6 +210,14 @@ onDigitFilter(digit: string) {
 
   ngOnInit() {
     this.loadData(this.currentPage);
+    // Close menus/search when route changes
+    this.routerEventsSub = this.router.events.subscribe((evt: any) => {
+      if (evt instanceof NavigationStart) {
+        this.menuOpen = false;
+        this.searchActive = false;
+        this.isProductsTabOpen = false;
+      }
+    });
      
    
   }
@@ -139,20 +225,36 @@ onDigitFilter(digit: string) {
 loadData(page: number) {
     this.productsLoading = true;
 
-  this.service.getAllArtists(this.selectedDigit, page, this.itemsPerPage).subscribe(response => {
-    this.artists = response.artists || [];
+
+
+   this.service.getAllArtists(this.selectedDigit, page, this.itemsPerPage).subscribe(response => {
+
+  
+    this.products = response
+    this.artists = response || [];
     this.currentPage = response.page || page;
     this.itemsPerPage = response.limit || this.itemsPerPage;
-    this.totalItems = response.total || 0;
+    this.totalItems = response.length || this.artists.length;
     this.totalPages = Math.ceil(this.totalItems / this.itemsPerPage);
 
-    this.noProdFound = this.artists.length === 0;
-    this.showPagination = this.totalPages > 0; // <-- Always show if at least one page
+
+
+     
     console.log('Loaded artists:', this.artists);
     console.log('getDisplayedPages:', this.getDisplayedPages());
 
+    this.noProdFound = this.artists.length === 0;
+    this.showPagination = this.totalPages > 0; // <-- Always show if at least one page
+
+
       this.productsLoading = false;
+
+    
   });
+
+    
+
+   
 }
   goToPage(page: number) {
     if (page >= 1 && page <= this.totalPages && page !== this.currentPage) {
@@ -223,6 +325,10 @@ loadData(page: number) {
     }
 
     return rangeWithDots;
+  }
+
+  ngOnDestroy(): void {
+    if (this.routerEventsSub) this.routerEventsSub.unsubscribe();
   }
 
 }

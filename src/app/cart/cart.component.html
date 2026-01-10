@@ -13,11 +13,11 @@
 
                 <div class="product-left">
                     <div class="left">
-                        <img [src]="product.image" alt="">
+                        <img [src]=" 'data:image/jpeg;base64,' + product.image" alt="">
                         <div class="product-info">
-                            <p [routerLink]="['/product', product.item_id]" class="title">დასახელება: {{product.title}}
+                            <p [routerLink]="['/product', product.id]" class="title">დასახელება: {{product.title}}
                             </p>
-                            <p class="style">სტილი: {{product.style}}</p>
+                            <p class="style">სტილი: {{product.art_style}}</p>
                             <p [routerLink]="['/eachArter', product.artist_id]" class="artist">
                                 ავტორი: <span class="artist-name">{{product.artist_name}}</span>
                             </p>
@@ -30,7 +30,7 @@
                             <i (click)="addToLikedProducts(product.id)" style="cursor: pointer;" class="heart"
                                 [ngClass]="product.isLiked ? 'ri-heart-fill' : 'ri-heart-2-line'">
                             </i>
-                            <div (click)="removeFromBackendCart(product.cart_item_id)">
+                            <div (click)="removeFromLCart(product.cart_item_id)">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="delete-btn" fill="none"
                                     viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12">
@@ -69,7 +69,7 @@
             </div>
 
             <div class="order-button">
-                <button (click)="createOrder()" routerLink="/checkout/details" class="order">შეკვეთის გაფორმება</button>
+                <button  routerLink="/checkout/details" class="order">შეკვეთის გაფორმება</button>
             </div>
 
             <div routerLink="/" class="addMoreWorks">

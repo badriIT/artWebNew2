@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule, provideClientHydration, withEventReplay } from '@angular/platform-browser';
+import { provideHttpClient, withFetch } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -15,7 +16,7 @@ import { ProductComponent } from './product/product.component';
 import { EachArterComponent } from './each-arter/each-arter.component';
 import { ProductFromCatalogComponent } from './product-from-catalog/product-from-catalog.component';
 import { EachArterFromCatalogComponent } from './each-arter-from-catalog/each-arter-from-catalog.component';
-import { HttpClientModule } from '@angular/common/http';
+
 import { CartComponent } from './cart/cart.component';
 import { LikedProductsComponent } from './liked-products/liked-products.component';
 import { AuthComponent } from './auth/auth.component';
@@ -52,13 +53,13 @@ import { OrderHistoryComponent } from './order-history/order-history.component';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule ,
-    ProductComponent // <-- Import the ProductComponent here
+    ProductComponent // <-- Import the standalone ProductComponent here
     
   ],
     
   
   providers: [
+    provideHttpClient(withFetch()),
     provideClientHydration(withEventReplay())
   ],
   bootstrap: [AppComponent]

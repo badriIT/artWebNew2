@@ -20,7 +20,23 @@ import { GetProductInfoService } from '../get-product-info.service';
 export class ProductComponent implements OnInit {
 
 
-    formatPrice(value: number | string | null | undefined): string {
+
+  copied = false;
+
+  // Add this method to your component
+  copyPhone() {
+    const phone = '555-976-925';
+    navigator.clipboard.writeText(phone);
+
+    this.copied = true;
+    setTimeout(() => {
+      this.copied = false;
+    }, 2000);
+  }
+
+
+
+  formatPrice(value: number | string | null | undefined): string {
     if (value === null || value === undefined || value === '') return '';
     const s = String(value);
     const [intPart, decPart] = s.split('.');
@@ -67,7 +83,7 @@ export class ProductComponent implements OnInit {
     private router: Router,
     private service: ServiceService,
     private location: Location,
-    private http: HttpClient, // <-- Add this
+    private http: HttpClient,
     private cart: CartService,
     private cartService: CartService,
     private getProductInfoService: GetProductInfoService
@@ -77,7 +93,12 @@ export class ProductComponent implements OnInit {
 
     this.whileGettingInfoFromBack = true;
     this.service.getProductById(id).subscribe(product => {
-      if (!product) {
+
+
+      console.log('product', product);
+
+
+      if (!product) { //// I am here 22:29
 
         this.whileGettingInfoFromBack = false;
         return
@@ -87,42 +108,38 @@ export class ProductComponent implements OnInit {
       this.title = product.title;
       this.artist = product.artist_name;
       this.price = product.price;
-      this.matherial = product.material;
-      this.style = product.style;
-      this.year = product.year_created;
+      this.matherial = product.material;   ///// needs changing to material in backend
+      this.style = product.art_style;
+      this.year = product.year;
       this.img = product.image;
 
+
+
       // Load artist's other works
-      this.loadArtistData(product.artist_name);
+      this.loadArtistData(product.artist_name, product.artist_id);
     }, err => {
       console.error('Failed to load product', err);
       this.whileGettingInfoFromBack = false;
     });
   }
 
-  loadArtistData(name: string) {
-    this.service.getArtists().subscribe((data: any) => {
-      this.artistData = data.artists.find((a: any) =>
-        a.artist_name.toLowerCase().trim() === name.toLowerCase().trim()
-      );
+  loadArtistData(name: string, id: string) {
+    this.service.getArtistById(id).subscribe((artist: any) => {
+      // API returns the artist object for the given id
+      this.artistData = artist;
 
-      console.log("artist data", this.artistData);
+      console.log('artist data', this.artistData);
       this.service.EachArtistsInfo = this.artistData;
 
-      if (this.artistData) {
-        this.otherWorks = this.artistData.featured_items.filter(
-          (item: any) => item.id !== this.productId
-        );
-      }
-
+      this.otherWorks = (this.artistData?.featured_items || []).filter(
+        (item: any) => String(item.id) !== String(this.productId)
+      );
 
       this.whileGettingInfoFromBack = false;
     }, err => {
       console.error('Failed to load artist data', err);
       this.whileGettingInfoFromBack = false;
     });
-
-
   }
 
   changeProduct(art: any) {
@@ -168,37 +185,65 @@ export class ProductComponent implements OnInit {
   }
 
 
-  addToCart(item_id: string, quantity: number = 1) {
-    // თუ ჯერ არ გვაქვს cart_token
-    let cartToken = localStorage.getItem('cart_token') || localStorage.getItem('guest_token');
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      ...(cartToken ? { 'X-Cart-Token': cartToken } : {})
+  // addToCart(item_id: string, quantity: number = 1) {
+  //   // თუ ჯერ არ გვაქვს cart_token
+  //   let cartToken = localStorage.getItem('cart_token') || localStorage.getItem('guest_token');
+  //   const headers = new HttpHeaders({
+  //     'Content-Type': 'application/json',
+  //     ...(cartToken ? { 'X-Cart-Token': cartToken } : {})
 
-    });
+  //   });
+
+  //   this.router.navigate(['/cart']);
+
+  //   const payload = { item_id, quantity };
+
+  //   this.http.post<any>('https://artshop-backend-demo.fly.dev/cart/items', payload, { headers, withCredentials: true })
+  //     .subscribe({
+  //       next: (res) => {
+  //         console.log('Cart response:', res);
+  //         this.cartItems = res.items || [];
+  //         this.service.ProductsInCart = this.cartItems.length;
+
+  //         // თუ backend აძლევს ახალ cart_token-ს, დავიმახსოვროთ
+  //         if (res.cart_token) localStorage.setItem('cart_token', res.cart_token);
+
+  //         // cart count update
+  //         this.cart.updateUnifiedCartCount();
+  //       },
+  //       error: (err) => {
+  //         console.error('Add to cart error:', err);
+  //         alert(`პროდუქტის დამატება ვერ მოხერხდა: ${err.error?.error || 'unknown error'}`);
+  //       }
+  //     });
+  // }
+
+  addToCart(item_id: string, quantity: number = 1) {
+    const CartProducts = JSON.parse(localStorage.getItem('CartProducts') || '[]');
+    const existingProductIndex = CartProducts.findIndex((item: any) => item.id === this.productId);
+
+    if (existingProductIndex > -1) {
+      // Product is already liked → remove it
+      CartProducts.splice(existingProductIndex, 1);
+
+    } else {
+      // Product not liked → add it
+      const newProduct = {
+        id: this.productId,
+      };
+
+
+      CartProducts.push(newProduct);
+      this.isLiked = true;
+    }
+
+    localStorage.setItem('CartProducts', JSON.stringify(CartProducts));
+
+
+
+    this.service.updateCartProductCount()
 
     this.router.navigate(['/cart']);
-
-    const payload = { item_id, quantity };
-
-    this.http.post<any>('https://artshop-backend-demo.fly.dev/cart/items', payload, { headers, withCredentials: true })
-      .subscribe({
-        next: (res) => {
-          console.log('Cart response:', res);
-          this.cartItems = res.items || [];
-          this.service.ProductsInCart = this.cartItems.length;
-
-          // თუ backend აძლევს ახალ cart_token-ს, დავიმახსოვროთ
-          if (res.cart_token) localStorage.setItem('cart_token', res.cart_token);
-
-          // cart count update
-          this.cart.updateUnifiedCartCount();
-        },
-        error: (err) => {
-          console.error('Add to cart error:', err);
-          alert(`პროდუქტის დამატება ვერ მოხერხდა: ${err.error?.error || 'unknown error'}`);
-        }
-      });
   }
 
 

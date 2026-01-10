@@ -1,7 +1,7 @@
 <section class="likedProductsSection">
     <p class="choosed">რჩეული ნამუშევრები</p>
     <div class="likedProduct" *ngFor="let product of likedItems">
-        <img [src]="product.image" alt="">
+        <img [src]=" 'data:image/jpeg;base64,' + product.image" alt="">
 
         <div class="product-info">
             <div class="title-svg">
@@ -14,8 +14,8 @@
                 <p [routerLink]="['/eachArter', product.artist_id]">ავტორი: <span
                         class="artist-name">{{product.artist_name}}</span></p>
                 <p>სტილი: {{product.style}}</p>
-                <p>ფერი: {{product.colors}}</p>
-                <p>ზომა: {{product.width_cm}} x {{product.height_cm}}cm</p>
+                <p>მატერიალი: {{product.material}}</p>
+              
 
             </div>
 

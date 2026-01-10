@@ -1,5 +1,3 @@
-
-
 <!-- alerts -->
 <div class="top-alert" 
      [class.show]="showAlert" 
@@ -11,22 +9,12 @@
   {{ alertMessage }}
 </div>
 
-
-
-
-
-
-
-
-
-
-
 <section class="auth-section">
     <div *ngIf="!ifRegistering" class="login">
         <p class="login-text">შესვლა</p>
 
         <div class="logining">
-            <p>მეილი ან ტელეფონი:</p>
+            <p>მეილი </p>
             <input ngModel type="text" [(ngModel)]="loginUsername">
         </div>
 
@@ -46,12 +34,7 @@
             <p (click)="toggleRegistering()">რეგისტრაცია</p>
             <p>დაგავიწტდათ პაროლი?</p>
         </div>
-
-
-
-
     </div>
-
 
     <div *ngIf="!ifRegistering" class="register">
         <p class="register-text">რეგისტრაცია</p>
@@ -63,50 +46,60 @@
         </div>
 
         <button (click)="toggleRegistering()" class="register-btn">გაგრძელება</button>
-
     </div>
 
+    <div *ngIf="ifRegistering" class="register-form">
+        <p class="register-text">რეგისტრაცია</p>
 
+        <div class="input-container">
+            <div class="input-wrapper">
+                <input type="text" [(ngModel)]="personalNumber" [class.has-value]="personalNumber" id="personalNumber">
+                <span class="floating-label">პირადი ნომერი*</span>
+            </div>
 
+            <div class="input-wrapper">
+                <input type="text" [(ngModel)]="name" [class.has-value]="name" id="name">
+                <span class="floating-label">სახელი*</span>
+            </div>
 
+            <div class="input-wrapper">
+                <input type="text" [(ngModel)]="lastName" [class.has-value]="lastName" id="lastName">
+                <span class="floating-label">გვარი*</span>
+            </div>
 
+            <div class="input-wrapper">
+                <input type="text" [(ngModel)]="username" [class.has-value]="username" id="username">
+                <span class="floating-label">userName*</span>
+            </div>
 
+            <div class="input-wrapper">
+                <input type="text" [(ngModel)]="email" [class.has-value]="email" id="email">
+                <span class="floating-label">ელ. ფოსტა*</span>
+            </div>
 
+            <div class="input-wrapper">
+                <input type="text" [(ngModel)]="phone" [class.has-value]="phone" id="phone">
+                <span class="floating-label">ტელეფონი*</span>
+            </div>
 
+            <div class="input-wrapper">
+                <input type="password" [(ngModel)]="password" [class.has-value]="password" id="password">
+                <span class="floating-label">პაროლი*</span>
+            </div>
 
+            <div class="input-wrapper">
+                <input type="password" [(ngModel)]="confirmPassword" [class.has-value]="confirmPassword" id="confirmPassword">
+                <span class="floating-label">პაროლის დადასტურება*</span>
+            </div>
 
-   <div *ngIf="ifRegistering" class="register-form">
-  <p class="register-text">რეგისტრაცია</p>
+            <button type="button" class="register-btn" (click)="Register()">რეგისტრაცია</button>
+        </div>
 
-  <div class="input-container">
-    <input type="text" placeholder="სახელი*" [(ngModel)]="name">
-    <input type="text" placeholder="ელ. ფოსტა ან ტელეფონი*" [(ngModel)]="email">
-    <!-- <input type="text" placeholder="ტელეფონი*" [(ngModel)]="phone"> -->
-    <input type="password" placeholder="პაროლი*" [(ngModel)]="password">
-    <input type="password" placeholder="პაროლის დადასტურება*" [(ngModel)]="confirmPassword">
+        <p class="register-agreement">
+            ღილაკზე დაწკაპუნებით, თქვენ ეთანხმებით პერსონალური მონაცემების დამუშავებას
+            <span class="highlight">პერსონალური მონაცემების დამუშავების პოლიტიკის შესაბამისად.</span>
+        </p>
 
-    <button class="register-btn" (click)="startOtp()">OTP გაგზავნა</button>
-  </div>
-
-  <div *ngIf="otpRequested" class="otp-box">
-    <p>გთხოვთ შეიყვანოთ ერთჯერადი  კოდი</p>
-    <input class="otpCode" type="text" placeholder="OTP" [(ngModel)]="otpCode">
-    <button class="register-btn" (click)="verifyOtp()">დადასტურება</button>
-
-    <div *ngIf="devCode">
-      <small>DEV OTP: {{ devCode }}</small>
+        <p (click)="returnToLogin()" class="alreadyHaveAcc">უკვე გაქვთ ანგარიში?</p>
     </div>
-  </div>
-
-  <p class="register-agreement">
-    ღილაკზე დაწკაპუნებით, თქვენ ეთანხმებით პერსონალური მონაცემების დამუშავებას
-    <span class="highlight">პერსონალური მონაცემების დამუშავების პოლიტიკის შესაბამისად.</span>
-  </p>
-  
-  
-</div>
-
-
-
 </section>
-
